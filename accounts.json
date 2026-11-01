@@ -1,0 +1,22 @@
+[
+  {
+    "phone": "0901234561",
+    "role": "owner"
+  },
+  {
+    "phone": "0901234562",
+    "role": "customer"
+  },
+  {
+    "phone": "0901234563",
+    "role": "sales"
+  },
+  {
+    "phone": "0901234564",
+    "role": "support"
+  },
+  {
+    "phone": "0901234565",
+    "role": "warehouse"
+  }
+]
