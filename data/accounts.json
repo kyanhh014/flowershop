@@ -1,22 +1,46 @@
 [
   {
+    "accountId": "demo-owner",
     "phone": "0901234561",
-    "role": "owner"
+    "role": "owner",
+    "name": "Chủ cửa hàng Hoa Xinh",
+    "position": "Chủ cửa hàng",
+    "address": "Chưa cập nhật"
   },
   {
+    "accountId": "demo-customer",
     "phone": "0901234562",
-    "role": "customer"
+    "role": "customer",
+    "name": "Khách hàng demo"
   },
   {
+    "accountId": "demo-sales",
     "phone": "0901234563",
-    "role": "sales"
+    "role": "sales",
+    "name": "Nhân viên bán hàng",
+    "employeeId": "NV003",
+    "gender": "Chưa cập nhật",
+    "position": "Nhân viên bán",
+    "address": "Chưa cập nhật"
   },
   {
+    "accountId": "demo-support",
     "phone": "0901234564",
-    "role": "support"
+    "role": "support",
+    "name": "Nhân viên chăm sóc khách hàng",
+    "employeeId": "NV004",
+    "gender": "Chưa cập nhật",
+    "position": "Nhân viên CSKH",
+    "address": "Chưa cập nhật"
   },
   {
+    "accountId": "demo-warehouse",
     "phone": "0901234565",
-    "role": "warehouse"
+    "role": "warehouse",
+    "name": "Nhân viên kho",
+    "employeeId": "NV005",
+    "gender": "Chưa cập nhật",
+    "position": "Nhân viên kho",
+    "address": "Chưa cập nhật"
   }
 ]
