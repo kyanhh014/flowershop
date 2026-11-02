@@ -54,6 +54,8 @@ Tất cả tài khoản dùng chung mật khẩu `hoaxinh123`.
 
 Vai trò được lưu trong `sessionStorage` của tab trình duyệt và đối chiếu với `data/accounts.json`; đăng xuất sẽ xóa phiên. Đây là demo phía trình duyệt, không có backend hoặc phân quyền an toàn.
 
+Sau khi đăng nhập, chủ cửa hàng và nhân viên bán, CSKH, kho sẽ vào trang tổng quan theo vai trò: thông tin tài khoản ở bên trái và các lối tắt chức năng ở bên phải. Khách hàng được chuyển đến trang sản phẩm.
+
 ## Các trang chức năng
 
 - **Khách hàng:** các trang `customer-*.html` nằm trong `pages/customer/`.

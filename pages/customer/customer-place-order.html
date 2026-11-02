@@ -1,10 +1,36 @@
 <!doctype html>
 <html lang="vi">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="../../"><title>Đặt hàng sản phẩm | Hoa Xinh</title><link rel="stylesheet" href="css/styles.css"><script src="js/app.js" defer></script></head>
-<body data-page="workspace" data-role="customer" data-feature="place-order">
-  <div class="page-shell"><header class="site-header"><div class="identity-banner"><a class="brand-lockup" href="index.html"><img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh flower shop header"></a></div></header>
-    <main class="main-content"><section class="workspace-card"><header class="dashboard-top"><div><p class="eyebrow">Khách hàng</p><h1 id="workspace-title" tabindex="-1"></h1><p id="workspace-subtitle"></p></div><button id="sign-out" class="button" type="button">Đăng xuất</button></header><div class="workspace-layout"><nav id="role-menu" class="role-menu" aria-label="Chức năng khách hàng"></nav><section id="module-view" class="module-view" aria-live="polite"></section></div><p class="dashboard-disclaimer">Demo giao diện; thao tác chưa kết nối backend.</p></section></main>
-    <footer class="site-footer"><div class="footer-inner"><img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Hoa Xinh footer with store contact information"></div><div class="footer-bottom">© 2026 Hoa Xinh · Demo cửa hàng hoa</div></footer>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="../../">
+  <meta name="theme-color" content="#fdf8f8">
+  <meta name="description" content="Xác nhận thông tin nhận và đặt hàng tại Hoa Xinh">
+  <title>Đặt hàng | Hoa Xinh</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body data-page="checkout" data-role="customer">
+  <div class="page-shell">
+    <a class="skip-link" href="#checkout-view">Bỏ qua điều hướng</a>
+    <header class="site-header">
+      <div class="identity-banner">
+        <a class="brand-lockup" href="home.html" aria-label="Hoa Xinh - Trang chủ">
+          <img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh - Trao hoa, gửi yêu thương">
+        </a>
+      </div>
+    </header>
+    <main class="main-content checkout-page">
+      <h1>Đặt hàng</h1>
+      <p id="page-error" class="form-message" role="alert" hidden></p>
+      <section id="checkout-view" aria-label="Thông tin đặt hàng"></section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Thông tin giới thiệu và liên hệ cửa hàng Hoa Xinh">
+      </div>
+      <div class="footer-bottom">© 2026 Hoa Xinh · Demo giao diện cửa hàng hoa</div>
+    </footer>
   </div>
 </body>
 </html>
