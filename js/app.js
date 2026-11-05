@@ -118,6 +118,132 @@ function storedArray(key, description) {
   }
 }
 
+const REVIEW_MIN_IMAGES = 2;
+
+function isOrderCompleted(order) {
+  return ["Hoàn thành", "Đã giao"].includes(order?.status);
+}
+
+function getOrderReviews(phone, orderId) {
+  return storedArray(CUSTOMER_REVIEWS_KEY, "Saved demo reviews")
+    .filter((review) => review.customerPhone === phone && review.orderId === orderId);
+}
+
+function hasOrderReviewSubmission(phone, orderId) {
+  return getOrderReviews(phone, orderId).length > 0;
+}
+
+function canReviewOrder(phone, order) {
+  return Boolean(phone) && isOrderCompleted(order);
+}
+
+function canEditOrderReviews(phone, orderId) {
+  return hasOrderReviewSubmission(phone, orderId);
+}
+
+function readFilesAsDataUrls(fileList) {
+  return Promise.all([...fileList].map((file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ""));
+    reader.onerror = () => reject(reader.error || new Error("Không đọc được ảnh."));
+    reader.readAsDataURL(file);
+  })));
+}
+
+function createStarPicker(name, selectedRating = 0) {
+  const picker = makeElement("div", "review-star-picker");
+  picker.setAttribute("role", "radiogroup");
+  for (let rating = 1; rating <= 5; rating += 1) {
+    const button = makeElement("button", `review-star-button${rating <= selectedRating ? " is-active" : ""}`, "★");
+    button.type = "button";
+    button.setAttribute("role", "radio");
+    button.setAttribute("aria-label", `${rating} sao`);
+    button.setAttribute("aria-checked", String(rating === selectedRating));
+    button.addEventListener("click", () => {
+      picker.querySelectorAll(".review-star-button").forEach((item, index) => {
+        const active = index < rating;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-checked", String(index + 1 === rating));
+      });
+      hidden.value = String(rating);
+    });
+    picker.append(button);
+  }
+  const hidden = document.createElement("input");
+  hidden.type = "hidden";
+  hidden.name = name;
+  hidden.value = String(selectedRating || 0);
+  picker.append(hidden);
+  return picker;
+}
+
+function seedDemoCustomerOrders() {
+  const phone = "0901234562";
+  const orders = storedArray(CUSTOMER_ORDERS_KEY, "Saved demo orders");
+  const existing = orders.filter((order) => order.customerPhone === phone);
+  const demoIds = new Set(["HX-DEMO-DELIVERED-01", "HX-DEMO-DELIVERED-02"]);
+  if (existing.length && existing.some((order) => demoIds.has(order.id))) return;
+  const now = Date.now();
+  const demoOrders = [
+    {
+      id: "HX-DEMO-DELIVERED-01",
+      customerPhone: phone,
+      customerName: "Khách hàng demo",
+      phone,
+      fulfillment: "delivery",
+      deliveryType: "standard",
+      address: "12 Nguyễn Huệ, Quận 1, TP.HCM",
+      deliveryTime: "08:00 - 12:00",
+      payment: "Thanh toán khi nhận hoa (COD)",
+      items: [{ id: "rose-red", name: "Hoa hồng đỏ", price: 18000, unit: "bó", quantity: 2 }],
+      subtotal: 36000,
+      shippingFee: 25000,
+      total: 61000,
+      status: "Đã giao",
+      createdAt: new Date(now - 3 * 60 * 60 * 1000).toISOString(),
+      deliveredAt: new Date(now - 2 * 60 * 60 * 1000).toISOString()
+    },
+    {
+      id: "HX-DEMO-DELIVERED-02",
+      customerPhone: phone,
+      customerName: "Khách hàng demo",
+      phone,
+      fulfillment: "delivery",
+      deliveryType: "standard",
+      address: "25 Lê Lợi, Quận 1, TP.HCM",
+      deliveryTime: "12:00 - 17:00",
+      payment: "Thanh toán khi nhận hoa (COD)",
+      items: [{ id: "sunflower", name: "Bó hoa hướng dương", price: 25000, unit: "bó", quantity: 1 }],
+      subtotal: 25000,
+      shippingFee: 25000,
+      total: 50000,
+      status: "Đã giao",
+      createdAt: new Date(now - 13 * 60 * 60 * 1000).toISOString(),
+      deliveredAt: new Date(now - 12 * 60 * 60 * 1000).toISOString()
+    }
+  ];
+  const merged = existing.length
+    ? orders.map((order) => demoOrders.find((demo) => demo.id === order.id) || order)
+    : [...demoOrders, ...orders];
+  localStorage.setItem(CUSTOMER_ORDERS_KEY, JSON.stringify(merged));
+  const reviews = storedArray(CUSTOMER_REVIEWS_KEY, "Saved demo reviews");
+  if (!reviews.some((review) => review.customerPhone === phone && review.orderId === "HX-DEMO-DELIVERED-01")) {
+    reviews.unshift({
+      orderId: "HX-DEMO-DELIVERED-01",
+      productId: "rose-red",
+      productName: "Hoa hồng đỏ",
+      customerPhone: phone,
+      customerName: "Khách hàng demo",
+      rating: 5,
+      content: "Hoa đẹp, bó hoa được chuẩn bị rất cẩn thận.",
+      images: [],
+      createdAt: new Date(now - 60 * 60 * 1000).toISOString(),
+      updatedAt: new Date(now - 30 * 60 * 1000).toISOString()
+    });
+    localStorage.setItem(CUSTOMER_REVIEWS_KEY, JSON.stringify(reviews));
+  }
+}
+
 function makeElement(tag, className, text) {
   const element = document.createElement(tag);
   if (className) element.className = className;
@@ -191,7 +317,60 @@ function createNavigationSearch() {
   svg.setAttribute("aria-hidden", "true");
   svg.innerHTML = '<circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.2 16.2 5 5"/>';
   button.append(svg);
-  form.append(input, button);
+  const suggestions = makeElement("div", "nav-search-suggestions");
+  suggestions.setAttribute("role", "listbox");
+  suggestions.hidden = true;
+  const drawSuggestions = () => {
+    const query = input.value.trim().toLocaleLowerCase("vi");
+    suggestions.replaceChildren();
+    if (!query) {
+      suggestions.hidden = true;
+      return;
+    }
+    const matches = flowers
+      .filter((product) => `${product.name} ${product.category} ${product.variety}`.toLocaleLowerCase("vi").includes(query))
+      .slice(0, 6);
+    if (!matches.length) {
+      suggestions.append(makeElement("p", "nav-search-empty", "Không tìm thấy sản phẩm phù hợp."));
+      suggestions.hidden = false;
+      return;
+    }
+    matches.forEach((product) => {
+      const suggestion = makeElement("button", "nav-search-suggestion");
+      suggestion.type = "button";
+      suggestion.setAttribute("role", "option");
+      suggestion.append(
+        makeElement("span", `nav-search-suggestion-art flower-art--${product.style}`, product.symbol),
+        makeElement("span", "nav-search-suggestion-details", product.name)
+      );
+      suggestion.addEventListener("click", () => {
+        const detailUrl = new URL("pages/customer/customer-product-detail.html", document.baseURI);
+        detailUrl.searchParams.set("id", product.id);
+        location.assign(detailUrl);
+      });
+      suggestions.append(suggestion);
+    });
+    suggestions.hidden = false;
+  };
+  input.addEventListener("input", () => {
+    if (flowers.length) {
+      drawSuggestions();
+      return;
+    }
+    loadFlowers().then(drawSuggestions).catch(showPageError);
+  });
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      input.value = "";
+      suggestions.replaceChildren();
+      suggestions.hidden = true;
+      input.blur();
+    }
+  });
+  document.addEventListener("click", (event) => {
+    if (!form.contains(event.target)) suggestions.hidden = true;
+  });
+  form.append(input, button, suggestions);
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const query = input.value.trim();
@@ -727,6 +906,15 @@ function renderFlowerProducts(account) {
   search.value = params.get("q") || "";
   let selectedGroup = ["hoa", "phu-kien"].includes(params.get("group")) ? params.get("group") : "";
   let selectedCategory = params.get("category") || "";
+  const searchField = search.closest(".product-search-field");
+  const suggestions = makeElement("div", "product-search-suggestions");
+  suggestions.setAttribute("role", "listbox");
+  suggestions.hidden = true;
+  search.setAttribute("aria-autocomplete", "list");
+  search.setAttribute("aria-controls", "product-search-suggestions");
+  search.setAttribute("aria-expanded", "false");
+  suggestions.id = "product-search-suggestions";
+  searchField.append(suggestions);
 
   document.querySelector("#shopping-note").textContent = isCustomer
     ? "Hoa và phụ kiện được bán theo đơn vị ghi trên từng sản phẩm. Số lượng giỏ hàng được lưu cho tài khoản của bạn."
@@ -838,8 +1026,66 @@ function renderFlowerProducts(account) {
     }
   }
 
+  function drawSearchSuggestions() {
+    const query = search.value.trim().toLocaleLowerCase("vi");
+    suggestions.replaceChildren();
+    if (!query) {
+      suggestions.hidden = true;
+      search.setAttribute("aria-expanded", "false");
+      return;
+    }
+    const matches = flowers
+      .filter((product) => `${product.name} ${product.category} ${product.variety} ${product.description}`
+        .toLocaleLowerCase("vi").includes(query))
+      .slice(0, 6);
+    if (!matches.length) {
+      suggestions.append(makeElement("p", "nav-search-empty", "Không tìm thấy sản phẩm phù hợp."));
+      suggestions.hidden = false;
+      search.setAttribute("aria-expanded", "true");
+      return;
+    }
+    matches.forEach((product) => {
+      const suggestion = makeElement("button", "nav-search-suggestion");
+      suggestion.type = "button";
+      suggestion.setAttribute("role", "option");
+      suggestion.append(
+        makeElement("span", `nav-search-suggestion-art flower-art--${product.style}`, product.symbol),
+        makeElement("span", "nav-search-suggestion-details", product.name)
+      );
+      suggestion.addEventListener("click", () => {
+        const detailUrl = new URL("pages/customer/customer-product-detail.html", document.baseURI);
+        detailUrl.searchParams.set("id", product.id);
+        location.assign(detailUrl);
+      });
+      suggestions.append(suggestion);
+    });
+    suggestions.hidden = false;
+    search.setAttribute("aria-expanded", "true");
+  }
+
   drawCategories();
-  search.addEventListener("input", drawProducts);
+  search.addEventListener("input", () => {
+    drawProducts();
+    drawSearchSuggestions();
+  });
+  search.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      suggestions.replaceChildren();
+      suggestions.hidden = true;
+      search.setAttribute("aria-expanded", "false");
+      search.blur();
+    }
+    if (event.key === "Enter") {
+      suggestions.hidden = true;
+      search.setAttribute("aria-expanded", "false");
+    }
+  });
+  document.addEventListener("click", (event) => {
+    if (!searchField.contains(event.target)) {
+      suggestions.hidden = true;
+      search.setAttribute("aria-expanded", "false");
+    }
+  });
   drawProducts();
 }
 
@@ -954,8 +1200,11 @@ function renderProductDetail(account) {
     quantity.addEventListener("input", updateStepperState);
     quantityRow.append(quantityLabel, decrement, quantity, increment);
     const purchaseButtons = makeElement("div", "product-purchase-buttons");
-    const addButton = makeElement("button", "button product-add-button", "Thêm vào giỏ hàng");
+    const addButton = makeElement("button", "button product-add-button");
     addButton.type = "button";
+    addButton.setAttribute("aria-label", "Thêm vào giỏ hàng");
+    addButton.title = "Thêm vào giỏ hàng";
+    addButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/><circle cx="18" cy="17" r="4" fill="#fff"/><path d="M18 14.8v4.4m-2.2-2.2h4.4"/></svg>';
     addButton.addEventListener("click", () => {
       addFlowerToCart(account, product, Number(quantity.value), formMessage);
     });
@@ -1058,34 +1307,18 @@ function renderCart(account, moduleView) {
   const feedback = makeElement("p", "form-message");
   feedback.hidden = true;
   const listHeader = makeElement("div", "cart-list-header");
-  const updateAllButton = makeElement("button", "button cart-update-button", "Cập nhật");
-  updateAllButton.type = "button";
-  updateAllButton.addEventListener("click", () => {
-    const updates = [];
-    for (const row of cartRows) {
-      const nextQuantity = Number(row.quantity.value);
-      const flower = flowers.find((entry) => entry.id === row.item.id);
-      if (!Number.isInteger(nextQuantity) || nextQuantity < 1) {
-        feedback.textContent = `Số lượng ${row.item.name} phải là số nguyên lớn hơn 0.`;
-        feedback.hidden = false;
-        row.quantity.focus();
-        return;
-      }
-      if (!flower || nextQuantity > flower.stock) {
-        feedback.textContent = `Số lượng ${row.item.name} vượt quá hàng hiện có.`;
-        feedback.hidden = false;
-        row.quantity.focus();
-        return;
-      }
-      updates.push([row.item, nextQuantity]);
-    }
-    updates.forEach(([item, quantity]) => { item.quantity = quantity; });
-    saveCustomerCart(account.phone, cart);
-    renderCart(account, moduleView);
-  });
-  listHeader.append(makeElement("h2", "", "Sản phẩm trong giỏ hàng"), updateAllButton);
+  listHeader.append(makeElement("h2", "", "Sản phẩm trong giỏ hàng"));
   const list = makeElement("div", "cart-list");
-  const cartRows = [];
+  let totalText;
+  let freeshipNote;
+  const updateCartSummary = () => {
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    freeshipNote.textContent = total >= 300000
+      ? "Đơn hàng đã đủ điều kiện miễn phí giao hàng tiêu chuẩn."
+      : `Mua thêm ${currency.format(300000 - total)} để nhận miễn phí giao hàng tiêu chuẩn (đơn từ 300.000đ).`;
+    freeshipNote.classList.toggle("is-qualified", total >= 300000);
+    totalText.textContent = `Tạm tính: ${currency.format(total)}`;
+  };
   cart.forEach((item) => {
     const row = makeElement("article", "cart-row");
     const details = makeElement("div", "cart-row-details");
@@ -1104,6 +1337,21 @@ function renderCart(account, moduleView) {
     const increment = makeElement("button", "quantity-stepper", "+");
     increment.type = "button";
     increment.setAttribute("aria-label", `Tăng số lượng ${item.name}`);
+    const lineTotal = makeElement("strong", "cart-line-total", currency.format(item.price * item.quantity));
+    const syncQuantity = () => {
+      const nextQuantity = Number(quantity.value);
+      if (!Number.isInteger(nextQuantity) || nextQuantity < 1 || !flower || nextQuantity > flower.stock) {
+        feedback.textContent = `Số lượng ${item.name} phải từ 1 đến ${flower?.stock || item.quantity}.`;
+        feedback.hidden = false;
+        return;
+      }
+      item.quantity = nextQuantity;
+      saveCustomerCart(account.phone, cart);
+      updateCartCount(account.phone);
+      lineTotal.textContent = currency.format(item.price * nextQuantity);
+      feedback.hidden = true;
+      updateCartSummary();
+    };
     const updateStepperState = () => {
       const amount = Number(quantity.value);
       decrement.disabled = !Number.isInteger(amount) || amount <= 1;
@@ -1112,12 +1360,17 @@ function renderCart(account, moduleView) {
     decrement.addEventListener("click", () => {
       quantity.value = String(Math.max(1, Number(quantity.value) - 1));
       updateStepperState();
+      syncQuantity();
     });
     increment.addEventListener("click", () => {
       quantity.value = String(Math.min(flower?.stock || item.quantity, Number(quantity.value) + 1));
       updateStepperState();
+      syncQuantity();
     });
-    quantity.addEventListener("input", updateStepperState);
+    quantity.addEventListener("input", () => {
+      updateStepperState();
+      syncQuantity();
+    });
     updateStepperState();
     quantityControl.append(decrement, quantity, increment);
     const removeButton = makeElement("button", "cart-remove-button");
@@ -1129,23 +1382,15 @@ function renderCart(account, moduleView) {
       saveCustomerCart(account.phone, cart.filter((entry) => entry.id !== item.id));
       renderCart(account, moduleView);
     });
-    row.append(details, quantityControl, makeElement("strong", "cart-line-total", currency.format(item.price * item.quantity)), removeButton);
-    cartRows.push({ item, quantity });
+    row.append(details, quantityControl, lineTotal, removeButton);
     list.append(row);
   });
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const summary = makeElement("div", "cart-summary");
-  const freeshipNote = makeElement("p", "cart-freeship-note");
-  if (total >= 300000) {
-    freeshipNote.textContent = "🎉 Đơn hàng của bạn đã đủ điều kiện Miễn phí giao hàng tiêu chuẩn!";
-    freeshipNote.style.color = "#2e7d32";
-    freeshipNote.style.fontWeight = "600";
-  } else {
-    freeshipNote.textContent = `Mua thêm ${currency.format(300000 - total)} để nhận Miễn phí giao hàng tiêu chuẩn (đơn từ 300.000đ).`;
-    freeshipNote.style.color = "var(--rose-800)";
-  }
-  summary.append(freeshipNote, makeElement("p", "", `Tạm tính: ${currency.format(total)}`));
+  freeshipNote = makeElement("p", "cart-freeship-note");
+  totalText = makeElement("p", "", "");
+  summary.append(freeshipNote, totalText);
+  updateCartSummary();
   const checkout = makeElement("a", "button button-primary", "Đặt hàng");
   checkout.href = "pages/customer/customer-place-order.html";
   summary.append(checkout);
@@ -1208,12 +1453,7 @@ function renderCheckout(account, moduleView) {
             </select>
             <label class="checkout-new-address-label" for="checkout-address">Địa chỉ nhận hàng</label>
             <textarea id="checkout-address" name="address" autocomplete="street-address" rows="3" placeholder="Nhập địa chỉ để tìm gợi ý..." aria-autocomplete="list" aria-controls="checkout-address-suggestions" aria-expanded="false"></textarea>
-            <div class="checkout-address-actions">
-              <button id="checkout-use-location" class="button" type="button">Dùng vị trí hiện tại</button>
-              <span class="checkout-address-privacy">Gợi ý địa chỉ qua OpenStreetMap/Photon; vị trí chỉ dùng khi bạn bấm nút.</span>
-            </div>
             <div id="checkout-address-suggestions" class="checkout-address-suggestions" role="listbox" aria-label="Gợi ý địa chỉ" hidden></div>
-            <p id="checkout-address-status" class="checkout-address-status" role="status" aria-live="polite"></p>
             <label class="checkout-save-address"><input type="checkbox" name="saveAddress">Lưu địa chỉ này cho lần mua sau</label>
           </div>
         </section>
@@ -1278,11 +1518,6 @@ function renderCheckout(account, moduleView) {
     option.textContent = index === 0 ? `${address} (Mặc định)` : address;
     addressSelect.append(option);
   });
-  if (savedAddresses.length > 0) {
-    addressSelect.value = "0";
-    addressInput.value = savedAddresses[0];
-    addressInput.readOnly = true;
-  }
   addressSelect.addEventListener("change", () => {
     const selectedAddress = addressSelect.value === "" ? "" : savedAddresses[Number(addressSelect.value)];
     if (selectedAddress) {
@@ -1300,11 +1535,8 @@ function renderCheckout(account, moduleView) {
   });
 
   const addressSuggestions = form.querySelector("#checkout-address-suggestions");
-  const addressStatus = form.querySelector("#checkout-address-status");
-  const useLocationButton = form.querySelector("#checkout-use-location");
   let addressSearchTimer;
   let addressSearchController;
-  let locationBias = null;
   let activeSuggestionIndex = -1;
 
   function formatPhotonAddress(properties) {
@@ -1325,7 +1557,6 @@ function renderCheckout(account, moduleView) {
     addressInput.value = address;
     addressInput.readOnly = false;
     addressSelect.value = "";
-    addressStatus.textContent = "Đã chọn địa chỉ gợi ý.";
     closeAddressSuggestions();
   }
 
@@ -1333,11 +1564,9 @@ function renderCheckout(account, moduleView) {
     window.clearTimeout(addressSearchTimer);
     addressSearchController?.abort();
     const query = addressInput.value.trim();
-    addressStatus.textContent = "";
     closeAddressSuggestions();
     if (query.length < 3) return;
 
-    addressStatus.textContent = "Đang tìm gợi ý địa chỉ...";
     addressSearchTimer = window.setTimeout(async () => {
       const controller = new AbortController();
       addressSearchController = controller;
@@ -1346,10 +1575,6 @@ function renderCheckout(account, moduleView) {
         url.searchParams.set("q", query);
         url.searchParams.set("limit", "6");
         url.searchParams.set("lang", "vi");
-        if (locationBias) {
-          url.searchParams.set("lat", String(locationBias.latitude));
-          url.searchParams.set("lon", String(locationBias.longitude));
-        }
         const response = await fetch(url, { signal: controller.signal });
         if (!response.ok) throw new Error(`Địa chỉ gợi ý không khả dụng (${response.status}).`);
         const data = await response.json();
@@ -1358,7 +1583,6 @@ function renderCheckout(account, moduleView) {
           .map((feature) => formatPhotonAddress(feature.properties || {}))
           .filter((address, index, addresses) => address && addresses.indexOf(address) === index);
         if (!suggestions.length) {
-          addressStatus.textContent = "Chưa tìm thấy gợi ý. Bạn có thể tiếp tục nhập địa chỉ đầy đủ.";
           return;
         }
 
@@ -1373,11 +1597,9 @@ function renderCheckout(account, moduleView) {
         });
         addressSuggestions.hidden = false;
         addressInput.setAttribute("aria-expanded", "true");
-        addressStatus.textContent = `${suggestions.length} gợi ý địa chỉ.`;
       } catch (error) {
         if (error.name === "AbortError") return;
         console.error(error);
-        addressStatus.textContent = "Không tải được gợi ý địa chỉ. Bạn vẫn có thể nhập địa chỉ thủ công.";
       }
     }, 350);
   });
@@ -1396,46 +1618,6 @@ function renderCheckout(account, moduleView) {
     } else if (event.key === "Escape") {
       closeAddressSuggestions();
     }
-  });
-
-  useLocationButton.addEventListener("click", () => {
-    if (!navigator.geolocation) {
-      addressStatus.textContent = "Trình duyệt này không hỗ trợ lấy vị trí hiện tại.";
-      return;
-    }
-    window.clearTimeout(addressSearchTimer);
-    addressSearchController?.abort();
-    closeAddressSuggestions();
-    useLocationButton.disabled = true;
-    addressStatus.textContent = "Đang lấy vị trí hiện tại...";
-    navigator.geolocation.getCurrentPosition(async ({ coords }) => {
-      locationBias = { latitude: coords.latitude, longitude: coords.longitude };
-      try {
-        const url = new URL("https://photon.komoot.io/reverse");
-        url.searchParams.set("lat", String(coords.latitude));
-        url.searchParams.set("lon", String(coords.longitude));
-        url.searchParams.set("lang", "vi");
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`Không thể xác định địa chỉ (${response.status}).`);
-        const data = await response.json();
-        const address = formatPhotonAddress(data.features?.[0]?.properties || {});
-        if (!address) throw new Error("Không tìm thấy địa chỉ cho vị trí hiện tại.");
-        selectAddress(address);
-      } catch (error) {
-        console.error(error);
-        addressStatus.textContent = "Không thể đổi vị trí thành địa chỉ. Bạn có thể nhập địa chỉ thủ công.";
-      } finally {
-        useLocationButton.disabled = false;
-      }
-    }, (error) => {
-      const messages = {
-        1: "Bạn chưa cấp quyền truy cập vị trí.",
-        2: "Không xác định được vị trí hiện tại.",
-        3: "Lấy vị trí quá thời gian chờ. Vui lòng thử lại."
-      };
-      addressStatus.textContent = messages[error.code] || "Không thể lấy vị trí hiện tại.";
-      useLocationButton.disabled = false;
-    }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 });
   });
 
   // Fulfillment selector
@@ -1663,9 +1845,7 @@ function renderOrders(account, moduleView) {
       // Meta row
       const meta = makeElement("div", "order-card-meta");
       meta.append(
-        makeElement("span", "", `Ngày đặt: ${new Date(order.createdAt).toLocaleString("vi-VN")}`),
-        makeElement("span", "", order.fulfillment === "pickup" ? "Hình thức: Nhận tại cửa hàng" : (order.deliveryType === "express" ? "Hình thức: Giao hỏa tốc 2 giờ" : "Hình thức: Giao tiêu chuẩn")),
-        makeElement("span", "", `Thanh toán: ${order.payment || "COD"}`)
+        makeElement("span", "", `Ngày đặt: ${new Date(order.createdAt).toLocaleString("vi-VN")}`)
       );
 
       card.append(heading, meta);
@@ -1713,6 +1893,17 @@ function renderOrders(account, moduleView) {
 
       // Actions row (1-click buttons)
       const actionsRow = makeElement("div", "order-card-actions");
+
+      if (isOrderCompleted(order)) {
+        const hasReview = hasOrderReviewSubmission(account.phone, order.id);
+        const reviewButton = makeElement(
+          "a",
+          `button ${hasReview ? "button-outline" : "button-primary"} order-review-button`,
+          hasReview ? "Sửa đánh giá" : "Đánh giá"
+        );
+        reviewButton.href = `pages/customer/customer-reviews.html?orderId=${encodeURIComponent(order.id)}`;
+        actionsRow.append(reviewButton);
+      }
 
       // 1-Click Cancel button with Modal
       if (order.status === "Chờ xác nhận") {
@@ -1791,74 +1982,148 @@ function renderOrders(account, moduleView) {
 
 function renderReviews(account, moduleView) {
   moduleView.replaceChildren();
-  const orders = storedArray(CUSTOMER_ORDERS_KEY, "Saved demo orders")
-    .filter((order) => order.customerPhone === account.phone);
-  const purchasedFlowers = [...new Map(orders.flatMap((order) => order.items).map((item) => [item.id, item])).values()];
-  if (purchasedFlowers.length === 0) {
+  const orderId = new URLSearchParams(location.search).get("orderId");
+  const order = storedArray(CUSTOMER_ORDERS_KEY, "Saved demo orders")
+    .find((item) => item.id === orderId && item.customerPhone === account.phone && isOrderCompleted(item));
+  if (!order) {
     const empty = makeElement("div", "empty-state");
     empty.append(
-      makeElement("h2", "", "Chưa có hoa để đánh giá"),
-      makeElement("p", "", "Sau khi đặt hoa, bạn có thể gửi đánh giá sản phẩm tại đây."),
-      Object.assign(makeElement("a", "button button-primary", "Xem sản phẩm"), { href: "pages/customer/customer-products.html" })
+      makeElement("h2", "", "Không tìm thấy đơn hàng"),
+      makeElement("p", "", "Chỉ đánh giá được đơn đã giao thành công."),
+      Object.assign(makeElement("a", "button button-primary", "Xem đơn hàng"), { href: "pages/customer/customer-orders.html" })
     );
     moduleView.append(empty);
     return;
   }
 
+  const existing = getOrderReviews(account.phone, order.id);
+  const existingByProduct = new Map(existing.map((review) => [review.productId, review]));
+  let selectedImages = [...(existing.find((review) => Array.isArray(review.images))?.images || [])];
   const form = document.createElement("form");
   form.id = "review-form";
-  form.innerHTML = `
-    <label for="review-product">Hoa đã đặt</label><select id="review-product" name="productId" required></select>
-    <label for="review-rating">Đánh giá</label><select id="review-rating" name="rating" required><option value="5">5 sao - Rất hài lòng</option><option value="4">4 sao - Hài lòng</option><option value="3">3 sao - Bình thường</option><option value="2">2 sao - Chưa hài lòng</option><option value="1">1 sao - Không hài lòng</option></select>
-    <label for="review-content">Nội dung nhận xét</label><textarea id="review-content" name="content" rows="4" required placeholder="Chia sẻ cảm nhận của bạn..."></textarea>
-    <p id="review-message" class="contact-status" role="status" hidden></p>
-    <button class="button button-primary" type="submit">Gửi đánh giá</button>`;
-  const select = form.querySelector("#review-product");
-  purchasedFlowers.forEach((item) => {
-    const option = makeElement("option", "", item.name);
-    option.value = item.id;
-    select.append(option);
+  form.append(
+    makeElement("h2", "review-form-title", existing.length ? `Sửa đánh giá · Đơn #${order.id}` : `Đánh giá đơn #${order.id}`),
+    makeElement("p", "section-hint", `Chọn sao và viết nhận xét. Cần gửi kèm ít nhất ${REVIEW_MIN_IMAGES} ảnh.`)
+  );
+  const productList = makeElement("div", "review-product-list");
+  (order.items || []).forEach((item) => {
+    const saved = existingByProduct.get(item.id);
+    const card = makeElement("article", "review-product-card");
+    card.dataset.productId = item.id;
+    card.dataset.productName = item.name;
+    card.append(
+      makeElement("h3", "", item.name),
+      makeElement("p", "review-order-meta", `${item.quantity} ${item.unit}`),
+      makeElement("label", "", "Chọn sao"),
+      createStarPicker(`rating-${item.id}`, saved?.rating || 0)
+    );
+    const contentLabel = makeElement("label", "", "Nội dung đánh giá");
+    const textarea = document.createElement("textarea");
+    textarea.name = `content-${item.id}`;
+    textarea.rows = 3;
+    textarea.placeholder = "Chia sẻ cảm nhận về sản phẩm...";
+    textarea.value = saved?.content || "";
+    contentLabel.append(textarea);
+    card.append(contentLabel);
+    productList.append(card);
   });
-  form.addEventListener("submit", (event) => {
+  form.append(productList);
+
+  const imageSection = makeElement("div", "review-images-section");
+  imageSection.append(
+    makeElement("h3", "", "Hình ảnh đánh giá"),
+    makeElement("p", "section-hint", `Tải lên ít nhất ${REVIEW_MIN_IMAGES} ảnh.`)
+  );
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = "image/*";
+  fileInput.multiple = true;
+  fileInput.id = "review-images";
+  const preview = makeElement("div", "review-image-preview");
+  const renderPreview = () => {
+    preview.replaceChildren();
+    selectedImages.forEach((src, index) => {
+      const thumb = makeElement("div", "review-image-thumb");
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = `Ảnh đánh giá ${index + 1}`;
+      thumb.append(image);
+      preview.append(thumb);
+    });
+    if (!selectedImages.length) preview.append(makeElement("p", "review-order-meta", "Chưa có ảnh nào."));
+  };
+  renderPreview();
+  imageSection.append(fileInput, preview);
+  form.append(imageSection);
+
+  const message = makeElement("p", "contact-status");
+  message.id = "review-message";
+  message.setAttribute("role", "status");
+  message.hidden = true;
+  const actions = makeElement("div", "review-form-actions");
+  actions.append(
+    Object.assign(makeElement("a", "button button-outline", "Quay lại đơn hàng"), { href: "pages/customer/customer-orders.html" }),
+    Object.assign(makeElement("button", "button button-primary", existing.length ? "Lưu chỉnh sửa" : "Gửi đánh giá"), { type: "submit" })
+  );
+  form.append(message, actions);
+
+  fileInput.addEventListener("change", async () => {
+    try {
+      selectedImages = await readFilesAsDataUrls(fileInput.files || []);
+      renderPreview();
+      message.hidden = true;
+    } catch (error) {
+      console.error(error);
+      message.textContent = "Không đọc được ảnh. Hãy thử chọn lại.";
+      message.hidden = false;
+    }
+  });
+
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const data = new FormData(form);
-    const content = String(data.get("content")).trim();
-    const flower = purchasedFlowers.find((item) => item.id === data.get("productId"));
-    if (!flower || !content) return;
-    const reviews = storedArray(CUSTOMER_REVIEWS_KEY, "Saved demo reviews");
-    reviews.unshift({
+    message.hidden = true;
+    const entries = [...productList.querySelectorAll(".review-product-card")].map((card) => {
+      const productId = card.dataset.productId;
+      return {
+        productId,
+        productName: card.dataset.productName,
+        rating: Number(card.querySelector(`input[name="rating-${productId}"]`)?.value || 0),
+        content: String(card.querySelector(`textarea[name="content-${productId}"]`)?.value || "").trim()
+      };
+    });
+    const filled = entries.filter((entry) => entry.rating >= 1 && entry.content);
+    const partial = entries.some((entry) => (entry.rating && !entry.content) || (!entry.rating && entry.content));
+    if (partial || !filled.length) {
+      message.textContent = partial
+        ? "Mỗi sản phẩm được đánh giá cần có đủ số sao và nội dung."
+        : "Hãy đánh giá ít nhất một sản phẩm trước khi gửi.";
+      message.hidden = false;
+      return;
+    }
+    if (selectedImages.length < REVIEW_MIN_IMAGES) {
+      message.textContent = `Vui lòng tải lên ít nhất ${REVIEW_MIN_IMAGES} hình ảnh.`;
+      message.hidden = false;
+      return;
+    }
+    const now = new Date().toISOString();
+    const reviews = storedArray(CUSTOMER_REVIEWS_KEY, "Saved demo reviews")
+      .filter((review) => !(review.customerPhone === account.phone && review.orderId === order.id));
+    filled.forEach((entry) => reviews.unshift({
+      orderId: order.id,
+      productId: entry.productId,
+      productName: entry.productName,
       customerPhone: account.phone,
       customerName: account.name || "Khách hàng",
-      productId: flower.id,
-      productName: flower.name,
-      rating: Number(data.get("rating")),
-      content,
-      createdAt: new Date().toISOString()
-    });
+      rating: entry.rating,
+      content: entry.content,
+      images: selectedImages,
+      createdAt: existing[0]?.createdAt || now,
+      updatedAt: now
+    }));
     localStorage.setItem(CUSTOMER_REVIEWS_KEY, JSON.stringify(reviews));
-    form.reset();
-    const message = form.querySelector("#review-message");
-    message.textContent = "Cảm ơn bạn đã gửi đánh giá.";
-    message.hidden = false;
+    location.assign(`pages/customer/customer-orders.html?reviewed=${encodeURIComponent(order.id)}`);
   });
   moduleView.append(form);
-
-  const reviews = storedArray(CUSTOMER_REVIEWS_KEY, "Saved demo reviews")
-    .filter((review) => review.customerPhone === account.phone);
-  if (reviews.length) {
-    const history = makeElement("div", "review-history");
-    history.append(makeElement("h3", "", "Đánh giá của bạn"));
-    reviews.forEach((review) => {
-      const card = makeElement("article", "order-card");
-      card.append(
-        makeElement("h4", "", review.productName),
-        makeElement("p", "review-stars", `${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}`),
-        makeElement("p", "", review.content)
-      );
-      history.append(card);
-    });
-    moduleView.append(history);
-  }
 }
 
 function renderModule(moduleView, feature) {
@@ -2029,6 +2294,7 @@ function initializeBackButton() {
 }
 
 loadAccounts().then(() => {
+  seedDemoCustomerOrders();
   initializeNavigation();
   initializeBackButton();
   const page = document.body.dataset.page;

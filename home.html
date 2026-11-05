@@ -1,18 +1,22 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="vi">
+<!-- Giải thích cấu trúc trang: Trang chủ công khai giới thiệu cửa hàng và dẫn tới danh mục hoa. -->
 <head>
+  <!-- Phần head khai báo ngôn ngữ, viewport responsive, đường dẫn tài nguyên và script dùng chung. -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fff7f7">
   <meta name="description" content="Hoa tươi mỗi ngày tại cửa hàng Hoa Xinh">
   <title>Trang chủ | Hoa Xinh</title>
   <link rel="stylesheet" href="css/styles.css">
-  <script src="js/app.js" defer></script>
-</head>
+  <script src="js/app.js" defer></script></head>
 <body>
+  <!-- data-page/data-role/data-feature là metadata để app.js xác định renderer và quyền truy cập của trang. -->
   <div class="page-shell">
     <a class="skip-link" href="#home">Bỏ qua điều hướng</a>
-    <header class="site-header">
+    <!-- Header giới thiệu thương hiệu và nav cơ bản dành cho khách chưa đăng nhập. -->
+        <!-- Header dùng chung gồm banner thương hiệu; nav có thể tĩnh hoặc được app.js dựng động. -->
+<header class="site-header">
       <div class="identity-banner">
         <a class="brand-lockup" href="home.html" aria-label="Hoa Xinh - Trang chủ">
           <img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh - Trao hoa, gửi yêu thương">
@@ -30,7 +34,9 @@
         </div>
       </nav>
     </header>
-    <main id="home" class="main-content">
+    <!-- Trang chủ giới thiệu nhanh cửa hàng và dẫn đến danh mục sản phẩm. -->
+        <!-- Vùng nội dung chính của trang: HTML tạo khung, còn dữ liệu và thao tác thường do app.js bổ sung. -->
+<main id="home" class="main-content">
       <section class="home-hero">
         <p class="eyebrow">HOA TƯƠI MỖI NGÀY</p>
         <h1>Gửi yêu thương qua từng bó hoa</h1>
@@ -45,7 +51,9 @@
         </div>
       </section>
     </main>
-    <footer class="site-footer">
+    <!-- Footer dùng chung cho các trang công khai. -->
+        <!-- Footer dùng chung hiển thị nhận diện, giới thiệu và thông tin liên hệ của Hoa Xinh. -->
+<footer class="site-footer">
       <div class="footer-inner"><img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Thông tin giới thiệu và liên hệ cửa hàng Hoa Xinh"></div>
       <div class="footer-bottom">© 2026 Hoa Xinh · Demo giao diện cửa hàng hoa</div>
     </footer>

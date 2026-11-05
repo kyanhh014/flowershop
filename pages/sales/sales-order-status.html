@@ -1,10 +1,17 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="vi">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="../../"><title>Cập nhật trạng thái đơn | Hoa Xinh</title><link rel="stylesheet" href="css/styles.css"><script src="js/app.js" defer></script></head>
+<!-- Giải thích cấu trúc trang: Trang chức năng khung dành cho nhân viên bán; nội dung được render theo data-feature. -->
+<head>
+  <!-- Phần head khai báo ngôn ngữ, viewport responsive, đường dẫn tài nguyên và script dùng chung. --><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="../../"><title>Cập nhật trạng thái đơn | Hoa Xinh</title><link rel="stylesheet" href="css/styles.css">  <script src="js/app.js" defer></script></head>
 <body data-page="workspace" data-role="sales" data-feature="order-status">
-  <div class="page-shell"><header class="site-header"><div class="identity-banner"><a class="brand-lockup" href="index.html"><img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh flower shop header"></a></div></header>
-    <main class="main-content"><section class="workspace-card"><header class="workspace-heading"><h1 id="workspace-title" tabindex="-1"></h1></header><section id="module-view" class="module-view" aria-live="polite"></section></section></main>
-    <footer class="site-footer"><div class="footer-inner"><img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Hoa Xinh footer with store contact information"></div><div class="footer-bottom">© 2026 Hoa Xinh · Demo cửa hàng hoa</div></footer>
+  <!-- data-page/data-role/data-feature là metadata để app.js xác định renderer và quyền truy cập của trang. -->
+  <div class="page-shell">    <!-- Header dùng chung gồm banner thương hiệu; nav có thể tĩnh hoặc được app.js dựng động. -->
+<header class="site-header"><div class="identity-banner"><a class="brand-lockup" href="index.html"><img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh flower shop header"></a></div></header>
+        <!-- Vùng nội dung chính của trang: HTML tạo khung, còn dữ liệu và thao tác thường do app.js bổ sung. -->
+<main class="main-content"><section class="workspace-card"><header class="workspace-heading"><h1 id="workspace-title" tabindex="-1"></h1></header>      <!-- Điểm mount cho module theo vai trò; renderWorkspace() sẽ đổ nội dung vào đây. -->
+<section id="module-view" class="module-view" aria-live="polite"></section></section></main>
+        <!-- Footer dùng chung hiển thị nhận diện, giới thiệu và thông tin liên hệ của Hoa Xinh. -->
+<footer class="site-footer"><div class="footer-inner"><img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Hoa Xinh footer with store contact information"></div><div class="footer-bottom">© 2026 Hoa Xinh · Demo cửa hàng hoa</div></footer>
   </div>
 </body>
 </html>

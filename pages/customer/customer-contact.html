@@ -1,18 +1,21 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="vi">
+<!-- Giải thích cấu trúc trang: Trang gửi liên hệ tới cửa hàng. -->
 <head>
+  <!-- Phần head khai báo ngôn ngữ, viewport responsive, đường dẫn tài nguyên và script dùng chung. -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="../../">
   <meta name="theme-color" content="#fff7f7">
   <title>Liên hệ cửa hàng | Hoa Xinh</title>
   <link rel="stylesheet" href="css/styles.css">
-  <script src="js/app.js" defer></script>
-</head>
+  <script src="js/app.js" defer></script></head>
 <body data-page="workspace" data-role="customer" data-feature="contact">
+  <!-- data-page/data-role/data-feature là metadata để app.js xác định renderer và quyền truy cập của trang. -->
   <div class="page-shell">
     <a class="skip-link" href="#contact-form">Bỏ qua điều hướng</a>
-    <header class="site-header">
+        <!-- Header dùng chung gồm banner thương hiệu; nav có thể tĩnh hoặc được app.js dựng động. -->
+<header class="site-header">
       <div class="identity-banner">
         <a class="brand-lockup" href="home.html" aria-label="Hoa Xinh - Trang chủ">
           <img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh - Trao hoa, gửi yêu thương">
@@ -34,12 +37,14 @@
       </nav>
     </header>
 
-    <main class="main-content contact-page">
+        <!-- Vùng nội dung chính của trang: HTML tạo khung, còn dữ liệu và thao tác thường do app.js bổ sung. -->
+<main class="main-content contact-page">
       <div class="contact-page-heading">
         <h1>Liên hệ cửa hàng</h1>
       </div>
       <section class="contact-card" aria-label="Gửi liên hệ đến cửa hàng">
-        <form id="contact-form">
+                <!-- Form liên hệ được initializeContactForm() kiểm tra và lưu ở localStorage của demo. -->
+<form id="contact-form">
           <div class="contact-customer-details">
             <p>Tên khách hàng: <span id="contact-customer-name"></span></p>
             <p>Số điện thoại: <span id="contact-customer-phone"></span></p>
@@ -64,7 +69,8 @@
       </section>
     </main>
 
-    <footer class="site-footer">
+        <!-- Footer dùng chung hiển thị nhận diện, giới thiệu và thông tin liên hệ của Hoa Xinh. -->
+<footer class="site-footer">
       <div class="footer-inner">
         <img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Thông tin giới thiệu và liên hệ cửa hàng Hoa Xinh">
       </div>
