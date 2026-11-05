@@ -1,18 +1,23 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="vi">
+<!-- Giải thích cấu trúc trang: Trang đăng nhập và khôi phục mật khẩu OTP của demo. -->
 <head>
+  <!-- Phần head khai báo ngôn ngữ, viewport responsive, đường dẫn tài nguyên và script dùng chung. -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#fff7f7">
   <meta name="description" content="Demo giao diện đăng nhập cửa hàng hoa Hoa Xinh">
   <title>Đăng nhập | Hoa Xinh</title>
+  <!-- Nạp stylesheet dùng chung và logic demo chạy sau khi HTML được tải. -->
   <link rel="stylesheet" href="css/styles.css">
-  <script src="js/app.js" defer></script>
-</head>
+  <script src="js/app.js" defer></script></head>
 <body data-page="login">
+  <!-- data-page/data-role/data-feature là metadata để app.js xác định renderer và quyền truy cập của trang. -->
   <div class="page-shell">
     <a class="skip-link" href="#account">Bỏ qua điều hướng</a>
-    <header class="site-header">
+    <!-- Header tĩnh của màn hình đăng nhập; các trang sau sẽ dựng nav bằng JavaScript. -->
+        <!-- Header dùng chung gồm banner thương hiệu; nav có thể tĩnh hoặc được app.js dựng động. -->
+<header class="site-header">
       <div class="identity-banner">
         <a class="brand-lockup" href="home.html" aria-label="Hoa Xinh - Trang chủ">
           <img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh - Trao hoa, gửi yêu thương">
@@ -46,7 +51,9 @@
       </nav>
     </header>
 
-    <main id="home" class="main-content">
+    <!-- Khu vực đăng nhập chính và luồng khôi phục mật khẩu bằng OTP demo. -->
+        <!-- Vùng nội dung chính của trang: HTML tạo khung, còn dữ liệu và thao tác thường do app.js bổ sung. -->
+<main id="home" class="main-content">
       <section class="welcome-copy" aria-labelledby="welcome-heading">
         <h1 id="welcome-heading">Đăng nhập tài khoản</h1>
       </section>
@@ -81,11 +88,37 @@
             <p id="login-error" class="form-message" role="alert" hidden></p>
             <button id="login-button" class="button button-primary login-button" type="submit" disabled>ĐĂNG NHẬP</button>
           </form>
+          <form id="forgot-password-form" class="forgot-password-form" hidden>
+            <h2>Khôi phục mật khẩu</h2>
+            <label for="forgot-phone">Số điện thoại</label>
+            <input id="forgot-phone" name="phone" type="tel" inputmode="tel" autocomplete="username" required>
+            <button id="forgot-send-otp" class="button button-secondary" type="button">Gửi mã OTP</button>
+            <div id="forgot-otp-fields" hidden>
+              <label for="forgot-otp">Mã OTP</label>
+              <input id="forgot-otp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required>
+              <label for="forgot-new-password">Mật khẩu mới</label>
+              <div class="password-field">
+                <input id="forgot-new-password" name="newPassword" type="password" autocomplete="new-password" required disabled>
+                <button class="password-toggle" type="button" data-password-toggle="forgot-new-password" aria-label="Hiện mật khẩu" aria-pressed="false"></button>
+              </div>
+              <label for="forgot-confirm-password">Xác nhận mật khẩu mới</label>
+              <div class="password-field">
+                <input id="forgot-confirm-password" name="confirmPassword" type="password" autocomplete="new-password" required disabled>
+                <button class="password-toggle" type="button" data-password-toggle="forgot-confirm-password" aria-label="Hiện mật khẩu" aria-pressed="false"></button>
+              </div>
+              <button class="button button-primary" type="submit">Cập nhật mật khẩu</button>
+            </div>
+            <p id="forgot-password-message" class="login-help" role="status" hidden></p>
+            <div class="forgot-password-actions">
+              <button id="forgot-password-cancel" class="button button-secondary" type="button">Quay lại đăng nhập</button>
+            </div>
+          </form>
           <p id="signup-prompt" class="signup-prompt">Bạn chưa có tài khoản. <button id="register-link" class="text-action text-action--emphasis" type="button">Đăng ký ngay</button></p>
         </div>
       </section>
     </main>
 
+    <!-- Footer nhận diện thương hiệu và thông tin liên hệ của cửa hàng. -->
     <footer id="contact" class="site-footer">
       <div class="footer-inner"><img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Thông tin giới thiệu và liên hệ cửa hàng Hoa Xinh"></div>
       <div class="footer-bottom">© 2026 Hoa Xinh · Demo giao diện cửa hàng hoa</div>
