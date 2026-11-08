@@ -180,50 +180,5 @@
     "stock": 28,
     "symbol": "〰",
     "style": "accessory-ribbon"
-<<<<<<< HEAD
-=======
-  },
-  {
-    "id": "rose-limited",
-    "group": "hoa",
-    "name": "Hoa hồng giới hạn",
-    "category": "Hoa hồng",
-    "variety": "Limited Garden Rose",
-    "description": "Sản phẩm demo có tồn kho thấp để kiểm tra giới hạn số lượng trong giỏ hàng.",
-    "price": 32000,
-    "unit": "cành",
-    "stock": 3,
-    "symbol": "✿",
-    "style": "rose",
-    "active": true
-  },
-  {
-    "id": "seasonal-wreath",
-    "group": "phu-kien",
-    "name": "Vòng hoa mùa cũ",
-    "category": "Trang trí",
-    "variety": "Mẫu ngừng kinh doanh",
-    "description": "Sản phẩm demo đã ngừng kinh doanh để kiểm tra trạng thái khóa trong giỏ hàng.",
-    "price": 95000,
-    "unit": "cái",
-    "stock": 0,
-    "symbol": "◌",
-    "style": "accessory-basket",
-    "active": false
-  },
-  {
-    "id": "out-of-stock-lily",
-    "group": "hoa",
-    "name": "Ly kép trắng",
-    "category": "Hoa theo cành",
-    "variety": "Double Lily",
-    "description": "Sản phẩm demo đang hết hàng nhưng vẫn còn trong danh mục để kiểm tra giỏ hàng.",
-    "price": 42000,
-    "unit": "cành",
-    "stock": 0,
-    "symbol": "✿",
-    "style": "white",
-    "active": true
->>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   }
 ]

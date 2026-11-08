@@ -60,18 +60,10 @@
 
       <section id="account" class="login-layout" aria-label="Đăng nhập demo">
         <div class="login-card">
-<<<<<<< HEAD
           <form id="login-form">
             <label for="phone">Số điện thoại</label>
             <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="username"
               placeholder="Nhập số điện thoại" required>
-=======
-          <form id="login-form" novalidate>
-            <label for="phone">Số điện thoại</label>
-            <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="username"
-              placeholder="Nhập số điện thoại" required>
-            <p id="phone-error" class="field-message" role="alert" hidden></p>
->>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 
             <label for="password">Mật khẩu</label>
             <div class="password-field">
@@ -81,17 +73,9 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/>
                   <circle cx="12" cy="12" r="3"/>
-<<<<<<< HEAD
                 </svg>
               </button>
             </div>
-=======
-                  <path class="eye-slash" d="m4 4 16 16"/>
-                </svg>
-              </button>
-            </div>
-            <p id="password-error" class="field-message" role="alert" hidden></p>
->>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 
             <div class="login-options">
               <label class="remember-option" for="remember-phone">
@@ -104,7 +88,6 @@
             <p id="login-error" class="form-message" role="alert" hidden></p>
             <button id="login-button" class="button button-primary login-button" type="submit" disabled>ĐĂNG NHẬP</button>
           </form>
-<<<<<<< HEAD
           <form id="forgot-password-form" class="forgot-password-form" hidden>
             <h2>Khôi phục mật khẩu</h2>
             <label for="forgot-phone">Số điện thoại</label>
@@ -128,52 +111,6 @@
             <p id="forgot-password-message" class="login-help" role="status" hidden></p>
             <div class="forgot-password-actions">
               <button id="forgot-password-cancel" class="button button-secondary" type="button">Quay lại đăng nhập</button>
-=======
-          <form id="forgot-password-form" class="forgot-password-form" novalidate hidden>
-            <h2>Khôi phục mật khẩu</h2>
-            <label for="forgot-phone">Số điện thoại</label>
-            <input id="forgot-phone" name="phone" type="tel" inputmode="tel" autocomplete="username" placeholder="Nhập số điện thoại" required>
-            <p id="forgot-phone-error" class="field-message" role="alert" hidden></p>
-            <button id="forgot-send-otp" class="button button-secondary" type="button">Gửi mã OTP</button>
-            <div id="forgot-otp-fields" hidden>
-              <label for="forgot-otp">Mã OTP</label>
-              <input id="forgot-otp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="Nhập mã OTP" maxlength="6" required>
-              <p id="forgot-otp-error" class="field-message" role="alert" hidden></p>
-              <p id="forgot-otp-countdown" class="otp-countdown" role="status" hidden></p>
-              <button id="forgot-verify-otp" class="button button-secondary" type="button">Xác nhận OTP</button>
-              <div id="forgot-new-password-fields" hidden>
-                <label for="forgot-new-password">Mật khẩu mới</label>
-                <div class="password-field">
-                  <input id="forgot-new-password" name="newPassword" type="password" autocomplete="new-password" placeholder="Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ cái và chữ số" required disabled>
-                  <button class="password-toggle" type="button" data-password-toggle="forgot-new-password" aria-label="Hiện mật khẩu" aria-pressed="false">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/>
-                      <circle cx="12" cy="12" r="3"/>
-                      <path class="eye-slash" d="m4 4 16 16"/>
-                    </svg>
-                  </button>
-                </div>
-                <p id="forgot-new-password-error" class="field-message" role="alert" hidden></p>
-                <label for="forgot-confirm-password">Nhập lại mật khẩu mới</label>
-                <div class="password-field">
-                  <input id="forgot-confirm-password" name="confirmPassword" type="password" autocomplete="new-password" placeholder="Nhập lại mật khẩu mới" required disabled>
-                  <button class="password-toggle" type="button" data-password-toggle="forgot-confirm-password" aria-label="Hiện mật khẩu" aria-pressed="false">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/>
-                      <circle cx="12" cy="12" r="3"/>
-                      <path class="eye-slash" d="m4 4 16 16"/>
-                    </svg>
-                  </button>
-                </div>
-                <p id="forgot-confirm-password-error" class="field-message" role="alert" hidden></p>
-                <button class="button button-primary" type="submit">Cập nhật mật khẩu</button>
-              </div>
-            </div>
-            <p id="forgot-password-message" class="login-help" role="status" hidden></p>
-            <div class="forgot-password-actions">
-              <button id="forgot-register-link" class="button button-secondary" type="button" hidden>Đăng ký tài khoản</button>
-              <button id="forgot-password-cancel" class="text-action text-action--emphasis" type="button">Quay lại đăng nhập</button>
->>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
             </div>
           </form>
           <p id="signup-prompt" class="signup-prompt">Bạn chưa có tài khoản. <button id="register-link" class="text-action text-action--emphasis" type="button">Đăng ký ngay</button></p>
