@@ -1034,12 +1034,11 @@ function initializeLogin() {
       passwordError.textContent = "Vui lòng nhập mật khẩu.";
       passwordError.hidden = false;
     }
-    if (!phone || !passwordInput.value) {
-      return;
-    }
-    if (!/^0\d{9}$/.test(phone)) {
+    if (phone && !/^0\d{9}$/.test(phone)) {
       phoneError.textContent = "Số điện thoại không hợp lệ.";
       phoneError.hidden = false;
+    }
+    if (!phone || !passwordInput.value || (phone && !/^0\d{9}$/.test(phone))) {
       return;
     }
     const account = accounts.find((entry) => entry.phone === phone);
