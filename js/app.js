@@ -23,6 +23,21 @@ const currency = new Intl.NumberFormat("vi-VN", {
   maximumFractionDigits: 0,
 });
 
+function normalizeSavedRecipient(entry, defaults = {}) {
+  if (typeof entry === "string") {
+    return {
+      name: defaults.name || "",
+      phone: defaults.phone || "",
+      address: entry,
+    };
+  }
+  return {
+    name: String(entry?.name || defaults.name || ""),
+    phone: String(entry?.phone || defaults.phone || ""),
+    address: String(entry?.address || ""),
+  };
+}
+
 const roles = {
   owner: {
     label: "Chủ cửa hàng",
@@ -295,18 +310,15 @@ const roles = {
 let accounts = [];
 let flowers = [];
 
-
 /** Tạo khóa localStorage riêng cho giỏ hàng của từng khách hàng. */
 function customerCartKey(phone) {
   return `${CART_KEY_PREFIX}${phone}`;
 }
 
-
 /** Tạo khóa lưu mã các đơn hàng được khách ẩn khỏi lịch sử. */
 function customerHiddenOrdersKey(phone) {
   return `${CUSTOMER_HIDDEN_ORDERS_KEY_PREFIX}${phone}`;
 }
-
 
 /** Đọc giỏ hàng của khách từ localStorage và trả về một mảng an toàn. */
 function getCustomerCart(phone) {
@@ -321,41 +333,42 @@ function getCustomerCart(phone) {
   }
 }
 
-
 /** Lưu thay đổi giỏ hàng sau khi cập nhật số lượng hoặc xóa sản phẩm. */
 function saveCustomerCart(phone, cart) {
   if (!phone) return;
   localStorage.setItem(customerCartKey(phone), JSON.stringify(cart));
 }
 
-
 /** Kiểm tra sản phẩm còn kinh doanh và còn tồn kho để cho phép thao tác giỏ hàng. */
 function isFlowerAvailable(flower) {
   return Boolean(flower && flower.active !== false && Number(flower.stock) > 0);
 }
 
-
 /** Tính bậc khuyến mãi, số tiền giảm và gợi ý để đạt mốc tiếp theo. */
 function getCartPromotion(subtotal) {
   if (subtotal >= 500000) {
-    return { label: "Ưu đãi Hoa Xinh 15%", rate: 0.15, amount: Math.round(subtotal * 0.15), hint: "Bạn đang nhận mức ưu đãi cao nhất." };
+    return {
+      label: "Ưu đãi Hoa Xinh 15%",
+      rate: 0.15,
+      amount: Math.round(subtotal * 0.15),
+      hint: "Bạn đang nhận mức ưu đãi cao nhất.",
+    };
   }
   if (subtotal >= 300000) {
     return {
       label: "Ưu đãi Hoa Xinh 10%",
       rate: 0.1,
       amount: Math.round(subtotal * 0.1),
-      hint: `Mua thêm ${currency.format(500000 - subtotal)} để nhận ưu đãi Hoa Xinh 15%.`
+      hint: `Mua thêm ${currency.format(500000 - subtotal)} để nhận ưu đãi Hoa Xinh 15%.`,
     };
   }
   return {
     label: "Chưa đủ điều kiện khuyến mãi",
     rate: 0,
     amount: 0,
-    hint: `Mua thêm ${currency.format(300000 - subtotal)} để nhận ưu đãi Hoa Xinh 10%.`
+    hint: `Mua thêm ${currency.format(300000 - subtotal)} để nhận ưu đãi Hoa Xinh 10%.`,
   };
 }
-
 
 /** Tạo giỏ hàng mẫu cho khách demo để kiểm thử vượt tồn, hết hàng và ngừng kinh doanh. */
 function seedDemoCartEdgeCases(account) {
@@ -363,26 +376,59 @@ function seedDemoCartEdgeCases(account) {
   const demoVersionKey = `${CUSTOMER_DEMO_CART_VERSION_KEY}${account.phone}`;
   if (localStorage.getItem(demoVersionKey) === "2") return;
   const limited = flowers.find((flower) => flower.id === "rose-limited");
-  const discontinued = flowers.find((flower) => flower.id === "seasonal-wreath");
-  const outOfStock = flowers.find((flower) => flower.id === "out-of-stock-lily");
+  const discontinued = flowers.find(
+    (flower) => flower.id === "seasonal-wreath",
+  );
+  const outOfStock = flowers.find(
+    (flower) => flower.id === "out-of-stock-lily",
+  );
   const regularRose = flowers.find((flower) => flower.id === "rose-red");
   const pinkRose = flowers.find((flower) => flower.id === "rose-pink");
   if (!limited || !discontinued || !outOfStock) return;
   const demoCart = [
-    { id: limited.id, name: limited.name, price: limited.price, unit: limited.unit, quantity: 6 },
-    { id: discontinued.id, name: discontinued.name, price: discontinued.price, unit: discontinued.unit, quantity: 1 },
-    { id: outOfStock.id, name: outOfStock.name, price: outOfStock.price, unit: outOfStock.unit, quantity: 1 }
+    {
+      id: limited.id,
+      name: limited.name,
+      price: limited.price,
+      unit: limited.unit,
+      quantity: 6,
+    },
+    {
+      id: discontinued.id,
+      name: discontinued.name,
+      price: discontinued.price,
+      unit: discontinued.unit,
+      quantity: 1,
+    },
+    {
+      id: outOfStock.id,
+      name: outOfStock.name,
+      price: outOfStock.price,
+      unit: outOfStock.unit,
+      quantity: 1,
+    },
   ];
   if (regularRose && pinkRose) {
     demoCart.unshift(
-      { id: regularRose.id, name: regularRose.name, price: regularRose.price, unit: regularRose.unit, quantity: 10 },
-      { id: pinkRose.id, name: pinkRose.name, price: pinkRose.price, unit: pinkRose.unit, quantity: 3 }
+      {
+        id: regularRose.id,
+        name: regularRose.name,
+        price: regularRose.price,
+        unit: regularRose.unit,
+        quantity: 10,
+      },
+      {
+        id: pinkRose.id,
+        name: pinkRose.name,
+        price: pinkRose.price,
+        unit: pinkRose.unit,
+        quantity: 3,
+      },
     );
   }
   saveCustomerCart(account.phone, demoCart);
   localStorage.setItem(demoVersionKey, "2");
 }
-
 
 /** Cập nhật huy hiệu số lượng sản phẩm trên thanh điều hướng dùng chung. */
 function updateCartCount(phone) {
@@ -393,7 +439,6 @@ function updateCartCount(phone) {
   badge.textContent = String(count);
   badge.hidden = count === 0;
 }
-
 
 /** Đọc mảng JSON từ localStorage; nếu dữ liệu lỗi thì dùng mảng rỗng. */
 function storedArray(key, description) {
@@ -408,12 +453,10 @@ function storedArray(key, description) {
 /* Cấu hình đánh giá: số ảnh tối thiểu bắt buộc khi gửi hoặc chỉnh sửa. */
 const REVIEW_MIN_IMAGES = 2;
 
-
 /** Kiểm tra đơn hàng đã hoàn thành và đủ điều kiện đánh giá hay chưa. */
 function isOrderCompleted(order) {
   return ["Hoàn thành", "Đã giao"].includes(order?.status);
 }
-
 
 /** Lấy các đánh giá thuộc một đơn hàng của khách hàng. */
 function getOrderReviews(phone, orderId) {
@@ -422,24 +465,20 @@ function getOrderReviews(phone, orderId) {
   );
 }
 
-
 /** Kiểm tra khách hàng đã gửi đánh giá cho đơn hàng hay chưa. */
 function hasOrderReviewSubmission(phone, orderId) {
   return getOrderReviews(phone, orderId).length > 0;
 }
-
 
 /** Kiểm tra đơn hàng có thể nhận đánh giá hay chưa. */
 function canReviewOrder(phone, order) {
   return Boolean(phone) && isOrderCompleted(order);
 }
 
-
 /** Kiểm tra đánh giá của đơn hàng có thể được chỉnh sửa hay không. */
 function canEditOrderReviews(phone, orderId) {
   return hasOrderReviewSubmission(phone, orderId);
 }
-
 
 /** Đọc các file ảnh đã chọn thành data URL để lưu trong demo. */
 function readFilesAsDataUrls(fileList) {
@@ -456,7 +495,6 @@ function readFilesAsDataUrls(fileList) {
     ),
   );
 }
-
 
 /** Tạo bộ chọn số sao tương tác dùng trong form đánh giá. */
 function createStarPicker(name, selectedRating = 0) {
@@ -489,7 +527,6 @@ function createStarPicker(name, selectedRating = 0) {
   picker.append(hidden);
   return picker;
 }
-
 
 /** Tạo đơn hàng và đánh giá mẫu phục vụ luồng đánh giá demo. */
 function seedDemoCustomerOrders() {
@@ -584,7 +621,6 @@ function seedDemoCustomerOrders() {
   }
 }
 
-
 /** Tạo và cấu hình một phần tử HTML có thể tái sử dụng. */
 /* THÔNG BÁO CHO NGƯỜI DÙNG: các textContent và nội dung truyền vào makeElement bên dưới có thể chỉnh sửa. */
 function makeElement(tag, className, text) {
@@ -593,7 +629,6 @@ function makeElement(tag, className, text) {
   if (text !== undefined && text !== null) element.textContent = text;
   return element;
 }
-
 
 /** Hiển thị lỗi tải dữ liệu ở vùng thông báo chung của trang. */
 function showPageError(error) {
@@ -656,7 +691,6 @@ function createNavigationLink(
   }
   return link;
 }
-
 
 /** Tạo tìm kiếm trên nav, gợi ý sản phẩm và điều hướng đến sản phẩm. */
 function createNavigationSearch() {
@@ -763,7 +797,6 @@ function createNavigationSearch() {
   return form;
 }
 
-
 /** Tạo menu tài khoản cho thao tác xem hồ sơ và đăng xuất. */
 function createAccountMenu(account) {
   const container = document.createElement("div");
@@ -831,7 +864,6 @@ function createAccountMenu(account) {
   container.append(trigger, menu);
   return container;
 }
-
 
 /** Lắp header, trạng thái điều hướng dùng chung và cập nhật huy hiệu giỏ hàng. */
 function initializeNavigation() {
@@ -939,7 +971,6 @@ function initializeNavigation() {
   }
 }
 
-
 /** Tải tài khoản demo từ data/accounts.json. */
 async function loadAccounts() {
   const response = await fetch(new URL("data/accounts.json", document.baseURI));
@@ -979,7 +1010,6 @@ async function loadAccounts() {
   return accounts;
 }
 
-
 /** Tải sản phẩm từ data/flowers.json. */
 async function loadFlowers() {
   const response = await fetch(new URL("data/flowers.json", document.baseURI));
@@ -990,7 +1020,6 @@ async function loadFlowers() {
   flowers = data;
   return flowers;
 }
-
 
 /** Xử lý đăng nhập demo và lưu session theo vai trò. */
 function initializeLogin() {
@@ -1060,7 +1089,6 @@ function initializeLogin() {
   });
 }
 
-
 /** Xử lý đăng ký khách hàng demo và tạo session. */
 function initializeRegistration() {
   document
@@ -1102,7 +1130,6 @@ function initializeRegistration() {
       location.assign(new URL("home.html", document.baseURI));
     });
 }
-
 
 /** Hiển thị hồ sơ, thống kê chi tiêu và sổ địa chỉ. */
 function initializeProfile() {
@@ -1174,12 +1201,24 @@ function initializeProfile() {
         return;
       }
       addresses.forEach((addr, index) => {
+        const recipient = normalizeSavedRecipient(addr, {
+          name: account.name,
+          phone: account.phone,
+        });
         const item = makeElement(
           "div",
           `address-card${index === 0 ? " is-default" : ""}`,
         );
         const info = makeElement("div", "address-card-info");
-        info.append(makeElement("div", "address-card-text", addr));
+        info.append(
+          makeElement(
+            "div",
+            "address-card-text",
+            [recipient.name, recipient.phone, recipient.address]
+              .filter(Boolean)
+              .join(" · "),
+          ),
+        );
         if (index === 0) {
           info.append(makeElement("span", "default-badge", "Địa chỉ mặc định"));
         }
@@ -1241,7 +1280,13 @@ function initializeProfile() {
           `${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`,
           "Saved customer addresses",
         );
-        if (addresses.includes(newAddr)) {
+        if (
+          addresses.some(
+            (entry) =>
+              normalizeSavedRecipient(entry, { phone: account.phone })
+                .address === newAddr,
+          )
+        ) {
           if (addressMessage) {
             addressMessage.textContent = "Địa chỉ này đã có trong danh sách.";
             addressMessage.hidden = false;
@@ -1373,7 +1418,6 @@ function initializeProfile() {
   });
 }
 
-
 /** Xử lý form liên hệ hỗ trợ khách hàng trong demo. */
 function initializeContactForm(account) {
   const form = document.querySelector("#contact-form");
@@ -1416,7 +1460,6 @@ function initializeContactForm(account) {
     }
   });
 }
-
 
 /** Hiển thị sản phẩm, bộ lọc, tìm kiếm và gợi ý sản phẩm. */
 function renderFlowerProducts(account) {
@@ -1701,7 +1744,6 @@ function renderFlowerProducts(account) {
   drawProducts();
 }
 
-
 /** Kiểm tra tồn kho và thêm sản phẩm vào giỏ của khách hàng. */
 function addFlowerToCart(account, flower, quantity, message) {
   if (!isFlowerAvailable(flower)) {
@@ -1738,7 +1780,6 @@ function addFlowerToCart(account, flower, quantity, message) {
   message.hidden = false;
   return true;
 }
-
 
 /** Hiển thị chi tiết sản phẩm, giới hạn số lượng, thao tác mua và đánh giá. */
 function renderProductDetail(account) {
@@ -1858,7 +1899,11 @@ function renderProductDetail(account) {
       if (!adjusted && Number.isInteger(amount) && amount === product.stock) {
         formMessage.textContent = `Bạn đã đạt số lượng tối đa theo tồn kho: ${product.stock} ${product.unit}.`;
         formMessage.hidden = false;
-      } else if (!adjusted && Number.isInteger(amount) && amount < product.stock) {
+      } else if (
+        !adjusted &&
+        Number.isInteger(amount) &&
+        amount < product.stock
+      ) {
         formMessage.hidden = true;
       }
       decrement.disabled = !Number.isInteger(amount) || amount <= 1;
@@ -2028,7 +2073,6 @@ function renderProductDetail(account) {
   content.append(reviewsSection);
 }
 
-
 /** Hiển thị các dòng giỏ hàng, điều chỉnh tồn kho cũ, khóa sản phẩm không khả dụng và tính khuyến mãi. */
 function renderCart(account, moduleView) {
   seedDemoCartEdgeCases(account);
@@ -2089,8 +2133,16 @@ function renderCart(account, moduleView) {
     quantity.value = String(item.quantity);
     quantity.disabled = !available;
     quantity.setAttribute("aria-label", `Số lượng ${item.name}`);
-    const maxNotice = makeElement("p", "cart-max-notice", `Bạn đã đạt số lượng tối đa theo tồn kho: ${stockLimit} ${item.unit}.`);
-    maxNotice.hidden = !(available && item.quantity === stockLimit && !item.stockAdjustedNotice);
+    const maxNotice = makeElement(
+      "p",
+      "cart-max-notice",
+      `Bạn đã đạt số lượng tối đa theo tồn kho: ${stockLimit} ${item.unit}.`,
+    );
+    maxNotice.hidden = !(
+      available &&
+      item.quantity === stockLimit &&
+      !item.stockAdjustedNotice
+    );
     const increment = makeElement("button", "quantity-stepper", "+");
     increment.type = "button";
     increment.setAttribute("aria-label", `Tăng số lượng ${item.name}`);
@@ -2183,7 +2235,6 @@ function renderCart(account, moduleView) {
   moduleView.append(cartSection);
 }
 
-
 /** Hiển thị checkout, kiểm tra tồn kho và tạo đơn hàng demo. */
 function renderCheckout(account, moduleView) {
   // THÔNG BÁO CHECKOUT: thông báo giỏ không hợp lệ, địa chỉ, tồn kho và gửi đơn được tạo tại renderer này.
@@ -2262,18 +2313,23 @@ function renderCheckout(account, moduleView) {
       <div class="checkout-customer-column">
         <section class="checkout-section">
           <h2>Thông tin người nhận</h2>
-          <label>Người nhận đã lưu
-            <select id="checkout-saved-address" name="savedAddress">
-              <option value="">Người nhận đã lưu</option>
-            </select>
-          </label>
+          <div class="checkout-saved-recipient-field">
+            <label for="checkout-saved-recipient-trigger">Người nhận đã lưu</label>
+            <div class="checkout-recipient-picker">
+              <button id="checkout-saved-recipient-trigger" class="checkout-recipient-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="checkout-saved-recipient-list">
+                <span data-recipient-selection>Chưa có người nhận đã lưu</span>
+                <span class="checkout-recipient-chevron" aria-hidden="true"></span>
+              </button>
+              <div id="checkout-saved-recipient-list" class="checkout-recipient-list" role="listbox" aria-label="Người nhận đã lưu" hidden></div>
+            </div>
+          </div>
           <label>Tên người nhận<input name="name" autocomplete="name" placeholder="Tên người nhận"></label>
           <label>Số điện thoại<input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Số điện thoại"></label>
           <div class="checkout-address-fields" id="checkout-address-fields">
             <label class="checkout-new-address-label" for="checkout-address">Địa chỉ</label>
             <textarea id="checkout-address" name="address" autocomplete="street-address" rows="3" placeholder="Số nhà, đường, phường..." aria-autocomplete="list" aria-controls="checkout-address-suggestions" aria-expanded="false"></textarea>
             <div id="checkout-address-suggestions" class="checkout-address-suggestions" role="listbox" aria-label="Gợi ý địa chỉ" hidden></div>
-            <label class="checkout-save-address"><input type="checkbox" name="saveAddress">Lưu địa chỉ này cho lần mua sau</label>
+            <label class="checkout-save-address"><input type="checkbox" name="saveAddress">Lưu thông tin này cho lần mua sau</label>
           </div>
         </section>
         <section class="checkout-section checkout-delivery">
@@ -2326,38 +2382,126 @@ function renderCheckout(account, moduleView) {
   form.elements.namedItem("phone").value = account.phone;
 
   // Saved Addresses Setup (1-click auto-select)
-  const savedAddresses = storedArray(
+  const savedRecipients = storedArray(
     `${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`,
     "Saved customer addresses",
+  ).map((entry) =>
+    normalizeSavedRecipient(entry, {
+      name: account.name,
+      phone: account.phone,
+    }),
   );
-  const addressSelect = form.querySelector("#checkout-saved-address");
   const addressInput = form.querySelector("#checkout-address");
-  addressSelect.options[0].textContent = savedAddresses.length
-    ? "Chọn địa chỉ đã lưu"
-    : "Chưa có địa chỉ đã lưu";
-  savedAddresses.forEach((address, index) => {
-    const option = document.createElement("option");
-    option.value = String(index);
-    option.textContent = index === 0 ? `${address} (Mặc định)` : address;
-    addressSelect.append(option);
-  });
-  addressSelect.addEventListener("change", () => {
-    const selectedAddress =
-      addressSelect.value === ""
-        ? ""
-        : savedAddresses[Number(addressSelect.value)];
-    if (selectedAddress) {
-      addressInput.value = selectedAddress;
-      addressInput.readOnly = true;
-      form.elements.namedItem("saveAddress").checked = false;
-    } else {
+  const nameInput = form.elements.namedItem("name");
+  const phoneInput = form.elements.namedItem("phone");
+  const recipientPicker = form.querySelector(".checkout-recipient-picker");
+  const recipientTrigger = form.querySelector(
+    "#checkout-saved-recipient-trigger",
+  );
+  const recipientSelection = recipientTrigger.querySelector(
+    "[data-recipient-selection]",
+  );
+  const recipientList = form.querySelector("#checkout-saved-recipient-list");
+  const selectionPrompt = savedRecipients.length
+    ? "Chọn người nhận đã lưu"
+    : "Chưa có người nhận đã lưu";
+  let selectedRecipientIndex = null;
+
+  function closeRecipientList() {
+    recipientList.hidden = true;
+    recipientTrigger.setAttribute("aria-expanded", "false");
+  }
+
+  function resetRecipientSelection() {
+    selectedRecipientIndex = null;
+    recipientSelection.textContent = selectionPrompt;
+    recipientTrigger.removeAttribute("aria-label");
+    recipientList
+      .querySelectorAll('[role="option"][aria-selected="true"]')
+      .forEach((option) => option.setAttribute("aria-selected", "false"));
+    addressInput.readOnly = false;
+  }
+
+  function selectRecipient(index) {
+    if (index === null) {
+      resetRecipientSelection();
+      nameInput.value = account.name || "";
+      phoneInput.value = account.phone;
       addressInput.value = "";
-      addressInput.readOnly = false;
-      addressInput.focus();
+      return;
+    }
+
+    const recipient = savedRecipients[index];
+    if (!recipient) return;
+    selectedRecipientIndex = index;
+    nameInput.value = recipient.name;
+    phoneInput.value = recipient.phone;
+    addressInput.value = recipient.address;
+    addressInput.readOnly = true;
+    recipientSelection.textContent = recipient.name;
+    recipientList
+      .querySelectorAll('[role="option"]')
+      .forEach((option) =>
+        option.setAttribute(
+          "aria-selected",
+          String(option.dataset.recipientIndex === String(index)),
+        ),
+      );
+    form.elements.namedItem("saveAddress").checked = false;
+  }
+
+  function appendRecipientOption(label, index, disabled = false) {
+    const option = document.createElement(disabled ? "div" : "button");
+    if (!disabled) {
+      option.type = "button";
+      option.addEventListener("click", () => {
+        selectRecipient(index);
+        closeRecipientList();
+      });
+    } else {
+      option.setAttribute("aria-disabled", "true");
+      option.classList.add("is-empty");
+    }
+    option.classList.add("checkout-recipient-option");
+    option.setAttribute("role", "option");
+    option.setAttribute("aria-selected", "false");
+    option.textContent = label;
+    recipientList.append(option);
+  }
+
+  if (savedRecipients.length) {
+    appendRecipientOption(selectionPrompt, null);
+    savedRecipients.forEach((recipient, index) => {
+      appendRecipientOption(
+        [recipient.name, recipient.phone, recipient.address]
+          .filter(Boolean)
+          .join(" · "),
+        index,
+      );
+      recipientList.lastElementChild.dataset.recipientIndex = String(index);
+    });
+  } else {
+    appendRecipientOption(selectionPrompt, null, true);
+  }
+
+  recipientTrigger.addEventListener("click", () => {
+    const expanded = recipientTrigger.getAttribute("aria-expanded") === "true";
+    recipientList.hidden = expanded;
+    recipientTrigger.setAttribute("aria-expanded", String(!expanded));
+  });
+  recipientPicker.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeRecipientList();
+      recipientTrigger.focus();
     }
   });
-  addressInput.addEventListener("input", () => {
-    if (addressSelect.value !== "") addressSelect.value = "";
+  document.addEventListener("click", (event) => {
+    if (!recipientPicker.contains(event.target)) closeRecipientList();
+  });
+  [nameInput, phoneInput, addressInput].forEach((field) => {
+    field.addEventListener("input", () => {
+      if (selectedRecipientIndex !== null) resetRecipientSelection();
+    });
   });
 
   const addressSuggestions = form.querySelector(
@@ -2393,7 +2537,6 @@ function renderCheckout(account, moduleView) {
   function selectAddress(address) {
     addressInput.value = address;
     addressInput.readOnly = false;
-    addressSelect.value = "";
     closeAddressSuggestions();
   }
 
@@ -2728,12 +2871,17 @@ function renderCheckout(account, moduleView) {
     if (
       fulfillment === "delivery" &&
       data.get("saveAddress") === "on" &&
-      !savedAddresses.includes(address)
+      !savedRecipients.some(
+        (recipient) =>
+          recipient.name === name &&
+          recipient.phone === phone &&
+          recipient.address === address,
+      )
     ) {
-      savedAddresses.push(address);
+      savedRecipients.push({ name, phone, address });
       localStorage.setItem(
         `${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`,
-        JSON.stringify(savedAddresses),
+        JSON.stringify(savedRecipients),
       );
     }
 
@@ -2778,7 +2926,6 @@ function renderCheckout(account, moduleView) {
 
   moduleView.append(form);
 }
-
 
 /** Hiển thị lịch sử đơn, bộ lọc, đơn đã ẩn và thao tác đánh giá/hủy. */
 function renderOrders(account, moduleView) {
@@ -3125,7 +3272,6 @@ function renderOrders(account, moduleView) {
   drawOrders();
 }
 
-
 /** Hiển thị form đánh giá đơn hàng, số sao, nội dung và ảnh tải lên. */
 function renderReviews(account, moduleView) {
   // THÔNG BÁO ĐÁNH GIÁ: nội dung kiểm tra số sao, nội dung viết và ảnh được tạo tại renderer form này.
@@ -3332,7 +3478,6 @@ function renderReviews(account, moduleView) {
   moduleView.append(form);
 }
 
-
 /** Hiển thị module placeholder cho phần khung chức năng theo vai trò. */
 function renderModule(moduleView, feature) {
   moduleView.replaceChildren();
@@ -3359,7 +3504,6 @@ function renderModule(moduleView, feature) {
 
   moduleView.append(description, taskList);
 }
-
 
 /** Hiển thị thông tin dashboard và lối tắt chức năng theo vai trò. */
 function renderRoleDashboard(account) {
@@ -3451,7 +3595,6 @@ function renderRoleDashboard(account) {
   });
 }
 
-
 /** Điều phối renderer phù hợp cho trang chức năng theo vai trò. */
 function renderWorkspace(roleKey, featureId) {
   const role = roles[roleKey];
@@ -3483,7 +3626,6 @@ function renderWorkspace(roleKey, featureId) {
     renderModule(document.querySelector("#module-view"), feature);
   }
 }
-
 
 /** Thêm nút quay lại và nút lên đầu trang dùng chung. */
 function initializeBackButton() {
