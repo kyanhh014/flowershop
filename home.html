@@ -1,0 +1,62 @@
+﻿<!doctype html>
+<html lang="vi">
+<!-- Giải thích cấu trúc trang: Trang chủ công khai giới thiệu cửa hàng và dẫn tới danh mục hoa. -->
+<head>
+  <!-- Phần head khai báo ngôn ngữ, viewport responsive, đường dẫn tài nguyên và script dùng chung. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff7f7">
+  <meta name="description" content="Hoa tươi mỗi ngày tại cửa hàng Hoa Xinh">
+  <title>Trang chủ | Hoa Xinh</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js" defer></script></head>
+<body>
+  <!-- data-page/data-role/data-feature là metadata để app.js xác định renderer và quyền truy cập của trang. -->
+  <div class="page-shell">
+    <a class="skip-link" href="#home">Bỏ qua điều hướng</a>
+    <!-- Header giới thiệu thương hiệu và nav cơ bản dành cho khách chưa đăng nhập. -->
+        <!-- Header dùng chung gồm banner thương hiệu; nav có thể tĩnh hoặc được app.js dựng động. -->
+<header class="site-header">
+      <div class="identity-banner">
+        <a class="brand-lockup" href="home.html" aria-label="Hoa Xinh - Trang chủ">
+          <img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh - Trao hoa, gửi yêu thương">
+        </a>
+      </div>
+      <nav class="main-nav" aria-label="Điều hướng chính">
+        <div class="nav-inner">
+          <a class="nav-link" href="home.html" aria-current="page"><span>Trang chủ</span></a>
+          <a class="nav-link" href="pages/customer/customer-products.html"><span>Sản phẩm</span></a>
+          <a class="nav-link" href="pages/customer/customer-contact.html"><span>Liên hệ</span></a>
+          <a class="nav-link" href="index.html#account"><span>Tài khoản</span></a>
+          <a class="nav-link nav-icon" href="pages/customer/customer-cart.html" aria-label="Giỏ hàng" title="Giỏ hàng">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          </a>
+        </div>
+      </nav>
+    </header>
+    <!-- Trang chủ giới thiệu nhanh cửa hàng và dẫn đến danh mục sản phẩm. -->
+        <!-- Vùng nội dung chính của trang: HTML tạo khung, còn dữ liệu và thao tác thường do app.js bổ sung. -->
+<main id="home" class="main-content">
+      <section class="home-hero">
+        <p class="eyebrow">HOA TƯƠI MỖI NGÀY</p>
+        <h1>Gửi yêu thương qua từng bó hoa</h1>
+        <p>Chọn một sắc hoa thật xinh để lưu giữ những khoảnh khắc đáng nhớ.</p>
+        <a class="button button-primary" href="pages/customer/customer-products.html">Khám phá sản phẩm</a>
+      </section>
+      <section class="home-intro" aria-labelledby="home-intro-title">
+        <span class="home-flower" aria-hidden="true">❀</span>
+        <div>
+          <h2 id="home-intro-title">Chào mừng đến với Hoa Xinh</h2>
+          <p>Hoa Xinh mang đến những mẫu hoa tươi được chăm chút mỗi ngày. Bạn có thể xem danh mục sản phẩm tự do; đăng nhập để sử dụng giỏ hàng và các chức năng đặt hàng.</p>
+        </div>
+      </section>
+    </main>
+    <!-- Footer dùng chung cho các trang công khai. -->
+        <!-- Footer dùng chung hiển thị nhận diện, giới thiệu và thông tin liên hệ của Hoa Xinh. -->
+<footer class="site-footer">
+      <div class="footer-inner"><img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Thông tin giới thiệu và liên hệ cửa hàng Hoa Xinh"></div>
+      <div class="footer-bottom">© 2026 Hoa Xinh · Demo giao diện cửa hàng hoa</div>
+    </footer>
+  </div>
+</body>
+</html>

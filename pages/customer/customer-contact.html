@@ -1,0 +1,81 @@
+﻿<!doctype html>
+<html lang="vi">
+<!-- Giải thích cấu trúc trang: Trang gửi liên hệ tới cửa hàng. -->
+<head>
+  <!-- Phần head khai báo ngôn ngữ, viewport responsive, đường dẫn tài nguyên và script dùng chung. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="../../">
+  <meta name="theme-color" content="#fff7f7">
+  <title>Liên hệ cửa hàng | Hoa Xinh</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js" defer></script></head>
+<body data-page="workspace" data-role="customer" data-feature="contact">
+  <!-- data-page/data-role/data-feature là metadata để app.js xác định renderer và quyền truy cập của trang. -->
+  <div class="page-shell">
+    <a class="skip-link" href="#contact-form">Bỏ qua điều hướng</a>
+        <!-- Header dùng chung gồm banner thương hiệu; nav có thể tĩnh hoặc được app.js dựng động. -->
+<header class="site-header">
+      <div class="identity-banner">
+        <a class="brand-lockup" href="home.html" aria-label="Hoa Xinh - Trang chủ">
+          <img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh - Trao hoa, gửi yêu thương">
+        </a>
+      </div>
+      <nav class="main-nav" aria-label="Điều hướng chính">
+        <div class="nav-inner">
+          <a class="nav-link" href="home.html"><span>Trang chủ</span></a>
+          <a class="nav-link" href="pages/customer/customer-products.html"><span>Sản phẩm</span></a>
+          <a class="nav-link" href="pages/customer/customer-contact.html" aria-current="page">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.2 11 11 0 0 0 3.5.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1A11 11 0 0 0 9 7.5a1 1 0 0 1-.2 1z"/></svg>
+            <span>Liên hệ</span>
+          </a>
+          <a class="nav-link" href="pages/customer/customer-cart.html"><span>Tài khoản</span></a>
+          <a class="nav-link nav-icon" href="pages/customer/customer-cart.html" aria-label="Giỏ hàng" title="Giỏ hàng">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+        <!-- Vùng nội dung chính của trang: HTML tạo khung, còn dữ liệu và thao tác thường do app.js bổ sung. -->
+<main class="main-content contact-page">
+      <div class="contact-page-heading">
+        <h1>Liên hệ cửa hàng</h1>
+      </div>
+      <section class="contact-card" aria-label="Gửi liên hệ đến cửa hàng">
+                <!-- Form liên hệ được initializeContactForm() kiểm tra và lưu ở localStorage của demo. -->
+<form id="contact-form">
+          <div class="contact-customer-details">
+            <p>Tên khách hàng: <span id="contact-customer-name"></span></p>
+            <p>Số điện thoại: <span id="contact-customer-phone"></span></p>
+          </div>
+          <label for="contact-subject">Chủ đề</label>
+          <select id="contact-subject" name="subject" required>
+            <option value="">Chọn chủ đề</option>
+            <option value="Tư vấn sản phẩm">Tư vấn sản phẩm</option>
+            <option value="Hỏi về đơn hàng">Hỏi về đơn hàng</option>
+            <option value="Góp ý dịch vụ">Góp ý dịch vụ</option>
+            <option value="Khác">Khác</option>
+          </select>
+          <label for="contact-content">Nội dung liên hệ</label>
+          <textarea id="contact-content" name="content" rows="5" placeholder="Vui lòng nhập nội dung bạn muốn liên hệ..." required></textarea>
+          <p id="contact-message" class="form-message" role="alert" hidden></p>
+          <p id="contact-status" class="contact-status" role="status" hidden></p>
+          <div class="contact-submit-row">
+            <p id="page-error" class="form-message" role="alert" hidden></p>
+            <button class="button button-primary" type="submit">Gửi</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+        <!-- Footer dùng chung hiển thị nhận diện, giới thiệu và thông tin liên hệ của Hoa Xinh. -->
+<footer class="site-footer">
+      <div class="footer-inner">
+        <img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Thông tin giới thiệu và liên hệ cửa hàng Hoa Xinh">
+      </div>
+      <div class="footer-bottom">© 2026 Hoa Xinh · Demo giao diện cửa hàng hoa</div>
+    </footer>
+  </div>
+</body>
+</html>

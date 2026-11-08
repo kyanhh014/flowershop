@@ -1,0 +1,44 @@
+﻿<!doctype html>
+<html lang="vi">
+<!-- Giải thích cấu trúc trang: Dashboard dùng chung cho chủ cửa hàng và các nhóm nhân viên. -->
+<head>
+  <!-- Phần head khai báo ngôn ngữ, viewport responsive, đường dẫn tài nguyên và script dùng chung. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="../">
+  <meta name="theme-color" content="#fdf8f8">
+  <title>Trang chủ | Hoa Xinh</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js" defer></script></head>
+<body data-page="dashboard">
+  <!-- data-page/data-role/data-feature là metadata để app.js xác định renderer và quyền truy cập của trang. -->
+  <div class="page-shell">
+    <a class="skip-link" href="#dashboard-content">Bỏ qua điều hướng</a>
+        <!-- Header dùng chung gồm banner thương hiệu; nav có thể tĩnh hoặc được app.js dựng động. -->
+<header class="site-header">
+      <div class="identity-banner">
+        <a class="brand-lockup" href="home.html" aria-label="Hoa Xinh - Trang chủ">
+          <img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh - Trao hoa, gửi yêu thương">
+        </a>
+      </div>
+      <nav class="main-nav" aria-label="Điều hướng chính"><div class="nav-inner"></div></nav>
+    </header>
+        <!-- Vùng nội dung chính của trang: HTML tạo khung, còn dữ liệu và thao tác thường do app.js bổ sung. -->
+<main id="dashboard-content" class="main-content role-dashboard">
+      <h1 id="dashboard-title" class="role-dashboard-title"></h1>
+      <div class="role-dashboard-layout">
+        <section id="dashboard-profile" class="dashboard-profile-card" aria-label="Thông tin tài khoản"></section>
+        <nav id="dashboard-actions" class="dashboard-actions" aria-label="Chức năng theo vai trò"></nav>
+      </div>
+      <p class="dashboard-disclaimer">Demo giao diện; thao tác chưa kết nối backend.</p>
+    </main>
+        <!-- Footer dùng chung hiển thị nhận diện, giới thiệu và thông tin liên hệ của Hoa Xinh. -->
+<footer class="site-footer">
+      <div class="footer-inner">
+        <img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Thông tin giới thiệu và liên hệ cửa hàng Hoa Xinh">
+      </div>
+      <div class="footer-bottom">© 2026 Hoa Xinh · Demo giao diện cửa hàng hoa</div>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+﻿<!doctype html>
+<html lang="vi">
+<!-- Giải thích cấu trúc trang: Trang danh sách hoa và phụ kiện với tìm kiếm, lọc và điều hướng chi tiết. -->
+<head>
+  <!-- Phần head khai báo ngôn ngữ, viewport responsive, đường dẫn tài nguyên và script dùng chung. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="../../">
+  <meta name="theme-color" content="#fdf8f8">
+  <meta name="description" content="Tìm hoa tươi và phụ kiện cắm hoa tại Hoa Xinh">
+  <title>Sản phẩm | Hoa Xinh</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js" defer></script></head>
+<body data-page="products">
+  <!-- data-page/data-role/data-feature là metadata để app.js xác định renderer và quyền truy cập của trang. -->
+  <div class="page-shell">
+    <a class="skip-link" href="#products">Bỏ qua điều hướng</a>
+    <!-- Header và nav được JavaScript bổ sung theo trạng thái tài khoản hiện tại. -->
+        <!-- Header dùng chung gồm banner thương hiệu; nav có thể tĩnh hoặc được app.js dựng động. -->
+<header class="site-header">
+      <div class="identity-banner">
+        <a class="brand-lockup" href="home.html" aria-label="Hoa Xinh - Trang chủ">
+          <img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh - Trao hoa, gửi yêu thương">
+        </a>
+      </div>
+      <nav class="main-nav" aria-label="Điều hướng chính">
+        <div class="nav-inner">
+          <a class="nav-link" href="home.html"><span>Trang chủ</span></a>
+          <a class="nav-link" href="pages/customer/customer-products.html" aria-current="page"><span>Sản phẩm</span></a>
+          <a class="nav-link" href="pages/customer/customer-contact.html"><span>Liên hệ</span></a>
+          <a class="nav-link" href="pages/customer/customer-cart.html"><span>Tài khoản</span></a>
+          <a class="nav-link nav-icon" href="pages/customer/customer-cart.html" aria-label="Giỏ hàng" title="Giỏ hàng">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            <span id="cart-count" class="cart-count" hidden>0</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Khung trang sản phẩm; danh mục và thẻ sản phẩm được render từ data/flowers.json. -->
+        <!-- Vùng nội dung chính của trang: HTML tạo khung, còn dữ liệu và thao tác thường do app.js bổ sung. -->
+<main id="products" class="main-content product-page">
+      <section class="welcome-copy">
+        <p class="eyebrow">HOA TƯƠI &amp; PHỤ KIỆN</p>
+        <h1>Sản phẩm Hoa Xinh</h1>
+        <p class="welcome-description">Tìm hoa tươi theo cành và phụ kiện cần thiết để cắm, gói và trang trí hoa.</p>
+      </section>
+      <!-- Thanh lọc sticky: chọn nhóm, tìm kiếm và hiển thị số kết quả. -->
+      <section class="product-toolbar" aria-label="Tìm kiếm và lọc sản phẩm">
+        <div class="product-category-picker">
+          <button id="product-category-toggle" class="product-category-toggle" type="button" aria-expanded="false" aria-controls="product-categories" aria-label="Chọn danh mục sản phẩm">
+            <span class="category-menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+          </button>
+          <aside id="product-categories" class="product-category-menu" aria-label="Danh mục sản phẩm" hidden></aside>
+        </div>
+        <label class="product-search">
+          <span>Tìm kiếm sản phẩm</span>
+          <span class="product-search-field">
+            <input id="product-search" type="search" placeholder="Ví dụ: hoa hồng, giấy gói, ruy băng...">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.2 16.2 5 5"/></svg>
+          </span>
+        </label>
+        <p id="product-count" class="product-count" aria-live="polite"></p>
+      </section>
+      <p id="product-message" class="contact-status" role="status" hidden></p>
+      <p id="page-error" class="form-message" role="alert" hidden></p>
+      <!-- JavaScript đổ các thẻ sản phẩm vào đây và gắn link sang trang chi tiết. -->
+            <!-- Điểm mount danh sách sản phẩm; renderFlowerProducts() tạo các thẻ từ flowers.json. -->
+<section id="products-grid" class="flower-grid" aria-label="Danh sách sản phẩm"></section>
+      <aside class="guest-shopping-note">
+        <p id="shopping-note">Bạn có thể xem danh mục hoa mà không cần đăng nhập.</p>
+        <a id="shopping-login-link" class="button" href="index.html">Đăng nhập để thêm sản phẩm vào giỏ</a>
+      </aside>
+    </main>
+
+        <!-- Footer dùng chung hiển thị nhận diện, giới thiệu và thông tin liên hệ của Hoa Xinh. -->
+<footer class="site-footer">
+      <div class="footer-inner">
+        <img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Thông tin giới thiệu và liên hệ cửa hàng Hoa Xinh">
+      </div>
+      <div class="footer-bottom">© 2026 Hoa Xinh · Demo giao diện cửa hàng hoa</div>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+﻿<!doctype html>
+<html lang="vi">
+<!-- Giải thích cấu trúc trang: Trang đăng ký tài khoản khách hàng demo. -->
+<head>
+  <!-- Phần head khai báo ngôn ngữ, viewport responsive, đường dẫn tài nguyên và script dùng chung. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><base href="../../">
+  <title>Đăng ký tài khoản | Hoa Xinh</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js" defer></script></head>
+<body data-page="register">
+  <!-- data-page/data-role/data-feature là metadata để app.js xác định renderer và quyền truy cập của trang. -->
+  <div class="page-shell">
+        <!-- Header dùng chung gồm banner thương hiệu; nav có thể tĩnh hoặc được app.js dựng động. -->
+<header class="site-header">
+      <div class="identity-banner"><a class="brand-lockup" href="index.html"><img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh flower shop header"></a></div>
+      <nav class="main-nav" aria-label="Điều hướng chính"><div class="nav-inner"></div></nav>
+    </header>
+        <!-- Vùng nội dung chính của trang: HTML tạo khung, còn dữ liệu và thao tác thường do app.js bổ sung. -->
+<main class="main-content">
+      <section class="welcome-copy"><h1>Đăng ký tài khoản</h1></section>
+      <section class="login-layout"><div class="login-card">
+        <h2 class="registration-title">Tạo tài khoản</h2>
+        <form id="registration-form">
+          <label for="register-name">Họ tên</label>
+          <input id="register-name" name="name" autocomplete="name" placeholder="Nhập họ tên" required>
+          <label for="register-phone">Số điện thoại</label>
+          <input id="register-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Nhập số điện thoại" required>
+          <p id="registration-message" class="login-help" role="status" hidden></p>
+          <button class="button login-button" type="submit">TẠO TÀI KHOẢN</button>
+        </form>
+        <p class="signup-prompt"><a class="text-action text-action--emphasis" href="index.html">Quay lại đăng nhập</a></p>
+      </div></section>
+    </main>
+        <!-- Footer dùng chung hiển thị nhận diện, giới thiệu và thông tin liên hệ của Hoa Xinh. -->
+<footer class="site-footer"><div class="footer-inner"><img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Hoa Xinh footer with store contact information"></div><div class="footer-bottom">© 2026 Hoa Xinh · Demo giao diện cửa hàng hoa</div></footer>
+  </div>
+</body>
+</html>

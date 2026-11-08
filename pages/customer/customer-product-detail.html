@@ -1,0 +1,45 @@
+﻿<!doctype html>
+<html lang="vi">
+<!-- Giải thích cấu trúc trang: Trang chi tiết sản phẩm với số lượng, thêm giỏ, mua ngay, liên quan và đánh giá. -->
+<head>
+  <!-- Phần head khai báo ngôn ngữ, viewport responsive, đường dẫn tài nguyên và script dùng chung. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="../../">
+  <meta name="theme-color" content="#fdf8f8">
+  <meta name="description" content="Thông tin chi tiết và đặt mua hoa tươi tại Hoa Xinh">
+  <title>Chi tiết sản phẩm | Hoa Xinh</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js" defer></script></head>
+<body data-page="product-detail">
+  <!-- data-page/data-role/data-feature là metadata để app.js xác định renderer và quyền truy cập của trang. -->
+  <div class="page-shell">
+    <a class="skip-link" href="#product-detail">Bỏ qua điều hướng</a>
+        <!-- Header dùng chung gồm banner thương hiệu; nav có thể tĩnh hoặc được app.js dựng động. -->
+<header class="site-header">
+      <div class="identity-banner">
+        <a class="brand-lockup" href="home.html" aria-label="Hoa Xinh - Trang chủ">
+          <img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh - Trao hoa, gửi yêu thương">
+        </a>
+      </div>
+      <nav class="main-nav" aria-label="Điều hướng chính"><div class="nav-inner"></div></nav>
+    </header>
+    <!-- Nội dung chi tiết, mua ngay, thêm giỏ và đánh giá được render theo query id. -->
+        <!-- Vùng nội dung chính của trang: HTML tạo khung, còn dữ liệu và thao tác thường do app.js bổ sung. -->
+<main id="product-detail" class="main-content product-detail-page">
+      <nav class="product-breadcrumb" id="product-breadcrumb" aria-label="Đường dẫn">
+        <a href="home.html">Trang chủ</a><span aria-hidden="true">/</span>
+        <a href="pages/customer/customer-products.html">Sản phẩm</a><span aria-hidden="true">/</span>
+      </nav>
+      <p id="page-error" class="form-message" role="alert" hidden></p>
+    </main>
+        <!-- Footer dùng chung hiển thị nhận diện, giới thiệu và thông tin liên hệ của Hoa Xinh. -->
+<footer class="site-footer">
+      <div class="footer-inner">
+        <img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Thông tin giới thiệu và liên hệ cửa hàng Hoa Xinh">
+      </div>
+      <div class="footer-bottom">© 2026 Hoa Xinh · Demo giao diện cửa hàng hoa</div>
+    </footer>
+  </div>
+</body>
+</html>
