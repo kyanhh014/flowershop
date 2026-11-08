@@ -31,6 +31,17 @@ body {
   background: #fdf8f8;
 }
 
+button, input, select { font: inherit; }
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none;
+  visibility: hidden;
+  pointer-events: none;
+}
+h1, h2, h3, h4, p { color: #7b1111; font-family: "Muli", "Segoe UI", Arial, sans-serif; }
+a { color: inherit; }
+[hidden] { display: none !important; }
 button,
 input,
 select {
@@ -2580,6 +2591,13 @@ a:focus-visible {
   background: var(--rose-50);
   font-size: 0.82rem;
 }
+.login-card { width: min(100%, 565px); margin-inline: auto; padding: 16px 26px 18px; border-radius: 10px; }
+#login-form { display: grid; }
+#login-form > label { margin: 0 0 6px; color: var(--rose-950); font-size: 1.08rem; font-weight: 500; }
+#login-form > input, .password-field > input {
+  width: 100%;
+  min-height: 48px;
+  margin: 0 0 10px;
 .registration-view h2 {
   margin: 0 0 14px;
   color: var(--rose-950);
@@ -2600,11 +2618,43 @@ a:focus-visible {
   border: 2px solid #d393a3;
   border-radius: 9px;
 }
+#login-form input::placeholder { color: #746b6d; font-style: italic; }
+#forgot-password-form input::placeholder { color: #746b6d; font-size: .98rem; font-style: italic; }
+.password-field { position: relative; }
+.password-field > input { width: 100%; padding-right: 3rem; }
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: .6rem;
+  display: grid;
+  width: 2.2rem;
+  height: 2.2rem;
+  place-items: center;
+  padding: .3rem;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
 .registration-back {
   display: block;
   margin: 12px auto 0;
   color: var(--rose-950);
 }
+#login-form .password-toggle { top: calc(50% - 7px); }
+#forgot-new-password-fields .password-toggle { top: calc(50% - 4px); }
+.password-toggle:hover { background: var(--rose-100); }
+.password-toggle[hidden] { display: none; }
+.password-toggle svg { width: 1.35rem; fill: none; stroke: currentColor; stroke-width: 1.7; }
+.password-toggle .eye-slash { display: block; }
+.password-toggle.is-visible .eye-slash { display: none; }
+.login-options { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin: 1px 0 14px; }
+.remember-option { display: inline-flex; align-items: center; gap: .55rem; cursor: pointer; }
+.remember-option input { width: 1.15rem; height: 1.15rem; margin: 0; accent-color: var(--rose-800); }
+.remember-option span, .text-action { color: var(--ink); font-size: .92rem; }
+.text-action { padding: .15rem 0; border: 0; background: none; cursor: pointer; text-decoration: none; }
+.text-action:hover { color: var(--rose-950); text-decoration: underline; }
+.text-action--emphasis { color: var(--rose-950); font-weight: 700; }
+.button {
+  display: inline-flex;
 .registration-note {
   margin: 10px 0 0;
   color: var(--muted);
@@ -2671,6 +2721,17 @@ a:focus-visible {
   color: var(--rose-950);
   font-size: 1rem;
 }
+#forgot-send-otp { width: min(100%, 220px); justify-self: center; }
+#forgot-verify-otp, #forgot-new-password-fields > .button-primary { width: min(100%, 220px); justify-self: center; }
+.login-button:disabled { cursor: wait; opacity: .7; }
+.form-message { margin: 0 0 12px; color: #9c2f46; font-size: .87rem; }
+.field-message { margin: 0; color: #9c2f46; font-size: .87rem; }
+#login-form .field-message { margin: 0 0 10px; }
+.login-help { margin: 0 0 .75rem; color: var(--muted); font-size: .82rem; }
+.otp-countdown { margin: 0; color: var(--muted); font-size: .87rem; text-align: center; }
+.forgot-password-form { display: grid; gap: 10px; }
+.forgot-password-form h2 { margin: 0 0 4px; color: var(--rose-950); font-size: 1.15rem; }
+.forgot-password-form input, #password-form input {
 #contact-subject,
 #contact-content {
   width: 100%;
@@ -2685,6 +2746,58 @@ a:focus-visible {
   min-height: 44px;
   padding: 8px 12px;
 }
+.forgot-password-form > #forgot-otp-fields, #forgot-new-password-fields { display: grid; gap: 10px; }
+.forgot-password-form .password-field, #password-form .password-field { width: 100%; }
+#forgot-register-link { margin-right: auto; }
+.forgot-password-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+.signup-prompt { margin: 15px 0 0; color: var(--ink); font-size: .9rem; text-align: center; }
+
+.dashboard-content { display: flex; align-items: flex-start; }
+.dashboard-card, .workspace-card { width: 100%; padding: 26px; }
+.page-back-button, .page-top-button { display: grid; width: 44px; height: 44px; min-height: 44px; place-items: center; padding: 0; border-radius: 50%; }
+.page-back-button { position: fixed; z-index: 30; top: calc(var(--main-nav-bottom, var(--main-nav-height, 42px)) + 12px); left: 16px; margin: 0; box-shadow: 0 3px 12px rgba(100, 43, 59, .2); }
+.page-back-button:hover:not(:disabled) { text-decoration: none; }
+.page-back-button svg, .page-top-button svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2; }
+.page-top-button { position: fixed; z-index: 30; right: 22px; bottom: 22px; box-shadow: 0 3px 12px rgba(100, 43, 59, .2); }
+.page-top-button[hidden] { display: none; }
+.module-view { min-width: 0; }
+.module-view > h2 { margin: 0 0 .45rem; color: var(--rose-950); font-size: 1.4rem; }
+.module-view > p { color: var(--muted); line-height: 1.5; }
+.module-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+.module-card {
+  display: block;
+  min-height: 120px;
+  padding: 16px;
+  border: 1px solid #d393a3;
+  border-radius: 10px;
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+.module-card:hover { background: #fff8f8; box-shadow: 0 3px 8px #642b3b18; transform: translateY(-2px); }
+.module-card h3 { margin: 0 0 .5rem; color: var(--rose-950); font-size: 1rem; }
+.module-card p { margin: 0; color: var(--muted); font-size: .86rem; line-height: 1.5; }
+.module-back { display: inline-block; margin-bottom: 12px; color: var(--rose-800); font-size: .88rem; text-decoration: none; }
+.module-back:hover { text-decoration: underline; }
+.module-view > .module-description { margin-bottom: 1rem; }
+.module-view > h3 { color: var(--rose-950); font-size: 1rem; }
+.module-task-list { display: grid; gap: 10px; }
+.role-dashboard-title { margin: 0 0 22px; color: var(--rose-950); font-size: clamp(1.7rem, 4vw, 2.4rem); text-align: center; }
+.role-dashboard-layout { display: grid; grid-template-columns: minmax(270px, .9fr) minmax(0, 1.5fr); align-items: start; gap: clamp(24px, 6vw, 68px); }
+.dashboard-profile-card { padding: 18px; border: 1px solid #e8bbc6; border-radius: 12px; background: #fff; }
+.dashboard-profile-card h2 { margin: 0 0 16px; color: var(--rose-950); font-size: 1.15rem; }
+.dashboard-profile-details { display: grid; grid-template-columns: minmax(85px, .7fr) minmax(0, 1.3fr); gap: 12px 10px; margin: 0; font-size: .92rem; }
+.dashboard-profile-details dt { color: var(--rose-950); font-weight: 600; }
+.dashboard-profile-details dd { margin: 0; color: var(--ink); overflow-wrap: anywhere; }
+.dashboard-actions { display: grid; gap: 16px; }
+.dashboard-action-card { display: grid; grid-template-columns: 88px minmax(0, 1fr); align-items: center; gap: 20px; min-height: 108px; padding: 10px 12px; border: 1px solid #e8bbc6; border-radius: 12px; background: #fff; color: var(--rose-950); text-decoration: none; transition: background-color .15s ease, border-color .15s ease; }
+.dashboard-action-card:hover, .dashboard-action-card:focus-visible { border-color: #c85c72; background: #fff8f8; }
+.dashboard-action-icon { display: grid; width: 88px; height: 88px; place-items: center; border-radius: 12px; background: #f2d9de; color: var(--rose-800); font-size: 1.45rem; font-weight: 700; }
+.dashboard-action-title { font-size: clamp(1rem, 2vw, 1.3rem); line-height: 1.4; }
+.module-task {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
 #contact-content {
   min-height: 145px;
   padding: 10px 12px;
@@ -2713,6 +2826,31 @@ a:focus-visible {
 .contact-submit-row .form-message {
   margin: 0;
 }
+#registration-form .password-field { margin: 0 0 13px; }
+#registration-form .password-field > input { margin: 0; }
+#registration-form input::placeholder { color: #746b6d; font-size: .98rem; font-style: italic; }
+#registration-form .field-message { margin: -3px 0 10px; }
+.registration-back { display: block; margin: 12px 0 0; color: var(--rose-950); text-align: right; }
+.registration-note { margin: 10px 0 0; color: var(--muted); font-size: .76rem; line-height: 1.45; text-align: center; }
+.dashboard-disclaimer { margin: 17px 0 0; color: var(--muted); font-size: .8rem; }
+.contact-page { width: min(100% - 36px, 900px); }
+.contact-page-heading { display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 16px; }
+.contact-page-heading h1 { margin: 0; color: #7b1111; font-family: "Muli", "Segoe UI", Arial, sans-serif; font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 700; text-align: center; text-transform: uppercase; }
+.contact-page-heading .button { position: absolute; right: 0; min-height: 38px; padding: 6px 12px; font-size: .82rem; }
+.contact-card { width: min(100%, 620px); margin: 0 auto; padding: 18px 22px 22px; border: 1.5px solid #c890a0; border-radius: 15px; background: #fff; box-shadow: 0 0 8px rgba(200, 144, 160, .45); }
+#contact-form { display: grid; }
+.contact-customer-details { margin: 0 0 10px; }
+.contact-customer-details p { margin: 4px 0; color: var(--rose-950); font-size: 1rem; }
+.contact-customer-details span { color: var(--muted); }
+#contact-form > label { margin: 0 0 6px; color: var(--rose-950); font-size: 1rem; }
+#contact-subject, #contact-content { width: 100%; margin: 0 0 12px; border: 1.5px solid #c890a0; border-radius: 9px; background: #fff; color: var(--ink); font: inherit; }
+#contact-subject { min-height: 44px; padding: 8px 12px; }
+#contact-content { min-height: 145px; padding: 10px 12px; resize: vertical; }
+#contact-subject:invalid, #contact-content::placeholder { color: #746b6d; font-style: italic; }
+.contact-submit-row { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-top: 2px; }
+.contact-submit-row .button { min-width: 90px; }
+.contact-status { margin: 0 0 10px; color: #356c47; font-size: .9rem; }
+.contact-submit-row .form-message { margin: 0; }
 
 /* Footer thương hiệu, giới thiệu và thông tin liên hệ cửa hàng. */
 .site-footer {
