@@ -14,6 +14,21 @@ const CART_KEY_PREFIX = "hoaxinh-demo-cart:";
 const roleHome = (role) => role.dashboard || role.features[0].file;
 const currency = new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND", maximumFractionDigits: 0 });
 
+function normalizeSavedRecipient(entry, defaults = {}) {
+  if (typeof entry === "string") {
+    return {
+      name: defaults.name || "",
+      phone: defaults.phone || "",
+      address: entry,
+    };
+  }
+  return {
+    name: String(entry?.name || defaults.name || ""),
+    phone: String(entry?.phone || defaults.phone || ""),
+    address: String(entry?.address || ""),
+  };
+}
+
 const roles = {
   owner: {
     label: "Chủ cửa hàng",
@@ -1008,9 +1023,18 @@ function initializeProfile() {
         return;
       }
       addresses.forEach((addr, index) => {
+        const recipient = normalizeSavedRecipient(addr, { name: account.name, phone: account.phone });
         const item = makeElement("div", `address-card${index === 0 ? " is-default" : ""}`);
         const info = makeElement("div", "address-card-info");
-        info.append(makeElement("div", "address-card-text", addr));
+        info.append(
+          makeElement(
+            "div",
+            "address-card-text",
+            [recipient.name, recipient.phone, recipient.address]
+              .filter(Boolean)
+              .join(" · "),
+          ),
+        );
         if (index === 0) {
           info.append(makeElement("span", "default-badge", "Địa chỉ mặc định"));
         }
@@ -1054,7 +1078,7 @@ function initializeProfile() {
           return;
         }
         const addresses = storedArray(`${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`, "Saved customer addresses");
-        if (addresses.includes(newAddr)) {
+        if (addresses.some((address) => normalizeSavedRecipient(address, { name: account.name, phone: account.phone }).address === newAddr)) {
           if (addressMessage) {
             addressMessage.textContent = "Địa chỉ này đã có trong danh sách.";
             addressMessage.hidden = false;
@@ -1750,6 +1774,7 @@ function renderCheckout(account, moduleView) {
 
   const form = document.createElement("form");
   form.id = "checkout-form";
+  form.noValidate = true;
   form.innerHTML = `
     <fieldset class="checkout-fulfillment">
       <legend>Vui lòng chọn cách nhận hàng</legend>
@@ -1762,15 +1787,21 @@ function renderCheckout(account, moduleView) {
           <h2>Thông tin người nhận</h2>
           <label>Họ tên người nhận<input name="name" autocomplete="name" required></label>
           <label>Số điện thoại<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required></label>
+          <div class="checkout-saved-recipient-field">
+            <label for="checkout-saved-recipient-trigger">Người nhận đã lưu</label>
+            <div class="checkout-recipient-picker">
+              <button id="checkout-saved-recipient-trigger" class="checkout-recipient-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="checkout-saved-recipient-list">
+                <span data-recipient-selection>Chưa có người nhận đã lưu</span>
+                <span class="checkout-recipient-chevron" aria-hidden="true"></span>
+              </button>
+              <div id="checkout-saved-recipient-list" class="checkout-recipient-list" role="listbox" aria-label="Người nhận đã lưu" hidden></div>
+            </div>
+          </div>
           <div class="checkout-address-fields" id="checkout-address-fields">
-            <label for="checkout-saved-address">Địa chỉ đã lưu (Chọn 1-click)</label>
-            <select id="checkout-saved-address" name="savedAddress">
-              <option value="">Địa chỉ đã lưu</option>
-            </select>
             <label class="checkout-new-address-label" for="checkout-address">Địa chỉ nhận hàng</label>
             <textarea id="checkout-address" name="address" autocomplete="street-address" rows="3" placeholder="Nhập địa chỉ để tìm gợi ý..." aria-autocomplete="list" aria-controls="checkout-address-suggestions" aria-expanded="false"></textarea>
             <div id="checkout-address-suggestions" class="checkout-address-suggestions" role="listbox" aria-label="Gợi ý địa chỉ" hidden></div>
-            <label class="checkout-save-address"><input type="checkbox" name="saveAddress">Lưu địa chỉ này cho lần mua sau</label>
+            <label class="checkout-save-address"><input type="checkbox" name="saveAddress">Lưu thông tin này cho lần mua sau</label>
           </div>
         </section>
         <section class="checkout-section checkout-delivery">
@@ -1781,18 +1812,18 @@ function renderCheckout(account, moduleView) {
                 <span class="delivery-option-title">Giao tiêu chuẩn (Trong ngày)</span>
                 <span class="delivery-option-desc">Giao theo khung giờ đã chọn</span>
               </div>
-              <span class="delivery-option-fee" id="fee-standard-label">${subtotal >= 300000 ? "Miễn phí (≥300k)" : "25.000 ₫"}</span>
+              <span class="delivery-option-fee" id="fee-standard-label">${subtotal >= 500000 ? "Miễn phí (≥500k)" : "25.000 ₫"}</span>
             </label>
             <label class="delivery-option-card" data-type="express">
               <div class="delivery-option-info">
                 <span class="delivery-option-title">Giao hỏa tốc (2 giờ)</span>
                 <span class="delivery-option-desc">Ưu tiên chuyển phát nhanh</span>
               </div>
-              <span class="delivery-option-fee">40.000 ₫</span>
+              <span class="delivery-option-fee">${subtotal >= 500000 ? "Miễn phí (≥500k)" : "40.000 ₫"}</span>
             </label>
           </div>
           <label id="checkout-delivery-time-field">Khung giờ nhận hàng
-            <select name="deliveryTime" required>
+            <select name="deliveryTime">
               <option value="">Chọn khung giờ</option>
               <option value="08:00 - 12:00">08:00 - 12:00</option>
               <option value="12:00 - 17:00">12:00 - 17:00</option>
@@ -1810,8 +1841,7 @@ function renderCheckout(account, moduleView) {
         <section class="checkout-section checkout-payment">
           <h2>Phương thức thanh toán</h2>
           <label class="checkout-payment-option"><input type="radio" name="payment" value="Thanh toán khi nhận hoa (COD)" checked>Thanh toán khi nhận hàng (COD)</label>
-          <label class="checkout-payment-option"><input type="radio" name="payment" value="Thanh toán trực tuyến">Thanh toán trực tuyến qua cổng OnePay</label>
-          <p class="checkout-demo-note">Thanh toán trực tuyến là lựa chọn minh họa trong demo.</p>
+          <label class="checkout-payment-option"><input type="radio" name="payment" value="Thanh toán trực tuyến">Thanh toán trực tuyến qua Momo</label>
           <div id="checkout-summary" class="checkout-summary"></div>
           <p id="checkout-error" class="form-message" role="alert" hidden></p>
           <button class="button button-primary checkout-submit" type="submit">Đặt hàng</button>
@@ -1823,31 +1853,111 @@ function renderCheckout(account, moduleView) {
   form.elements.namedItem("name").value = account.name || "";
   form.elements.namedItem("phone").value = account.phone;
 
-  // Saved Addresses Setup (1-click auto-select)
-  const savedAddresses = storedArray(`${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`, "Saved customer addresses");
-  const addressSelect = form.querySelector("#checkout-saved-address");
+  const savedRecipients = storedArray(`${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`, "Saved customer addresses")
+    .map((entry) => normalizeSavedRecipient(entry, { name: account.name, phone: account.phone }));
   const addressInput = form.querySelector("#checkout-address");
-  addressSelect.options[0].textContent = savedAddresses.length ? "Chọn địa chỉ đã lưu" : "Chưa có địa chỉ đã lưu";
-  savedAddresses.forEach((address, index) => {
-    const option = document.createElement("option");
-    option.value = String(index);
-    option.textContent = index === 0 ? `${address} (Mặc định)` : address;
-    addressSelect.append(option);
-  });
-  addressSelect.addEventListener("change", () => {
-    const selectedAddress = addressSelect.value === "" ? "" : savedAddresses[Number(addressSelect.value)];
-    if (selectedAddress) {
-      addressInput.value = selectedAddress;
-      addressInput.readOnly = true;
-      form.elements.namedItem("saveAddress").checked = false;
-    } else {
+  const nameInput = form.elements.namedItem("name");
+  const phoneInput = form.elements.namedItem("phone");
+  const recipientPicker = form.querySelector(".checkout-recipient-picker");
+  const recipientTrigger = form.querySelector("#checkout-saved-recipient-trigger");
+  const recipientSelection = recipientTrigger.querySelector("[data-recipient-selection]");
+  const recipientList = form.querySelector("#checkout-saved-recipient-list");
+  const selectionPrompt = savedRecipients.length ? "Chọn người nhận đã lưu" : "Chưa có người nhận đã lưu";
+  let selectedRecipientIndex = null;
+
+  function closeRecipientList() {
+    recipientList.hidden = true;
+    recipientTrigger.setAttribute("aria-expanded", "false");
+  }
+
+  function resetRecipientSelection() {
+    selectedRecipientIndex = null;
+    recipientSelection.textContent = selectionPrompt;
+    recipientTrigger.removeAttribute("aria-label");
+    recipientList.querySelectorAll('[role="option"][aria-selected="true"]')
+      .forEach((option) => option.setAttribute("aria-selected", "false"));
+    addressInput.readOnly = false;
+  }
+
+  function selectRecipient(index) {
+    if (index === null) {
+      resetRecipientSelection();
+      nameInput.value = account.name || "";
+      phoneInput.value = account.phone;
       addressInput.value = "";
-      addressInput.readOnly = false;
-      addressInput.focus();
+      return;
+    }
+    const recipient = savedRecipients[index];
+    if (!recipient) return;
+    selectedRecipientIndex = index;
+    nameInput.value = recipient.name;
+    phoneInput.value = recipient.phone;
+    addressInput.value = recipient.address;
+    addressInput.readOnly = true;
+    recipientSelection.textContent = recipient.name;
+    recipientList
+      .querySelectorAll('[role="option"]')
+      .forEach((option) =>
+        option.setAttribute(
+          "aria-selected",
+          String(option.dataset.recipientIndex === String(index)),
+        ),
+      );
+    form.elements.namedItem("saveAddress").checked = false;
+  }
+
+  function appendRecipientOption(label, index, disabled = false) {
+    const option = document.createElement(disabled ? "div" : "button");
+    if (!disabled) {
+      option.type = "button";
+      option.addEventListener("click", () => {
+        selectRecipient(index);
+        closeRecipientList();
+      });
+    } else {
+      option.setAttribute("aria-disabled", "true");
+      option.classList.add("is-empty");
+    }
+    option.classList.add("checkout-recipient-option");
+    option.setAttribute("role", "option");
+    option.setAttribute("aria-selected", "false");
+    option.textContent = label;
+    recipientList.append(option);
+  }
+
+  if (savedRecipients.length) {
+    appendRecipientOption(selectionPrompt, null);
+    savedRecipients.forEach((recipient, index) => {
+      appendRecipientOption(
+        [recipient.name, recipient.phone, recipient.address]
+          .filter(Boolean)
+          .join(" · "),
+        index,
+      );
+      recipientList.lastElementChild.dataset.recipientIndex = String(index);
+    });
+  } else {
+    appendRecipientOption(selectionPrompt, null, true);
+  }
+
+  recipientTrigger.addEventListener("click", () => {
+    const expanded = recipientTrigger.getAttribute("aria-expanded") === "true";
+    recipientList.hidden = expanded;
+    recipientTrigger.setAttribute("aria-expanded", String(!expanded));
+  });
+  recipientPicker.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeRecipientList();
+      recipientTrigger.focus();
     }
   });
-  addressInput.addEventListener("input", () => {
-    if (addressSelect.value !== "") addressSelect.value = "";
+  document.addEventListener("click", (event) => {
+    if (!recipientPicker.contains(event.target)) closeRecipientList();
+  });
+  [nameInput, phoneInput, addressInput].forEach((field) => {
+    field.addEventListener("input", () => {
+      if (selectedRecipientIndex !== null) resetRecipientSelection();
+    });
   });
 
   const addressSuggestions = form.querySelector("#checkout-address-suggestions");
@@ -1872,7 +1982,6 @@ function renderCheckout(account, moduleView) {
   function selectAddress(address) {
     addressInput.value = address;
     addressInput.readOnly = false;
-    addressSelect.value = "";
     closeAddressSuggestions();
   }
 
@@ -1949,9 +2058,9 @@ function renderCheckout(account, moduleView) {
       });
       addressFields.hidden = fulfillment !== "delivery";
       deliveryTypeOptions.hidden = fulfillment !== "delivery";
-      addressInput.required = fulfillment === "delivery";
+      addressInput.required = false;
       form.querySelector("#checkout-delivery-time-field").hidden = fulfillment !== "delivery";
-      form.elements.namedItem("deliveryTime").required = fulfillment === "delivery";
+      form.elements.namedItem("deliveryTime").required = false;
       updateSummary();
     });
   });
@@ -1988,9 +2097,9 @@ function renderCheckout(account, moduleView) {
     let shippingFee = 0;
     if (fulfillment === "delivery") {
       if (deliveryType === "express") {
-        shippingFee = 40000;
+        shippingFee = subtotal >= 500000 ? 0 : 40000;
       } else {
-        shippingFee = subtotal >= 300000 ? 0 : 25000;
+        shippingFee = subtotal >= 500000 ? 0 : 25000;
       }
     }
 
@@ -2011,6 +2120,84 @@ function renderCheckout(account, moduleView) {
     summary.append(totalLine);
   }
 
+  const fieldNames = {
+    name: form.elements.namedItem("name"),
+    phone: form.elements.namedItem("phone"),
+    address: form.elements.namedItem("address"),
+    deliveryTime: form.elements.namedItem("deliveryTime")
+  };
+
+  function setFieldError(field, message) {
+    if (!field) return;
+    const wrapper = field.closest("label") || field.closest(".checkout-address-fields") || field.parentElement;
+    if (!wrapper) return;
+    const errorNode = wrapper.querySelector(".field-error");
+    const saveAddressNode = wrapper.querySelector(".checkout-save-address");
+    field.classList.toggle("is-invalid", Boolean(message));
+    field.setAttribute("aria-invalid", String(Boolean(message)));
+    wrapper.classList.toggle("has-error", Boolean(message));
+    if (message) {
+      if (errorNode) {
+        errorNode.textContent = message;
+        errorNode.hidden = false;
+      } else {
+        const node = makeElement("div", "field-error", message);
+        node.setAttribute("role", "alert");
+        if (wrapper.classList.contains("checkout-address-fields") && saveAddressNode) wrapper.insertBefore(node, saveAddressNode);
+        else wrapper.append(node);
+      }
+    } else if (errorNode) {
+      errorNode.textContent = "";
+      errorNode.hidden = true;
+    }
+  }
+
+  function validateCheckoutFields() {
+    let hasError = false;
+    const nameValue = String(fieldNames.name?.value || "").trim();
+    if (!nameValue) {
+      hasError = true;
+      setFieldError(fieldNames.name, "Vui lòng nhập tên người nhận.");
+    } else if (nameValue.length < 2 || /[0-9]|[^\p{L}\s'.-]/u.test(nameValue)) {
+      hasError = true;
+      setFieldError(fieldNames.name, "Tên người nhận không hợp lệ.");
+    } else setFieldError(fieldNames.name, "");
+
+    const phoneValue = String(fieldNames.phone?.value || "").replace(/[\s()-]/g, "").trim();
+    if (!phoneValue) {
+      hasError = true;
+      setFieldError(fieldNames.phone, "Vui lòng nhập số điện thoại.");
+    } else if (!/^0\d{9}$/.test(phoneValue)) {
+      hasError = true;
+      setFieldError(fieldNames.phone, "Số điện thoại không hợp lệ.");
+    } else setFieldError(fieldNames.phone, "");
+
+    if (fulfillment === "delivery") {
+      const addressValue = String(fieldNames.address?.value || "").trim();
+      if (!addressValue) {
+        hasError = true;
+        setFieldError(fieldNames.address, "Vui lòng nhập địa chỉ giao hàng.");
+      } else if (addressValue.length < 10) {
+        hasError = true;
+        setFieldError(fieldNames.address, "Địa chỉ không hợp lệ.");
+      } else setFieldError(fieldNames.address, "");
+
+      if (!String(fieldNames.deliveryTime?.value || "").trim()) {
+        hasError = true;
+        setFieldError(fieldNames.deliveryTime, "Vui lòng chọn khung giờ nhận hàng.");
+      } else setFieldError(fieldNames.deliveryTime, "");
+    } else {
+      setFieldError(fieldNames.address, "");
+      setFieldError(fieldNames.deliveryTime, "");
+    }
+    return !hasError;
+  }
+
+  Object.values(fieldNames).forEach((field) => {
+    field?.addEventListener("input", () => setFieldError(field, ""));
+    field?.addEventListener("change", () => setFieldError(field, ""));
+  });
+
   updateSummary();
 
   // Form submit
@@ -2021,11 +2208,8 @@ function renderCheckout(account, moduleView) {
     const phone = String(data.get("phone")).replace(/[\s()-]/g, "");
     const address = String(data.get("address")).trim();
     const error = form.querySelector("#checkout-error");
-    if (name.length < 2 || !/^\d{10,11}$/.test(phone) || (fulfillment === "delivery" && !address)) {
-      error.textContent = "Vui lòng nhập họ tên, số điện thoại và địa chỉ giao hàng hợp lệ.";
-      error.hidden = false;
-      return;
-    }
+    error.hidden = true;
+    if (!validateCheckoutFields()) return;
     const unavailable = checkoutItems.find((item) => {
       const flower = flowers.find((entry) => entry.id === item.id);
       return !flower || item.quantity > flower.stock;
@@ -2035,14 +2219,14 @@ function renderCheckout(account, moduleView) {
       error.hidden = false;
       return;
     }
-    if (fulfillment === "delivery" && data.get("saveAddress") === "on" && !savedAddresses.includes(address)) {
-      savedAddresses.push(address);
-      localStorage.setItem(`${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`, JSON.stringify(savedAddresses));
+    if (fulfillment === "delivery" && data.get("saveAddress") === "on" && !savedRecipients.some((recipient) => recipient.name === name && recipient.phone === phone && recipient.address === address)) {
+      savedRecipients.push({ name, phone, address });
+      localStorage.setItem(`${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`, JSON.stringify(savedRecipients));
     }
 
     let shippingFee = 0;
     if (fulfillment === "delivery") {
-      shippingFee = deliveryType === "express" ? 40000 : (subtotal >= 300000 ? 0 : 25000);
+      shippingFee = deliveryType === "express" ? (subtotal >= 500000 ? 0 : 40000) : (subtotal >= 500000 ? 0 : 25000);
     }
     const finalTotal = subtotal + shippingFee;
 
