@@ -622,24 +622,23 @@ function initializeLogin() {
   loginButton.disabled = false;
   loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    const phone = phoneInput.value.replace(/[\s()-]/g, "");
+    const phone = phoneInput.value.replace(/[\s()-]/g, "").trim();
+    const isPhoneValid = /^0\d{9}$/.test(phone);
     phoneError.hidden = true;
     passwordError.hidden = true;
     errorMessage.hidden = true;
     if (!phone) {
-      phoneError.textContent = "Vui lòng nhập số điện thoại.";
+      phoneError.textContent = "Vui lòng nhập số điện thoại, bắt đầu bằng số 0 và gồm 10 chữ số.";
+      phoneError.hidden = false;
+    } else if (!isPhoneValid) {
+      phoneError.textContent = "Số điện thoại không hợp lệ. Số điện thoại phải bắt đầu bằng số 0 và gồm 10 chữ số.";
       phoneError.hidden = false;
     }
     if (!passwordInput.value) {
       passwordError.textContent = "Vui lòng nhập mật khẩu.";
       passwordError.hidden = false;
     }
-    if (!phone || !passwordInput.value) return;
-    if (!/^0\d{9}$/.test(phone)) {
-      phoneError.textContent = "Số điện thoại không hợp lệ.";
-      phoneError.hidden = false;
-      return;
-    }
+    if (!isPhoneValid || !passwordInput.value) return;
     const account = accounts.find((entry) => entry.phone === phone);
 
     if (!account || passwordInput.value !== accountPassword(account)) {
@@ -933,10 +932,13 @@ function initializeRegistration() {
       nameError.hidden = false;
     }
     if (!phone) {
-      phoneError.textContent = "Vui lòng nhập số điện thoại.";
+      phoneError.textContent = "Vui lòng nhập số điện thoại, bắt đầu bằng số 0 và gồm 10 chữ số.";
       phoneError.hidden = false;
     } else if (!/^0\d{9}$/.test(phone)) {
-      phoneError.textContent = "Số điện thoại không hợp lệ.";
+      phoneError.textContent = "Số điện thoại không hợp lệ. Số điện thoại phải bắt đầu bằng số 0 và gồm 10 chữ số.";
+      phoneError.hidden = false;
+    } else if (accounts.some((account) => account.phone === phone)) {
+      phoneError.textContent = "Số điện thoại đã được đăng ký rồi.";
       phoneError.hidden = false;
     }
     if (!password) {
@@ -953,12 +955,7 @@ function initializeRegistration() {
       confirmPasswordError.textContent = "Mật khẩu xác nhận không khớp.";
       confirmPasswordError.hidden = false;
     }
-    if (name.length < 2 || !/^0\d{9}$/.test(phone) || password.length < 8 || !/[A-Za-z]/.test(password) || !/\d/.test(password) || password !== confirmPassword) return;
-    if (accounts.some((account) => account.phone === phone)) {
-      message.textContent = "Số điện thoại này đã được đăng ký.";
-      message.hidden = false;
-      return;
-    }
+    if (name.length < 2 || !/^0\d{9}$/.test(phone) || accounts.some((account) => account.phone === phone) || password.length < 8 || !/[A-Za-z]/.test(password) || !/\d/.test(password) || password !== confirmPassword) return;
 
     const customer = { accountId: `cust-${Date.now()}`, name, phone, role: "customer" };
     const registered = storedArray(REGISTERED_CUSTOMERS_KEY, "Saved demo customer accounts");
@@ -1649,6 +1646,44 @@ function renderCart(account, moduleView) {
   const listHeader = makeElement("div", "cart-list-header");
   listHeader.append(makeElement("h2", "", "Sản phẩm trong giỏ hàng"));
   const list = makeElement("div", "cart-list");
+  let selectionMode = false;
+  const selectedItemIds = new Set();
+  const selectionControls = makeElement("div", "cart-selection-controls");
+  const selectAllLabel = makeElement("label", "cart-select-all");
+  const selectAllInput = document.createElement("input");
+  selectAllInput.type = "checkbox";
+  selectAllInput.setAttribute("aria-label", "Chọn tất cả sản phẩm trong giỏ hàng");
+  selectAllLabel.append(selectAllInput, makeElement("span", "", "Chọn tất cả"));
+  const deleteSelectedButton = makeElement("button", "button button-outline-danger cart-delete-selected", "Xóa sản phẩm đã chọn (0)");
+  deleteSelectedButton.type = "button";
+  deleteSelectedButton.hidden = true;
+  deleteSelectedButton.disabled = true;
+  selectionControls.append(selectAllLabel, deleteSelectedButton);
+  const updateSelectionControls = () => {
+    list.querySelectorAll(".cart-item-select").forEach((label) => {
+      label.hidden = !selectionMode;
+    });
+    selectAllInput.checked = cart.length > 0 && selectedItemIds.size === cart.length;
+    selectAllInput.indeterminate = selectedItemIds.size > 0 && selectedItemIds.size < cart.length;
+    deleteSelectedButton.hidden = !selectionMode || selectedItemIds.size === 0;
+    deleteSelectedButton.disabled = selectedItemIds.size === 0;
+    deleteSelectedButton.textContent = `Xóa sản phẩm đã chọn (${selectedItemIds.size})`;
+  };
+  selectAllInput.addEventListener("change", () => {
+    selectedItemIds.clear();
+    if (selectAllInput.checked) cart.forEach((item) => selectedItemIds.add(item.id));
+    selectionMode = selectedItemIds.size > 0;
+    list.querySelectorAll(".cart-item-checkbox").forEach((checkbox) => {
+      checkbox.checked = selectAllInput.checked;
+    });
+    updateSelectionControls();
+  });
+  deleteSelectedButton.addEventListener("click", () => {
+    if (selectedItemIds.size === 0) return;
+    const remainingItems = cart.filter((item) => !selectedItemIds.has(item.id));
+    saveCustomerCart(account.phone, remainingItems);
+    renderCart(account, moduleView);
+  });
   let totalText;
   let freeshipNote;
   const updateCartSummary = () => {
@@ -1662,7 +1697,21 @@ function renderCart(account, moduleView) {
   cart.forEach((item) => {
     const row = makeElement("article", "cart-row");
     const details = makeElement("div", "cart-row-details");
-    details.append(makeElement("h3", "", item.name), makeElement("p", "", `${currency.format(item.price)} / ${item.unit}`));
+    const productHeading = makeElement("div", "cart-row-product-heading");
+    const itemSelectLabel = makeElement("label", "cart-item-select");
+    const itemCheckbox = document.createElement("input");
+    itemCheckbox.type = "checkbox";
+    itemCheckbox.className = "cart-item-checkbox";
+    itemCheckbox.setAttribute("aria-label", `Chọn ${item.name} để xóa khỏi giỏ hàng`);
+    itemCheckbox.addEventListener("change", () => {
+      if (itemCheckbox.checked) selectedItemIds.add(item.id);
+      else selectedItemIds.delete(item.id);
+      selectionMode = selectedItemIds.size > 0;
+      updateSelectionControls();
+    });
+    itemSelectLabel.append(itemCheckbox);
+    productHeading.append(itemSelectLabel, makeElement("h3", "", item.name));
+    details.append(productHeading, makeElement("p", "", `${currency.format(item.price)} / ${item.unit}`));
     const quantityControl = makeElement("div", "cart-quantity-control");
     const decrement = makeElement("button", "quantity-stepper", "-");
     decrement.type = "button";
@@ -1725,6 +1774,7 @@ function renderCart(account, moduleView) {
     row.append(details, quantityControl, lineTotal, removeButton);
     list.append(row);
   });
+  updateSelectionControls();
 
   const summary = makeElement("div", "cart-summary");
   freeshipNote = makeElement("p", "cart-freeship-note");
@@ -1734,7 +1784,7 @@ function renderCart(account, moduleView) {
   const checkout = makeElement("a", "button button-primary", "Đặt hàng");
   checkout.href = "pages/customer/customer-place-order.html";
   summary.append(checkout);
-  cartSection.append(feedback, listHeader, list, summary);
+  cartSection.append(feedback, listHeader, selectionControls, list, summary);
   moduleView.append(cartSection);
 }
 
