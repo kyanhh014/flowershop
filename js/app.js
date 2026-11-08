@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+/**
+ * Frontend demo Hoa Xinh: điều hướng trang, session, sản phẩm, giỏ hàng, checkout và đánh giá.
+ * Các thông báo hiển thị cho người dùng được đặt gần logic tạo ra thành phần tương ứng.
+ */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 "use strict";
 
 const DEMO_PASSWORD = "hoaxinh123";
@@ -5,13 +12,29 @@ const SESSION_KEY = "hoaxinh-demo-phone";
 const REMEMBERED_PHONE_KEY = "hoaxinh-demo-remembered-phone";
 const REGISTERED_CUSTOMERS_KEY = "hoaxinh-demo-customers";
 const ACCOUNT_OVERRIDES_KEY = "hoaxinh-demo-account-overrides";
+<<<<<<< HEAD
 const CUSTOMER_ADDRESSES_KEY_PREFIX = "hoaxinh-demo-addresses:";
 const CUSTOMER_ORDERS_KEY = "hoaxinh-demo-orders";
+=======
+const PASSWORD_OVERRIDES_KEY = "hoaxinh-demo-password-overrides";
+const CUSTOMER_ADDRESSES_KEY_PREFIX = "hoaxinh-demo-addresses:";
+const CUSTOMER_ORDERS_KEY = "hoaxinh-demo-orders";
+const CUSTOMER_HIDDEN_ORDERS_KEY_PREFIX = "hoaxinh-demo-hidden-orders:";
+const CUSTOMER_DEMO_CART_VERSION_KEY = "hoaxinh-demo-cart-version:";
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 const CUSTOMER_REVIEWS_KEY = "hoaxinh-demo-reviews";
 const CUSTOMER_CONTACTS_KEY = "hoaxinh-demo-contacts";
 const CART_KEY_PREFIX = "hoaxinh-demo-cart:";
 const roleHome = (role) => role.dashboard || role.features[0].file;
+<<<<<<< HEAD
 const currency = new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND", maximumFractionDigits: 0 });
+=======
+const currency = new Intl.NumberFormat("vi-VN", {
+  style: "currency",
+  currency: "VND",
+  maximumFractionDigits: 0,
+});
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 
 const roles = {
   owner: {
@@ -19,17 +42,76 @@ const roles = {
     welcome: "Chào mừng bạn đến với không gian chủ cửa hàng Hoa Xinh.",
     dashboard: "pages/dashboard.html",
     features: [
+<<<<<<< HEAD
       { id: "product-catalog", file: "pages/owner/owner-product-catalog.html", title: "Quản lý danh mục sản phẩm", description: "Tạo và cập nhật danh mục hoa, mẫu bó hoa và thông tin sản phẩm.", tasks: ["Danh sách danh mục", "Thông tin sản phẩm", "Trạng thái hiển thị"] },
       { id: "daily-flowers", file: "pages/owner/owner-daily-flowers.html", title: "Thêm hoa bán trong ngày", description: "Chọn hoa từ kho, cập nhật giá bán trong ngày và ghi chú khuyến mãi.", tasks: ["Tìm hoa trong kho", "Giá bán và số lượng", "Danh sách hoa đang bán"] },
       { id: "users", file: "pages/owner/owner-users.html", title: "Quản lý người dùng", description: "Tra cứu tài khoản khách hàng và nhân viên theo vai trò.", tasks: ["Thông tin tài khoản", "Vai trò người dùng", "Trạng thái tài khoản"] },
       { id: "stats", file: "pages/owner/owner-stats.html", title: "Báo cáo thống kê cửa hàng", description: "Theo dõi tổng quan doanh thu, đơn hàng và sản phẩm bán chạy.", tasks: ["Doanh thu", "Tình hình đơn hàng", "Sản phẩm nổi bật"] },
       { id: "promotions", file: "pages/owner/owner-promotions.html", title: "Quản lý chương trình khuyến mãi", description: "Tạo và theo dõi các chương trình ưu đãi của cửa hàng.", tasks: ["Tên và mã ưu đãi", "Thời gian áp dụng", "Trạng thái chương trình"] }
     ]
+=======
+      {
+        id: "product-catalog",
+        file: "pages/owner/owner-product-catalog.html",
+        title: "Quản lý danh mục sản phẩm",
+        description:
+          "Tạo và cập nhật danh mục hoa, mẫu bó hoa và thông tin sản phẩm.",
+        tasks: [
+          "Danh sách danh mục",
+          "Thông tin sản phẩm",
+          "Trạng thái hiển thị",
+        ],
+      },
+      {
+        id: "daily-flowers",
+        file: "pages/owner/owner-daily-flowers.html",
+        title: "Thêm hoa bán trong ngày",
+        description:
+          "Chọn hoa từ kho, cập nhật giá bán trong ngày và ghi chú khuyến mãi.",
+        tasks: [
+          "Tìm hoa trong kho",
+          "Giá bán và số lượng",
+          "Danh sách hoa đang bán",
+        ],
+      },
+      {
+        id: "users",
+        file: "pages/owner/owner-users.html",
+        title: "Quản lý người dùng",
+        description: "Tra cứu tài khoản khách hàng và nhân viên theo vai trò.",
+        tasks: [
+          "Thông tin tài khoản",
+          "Vai trò người dùng",
+          "Trạng thái tài khoản",
+        ],
+      },
+      {
+        id: "stats",
+        file: "pages/owner/owner-stats.html",
+        title: "Báo cáo thống kê cửa hàng",
+        description:
+          "Theo dõi tổng quan doanh thu, đơn hàng và sản phẩm bán chạy.",
+        tasks: ["Doanh thu", "Tình hình đơn hàng", "Sản phẩm nổi bật"],
+      },
+      {
+        id: "promotions",
+        file: "pages/owner/owner-promotions.html",
+        title: "Quản lý chương trình khuyến mãi",
+        description: "Tạo và theo dõi các chương trình ưu đãi của cửa hàng.",
+        tasks: [
+          "Tên và mã ưu đãi",
+          "Thời gian áp dụng",
+          "Trạng thái chương trình",
+        ],
+      },
+    ],
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   },
   customer: {
     label: "Khách hàng",
     welcome: "Rất vui được gặp bạn tại Hoa Xinh.",
     features: [
+<<<<<<< HEAD
       { id: "products", file: "pages/customer/customer-products.html", title: "Sản phẩm", description: "Tìm và xem các loại hoa đang được cửa hàng giới thiệu.", tasks: ["Tìm kiếm hoa", "Xem thông tin và giá", "Chọn sản phẩm"] },
       { id: "cart", file: "pages/customer/customer-cart.html", title: "Quản lý giỏ hàng", description: "Xem lại các sản phẩm đã chọn trước khi đặt hàng.", tasks: ["Danh sách sản phẩm", "Số lượng và tạm tính", "Cập nhật giỏ hàng"] },
       { id: "orders", file: "pages/customer/customer-orders.html", title: "Theo dõi đơn hàng", description: "Tra cứu trạng thái và thông tin các đơn hàng của bạn.", tasks: ["Mã đơn hàng", "Tình trạng xử lý", "Thông tin giao hàng"] },
@@ -38,35 +120,177 @@ const roles = {
       { id: "contact", file: "pages/customer/customer-contact.html", title: "Liên hệ cửa hàng", description: "Gửi câu hỏi hoặc yêu cầu hỗ trợ tới Hoa Xinh.", tasks: ["Chủ đề liên hệ", "Nội dung yêu cầu", "Thông tin phản hồi"] },
       { id: "register", file: "pages/customer/customer-register.html", title: "Đăng ký tài khoản", description: "Tạo tài khoản khách hàng để sử dụng các chức năng mua hoa.", tasks: ["Họ tên", "Số điện thoại", "Thông tin tài khoản"] }
     ]
+=======
+      {
+        id: "products",
+        file: "pages/customer/customer-products.html",
+        title: "Sản phẩm",
+        description: "Tìm và xem các loại hoa đang được cửa hàng giới thiệu.",
+        tasks: ["Tìm kiếm hoa", "Xem thông tin và giá", "Chọn sản phẩm"],
+      },
+      {
+        id: "cart",
+        file: "pages/customer/customer-cart.html",
+        title: "Quản lý giỏ hàng",
+        description: "Xem lại các sản phẩm đã chọn trước khi đặt hàng.",
+        tasks: [
+          "Danh sách sản phẩm",
+          "Số lượng và tạm tính",
+          "Cập nhật giỏ hàng",
+        ],
+      },
+      {
+        id: "orders",
+        file: "pages/customer/customer-orders.html",
+        title: "Theo dõi đơn hàng",
+        description: "Tra cứu trạng thái và thông tin các đơn hàng của bạn.",
+        tasks: ["Mã đơn hàng", "Tình trạng xử lý", "Thông tin giao hàng"],
+      },
+      {
+        id: "place-order",
+        file: "pages/customer/customer-place-order.html",
+        title: "Đặt hàng sản phẩm",
+        description:
+          "Nhập thông tin người nhận, địa chỉ và thời gian giao hoa.",
+        tasks: [
+          "Thông tin người nhận",
+          "Thông tin giao hàng",
+          "Phương thức thanh toán",
+        ],
+      },
+      {
+        id: "reviews",
+        file: "pages/customer/customer-reviews.html",
+        title: "Đánh giá sản phẩm",
+        description: "Gửi nhận xét về những sản phẩm bạn đã mua.",
+        tasks: ["Chọn sản phẩm", "Nội dung đánh giá", "Lịch sử nhận xét"],
+      },
+      {
+        id: "contact",
+        file: "pages/customer/customer-contact.html",
+        title: "Liên hệ cửa hàng",
+        description: "Gửi câu hỏi hoặc yêu cầu hỗ trợ tới Hoa Xinh.",
+        tasks: ["Chủ đề liên hệ", "Nội dung yêu cầu", "Thông tin phản hồi"],
+      },
+      {
+        id: "register",
+        file: "pages/customer/customer-register.html",
+        title: "Đăng ký tài khoản",
+        description:
+          "Tạo tài khoản khách hàng để sử dụng các chức năng mua hoa.",
+        tasks: ["Họ tên", "Số điện thoại", "Thông tin tài khoản"],
+      },
+    ],
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   },
   sales: {
     label: "Nhân viên bán",
     welcome: "Chào mừng bạn trở lại với Hoa Xinh.",
     dashboard: "pages/dashboard.html",
     features: [
+<<<<<<< HEAD
       { id: "new-orders", file: "pages/sales/sales-new-orders.html", title: "Xem đơn hàng mới", description: "Danh sách các đơn mới chờ nhân viên bán tiếp nhận.", tasks: ["Mã đơn hàng", "Thông tin khách đặt", "Sản phẩm và số lượng"] },
       { id: "confirm-orders", file: "pages/sales/sales-confirm-orders.html", title: "Xác nhận đơn hàng", description: "Kiểm tra thông tin và xác nhận đơn với khách hàng.", tasks: ["Thông tin người nhận", "Kiểm tra sản phẩm", "Kết quả xác nhận"] },
       { id: "order-status", file: "pages/sales/sales-order-status.html", title: "Cập nhật trạng thái đơn", description: "Cập nhật tiến độ xử lý để khách hàng theo dõi.", tasks: ["Trạng thái hiện tại", "Cập nhật tiến độ", "Ghi chú xử lý"] },
       { id: "invoices", file: "pages/sales/sales-invoices.html", title: "Lập hóa đơn", description: "Tạo và kiểm tra hóa đơn bán hàng cho khách.", tasks: ["Thông tin hóa đơn", "Chi tiết đơn hàng", "Trạng thái thanh toán"] },
       { id: "delivery", file: "pages/sales/sales-delivery.html", title: "Quản lý giao hàng", description: "Theo dõi đơn vị vận chuyển và lịch giao hoa.", tasks: ["Đơn chờ giao", "Đơn vị vận chuyển", "Trạng thái giao hàng"] }
     ]
+=======
+      {
+        id: "new-orders",
+        file: "pages/sales/sales-new-orders.html",
+        title: "Xem đơn hàng mới",
+        description: "Danh sách các đơn mới chờ nhân viên bán tiếp nhận.",
+        tasks: ["Mã đơn hàng", "Thông tin khách đặt", "Sản phẩm và số lượng"],
+      },
+      {
+        id: "confirm-orders",
+        file: "pages/sales/sales-confirm-orders.html",
+        title: "Xác nhận đơn hàng",
+        description: "Kiểm tra thông tin và xác nhận đơn với khách hàng.",
+        tasks: [
+          "Thông tin người nhận",
+          "Kiểm tra sản phẩm",
+          "Kết quả xác nhận",
+        ],
+      },
+      {
+        id: "order-status",
+        file: "pages/sales/sales-order-status.html",
+        title: "Cập nhật trạng thái đơn",
+        description: "Cập nhật tiến độ xử lý để khách hàng theo dõi.",
+        tasks: ["Trạng thái hiện tại", "Cập nhật tiến độ", "Ghi chú xử lý"],
+      },
+      {
+        id: "invoices",
+        file: "pages/sales/sales-invoices.html",
+        title: "Lập hóa đơn",
+        description: "Tạo và kiểm tra hóa đơn bán hàng cho khách.",
+        tasks: [
+          "Thông tin hóa đơn",
+          "Chi tiết đơn hàng",
+          "Trạng thái thanh toán",
+        ],
+      },
+      {
+        id: "delivery",
+        file: "pages/sales/sales-delivery.html",
+        title: "Quản lý giao hàng",
+        description: "Theo dõi đơn vị vận chuyển và lịch giao hoa.",
+        tasks: ["Đơn chờ giao", "Đơn vị vận chuyển", "Trạng thái giao hàng"],
+      },
+    ],
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   },
   support: {
     label: "Nhân viên CSKH",
     welcome: "Chào mừng bạn đến với bộ phận chăm sóc khách hàng.",
     dashboard: "pages/dashboard.html",
     features: [
+<<<<<<< HEAD
       { id: "reply-contact", file: "pages/support/support-reply-contact.html", title: "Phản hồi liên hệ", description: "Xem và trả lời các câu hỏi, yêu cầu từ khách hàng.", tasks: ["Danh sách liên hệ", "Nội dung câu hỏi", "Nội dung phản hồi"] },
       { id: "reply-reviews", file: "pages/support/support-reply-reviews.html", title: "Phản hồi đánh giá", description: "Theo dõi đánh giá của khách và gửi lời cảm ơn.", tasks: ["Danh sách đánh giá", "Mức độ hài lòng", "Phản hồi nhận xét"] },
       { id: "find-orders", file: "pages/support/support-find-orders.html", title: "Tra cứu đơn hàng", description: "Tìm nhanh đơn theo mã hoặc số điện thoại người mua.", tasks: ["Mã hoặc số điện thoại", "Thông tin đơn hàng", "Lịch sử xử lý"] },
       { id: "find-users", file: "pages/support/support-find-users.html", title: "Tra cứu người dùng", description: "Xem thông tin cơ bản của tài khoản khách hàng.", tasks: ["Số điện thoại", "Thông tin tài khoản", "Lịch sử mua hoa"] }
     ]
+=======
+      {
+        id: "reply-contact",
+        file: "pages/support/support-reply-contact.html",
+        title: "Phản hồi liên hệ",
+        description: "Xem và trả lời các câu hỏi, yêu cầu từ khách hàng.",
+        tasks: ["Danh sách liên hệ", "Nội dung câu hỏi", "Nội dung phản hồi"],
+      },
+      {
+        id: "reply-reviews",
+        file: "pages/support/support-reply-reviews.html",
+        title: "Phản hồi đánh giá",
+        description: "Theo dõi đánh giá của khách và gửi lời cảm ơn.",
+        tasks: ["Danh sách đánh giá", "Mức độ hài lòng", "Phản hồi nhận xét"],
+      },
+      {
+        id: "find-orders",
+        file: "pages/support/support-find-orders.html",
+        title: "Tra cứu đơn hàng",
+        description: "Tìm nhanh đơn theo mã hoặc số điện thoại người mua.",
+        tasks: ["Mã hoặc số điện thoại", "Thông tin đơn hàng", "Lịch sử xử lý"],
+      },
+      {
+        id: "find-users",
+        file: "pages/support/support-find-users.html",
+        title: "Tra cứu người dùng",
+        description: "Xem thông tin cơ bản của tài khoản khách hàng.",
+        tasks: ["Số điện thoại", "Thông tin tài khoản", "Lịch sử mua hoa"],
+      },
+    ],
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   },
   warehouse: {
     label: "Nhân viên kho",
     welcome: "Chào mừng bạn đến với khu vực quản lý kho.",
     dashboard: "pages/dashboard.html",
     features: [
+<<<<<<< HEAD
       { id: "stock-in", file: "pages/warehouse/warehouse-stock-in.html", title: "Ghi nhận nhập kho", description: "Tạo phiếu nhập hoa tươi và vật tư vào hệ thống.", tasks: ["Thông tin nguồn nhập", "Loại hoa và số lượng", "Xác nhận nhập kho"] },
       { id: "stock-loss", file: "pages/warehouse/warehouse-stock-loss.html", title: "Ghi nhận hao hụt", description: "Ghi nhận hoa dập, héo hoặc tồn kho không đạt chuẩn.", tasks: ["Loại hoa hao hụt", "Số lượng và lý do", "Xác nhận ghi giảm"] },
       { id: "stock-report", file: "pages/warehouse/warehouse-stock-report.html", title: "Báo cáo tồn kho", description: "Theo dõi số lượng tồn của từng loại hoa theo thời gian thực.", tasks: ["Số lượng tồn hiện tại", "Cảnh báo hoa sắp hết", "Lịch sử biến động"] },
@@ -74,15 +298,83 @@ const roles = {
       { id: "loss-report", file: "pages/warehouse/warehouse-loss-report.html", title: "Báo cáo hao hụt", description: "Thống kê tỉ lệ hoa hỏng và lý do hao hụt trong kỳ.", tasks: ["Tỉ lệ hao hụt", "Lý do phổ biến", "Chi tiết các đợt hao hụt"] }
     ]
   }
+=======
+      {
+        id: "stock-in",
+        file: "pages/warehouse/warehouse-stock-in.html",
+        title: "Ghi nhận nhập kho",
+        description: "Tạo phiếu nhập hoa tươi và vật tư vào hệ thống.",
+        tasks: [
+          "Thông tin nguồn nhập",
+          "Loại hoa và số lượng",
+          "Xác nhận nhập kho",
+        ],
+      },
+      {
+        id: "stock-loss",
+        file: "pages/warehouse/warehouse-stock-loss.html",
+        title: "Ghi nhận hao hụt",
+        description: "Ghi nhận hoa dập, héo hoặc tồn kho không đạt chuẩn.",
+        tasks: ["Loại hoa hao hụt", "Số lượng và lý do", "Xác nhận ghi giảm"],
+      },
+      {
+        id: "stock-report",
+        file: "pages/warehouse/warehouse-stock-report.html",
+        title: "Báo cáo tồn kho",
+        description:
+          "Theo dõi số lượng tồn của từng loại hoa theo thời gian thực.",
+        tasks: [
+          "Số lượng tồn hiện tại",
+          "Cảnh báo hoa sắp hết",
+          "Lịch sử biến động",
+        ],
+      },
+      {
+        id: "stock-in-report",
+        file: "pages/warehouse/warehouse-stock-in-report.html",
+        title: "Báo cáo nhập kho",
+        description: "Tổng hợp các đợt nhập hoa theo ngày hoặc theo đợt.",
+        tasks: [
+          "Tổng số lượng nhập",
+          "Tổng chi phí nhập",
+          "Danh sách phiếu nhập",
+        ],
+      },
+      {
+        id: "loss-report",
+        file: "pages/warehouse/warehouse-loss-report.html",
+        title: "Báo cáo hao hụt",
+        description: "Thống kê tỉ lệ hoa hỏng và lý do hao hụt trong kỳ.",
+        tasks: ["Tỉ lệ hao hụt", "Lý do phổ biến", "Chi tiết các đợt hao hụt"],
+      },
+    ],
+  },
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 };
 
 let accounts = [];
 let flowers = [];
 
+<<<<<<< HEAD
+=======
+
+/** Tạo khóa localStorage riêng cho giỏ hàng của từng khách hàng. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function customerCartKey(phone) {
   return `${CART_KEY_PREFIX}${phone}`;
 }
 
+<<<<<<< HEAD
+=======
+
+/** Tạo khóa lưu mã các đơn hàng được khách ẩn khỏi lịch sử. */
+function customerHiddenOrdersKey(phone) {
+  return `${CUSTOMER_HIDDEN_ORDERS_KEY_PREFIX}${phone}`;
+}
+
+
+/** Đọc giỏ hàng của khách từ localStorage và trả về một mảng an toàn. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function getCustomerCart(phone) {
   if (!phone) return [];
   const raw = localStorage.getItem(customerCartKey(phone));
@@ -95,11 +387,76 @@ function getCustomerCart(phone) {
   }
 }
 
+<<<<<<< HEAD
+=======
+
+/** Lưu thay đổi giỏ hàng sau khi cập nhật số lượng hoặc xóa sản phẩm. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function saveCustomerCart(phone, cart) {
   if (!phone) return;
   localStorage.setItem(customerCartKey(phone), JSON.stringify(cart));
 }
 
+<<<<<<< HEAD
+=======
+
+/** Kiểm tra sản phẩm còn kinh doanh và còn tồn kho để cho phép thao tác giỏ hàng. */
+function isFlowerAvailable(flower) {
+  return Boolean(flower && flower.active !== false && Number(flower.stock) > 0);
+}
+
+
+/** Tính bậc khuyến mãi, số tiền giảm và gợi ý để đạt mốc tiếp theo. */
+function getCartPromotion(subtotal) {
+  if (subtotal >= 500000) {
+    return { label: "Ưu đãi Hoa Xinh 15%", rate: 0.15, amount: Math.round(subtotal * 0.15), hint: "Bạn đang nhận mức ưu đãi cao nhất." };
+  }
+  if (subtotal >= 300000) {
+    return {
+      label: "Ưu đãi Hoa Xinh 10%",
+      rate: 0.1,
+      amount: Math.round(subtotal * 0.1),
+      hint: `Mua thêm ${currency.format(500000 - subtotal)} để nhận ưu đãi Hoa Xinh 15%.`
+    };
+  }
+  return {
+    label: "Chưa đủ điều kiện khuyến mãi",
+    rate: 0,
+    amount: 0,
+    hint: `Mua thêm ${currency.format(300000 - subtotal)} để nhận ưu đãi Hoa Xinh 10%.`
+  };
+}
+
+
+/** Tạo giỏ hàng mẫu cho khách demo để kiểm thử vượt tồn, hết hàng và ngừng kinh doanh. */
+function seedDemoCartEdgeCases(account) {
+  if (!account || account.phone !== "0901234562") return;
+  const demoVersionKey = `${CUSTOMER_DEMO_CART_VERSION_KEY}${account.phone}`;
+  if (localStorage.getItem(demoVersionKey) === "2") return;
+  const limited = flowers.find((flower) => flower.id === "rose-limited");
+  const discontinued = flowers.find((flower) => flower.id === "seasonal-wreath");
+  const outOfStock = flowers.find((flower) => flower.id === "out-of-stock-lily");
+  const regularRose = flowers.find((flower) => flower.id === "rose-red");
+  const pinkRose = flowers.find((flower) => flower.id === "rose-pink");
+  if (!limited || !discontinued || !outOfStock) return;
+  const demoCart = [
+    { id: limited.id, name: limited.name, price: limited.price, unit: limited.unit, quantity: 6 },
+    { id: discontinued.id, name: discontinued.name, price: discontinued.price, unit: discontinued.unit, quantity: 1 },
+    { id: outOfStock.id, name: outOfStock.name, price: outOfStock.price, unit: outOfStock.unit, quantity: 1 }
+  ];
+  if (regularRose && pinkRose) {
+    demoCart.unshift(
+      { id: regularRose.id, name: regularRose.name, price: regularRose.price, unit: regularRose.unit, quantity: 10 },
+      { id: pinkRose.id, name: pinkRose.name, price: pinkRose.price, unit: pinkRose.unit, quantity: 3 }
+    );
+  }
+  saveCustomerCart(account.phone, demoCart);
+  localStorage.setItem(demoVersionKey, "2");
+}
+
+
+/** Cập nhật huy hiệu số lượng sản phẩm trên thanh điều hướng dùng chung. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function updateCartCount(phone) {
   const badge = document.querySelector("#cart-count");
   if (!badge) return;
@@ -109,6 +466,11 @@ function updateCartCount(phone) {
   badge.hidden = count === 0;
 }
 
+<<<<<<< HEAD
+=======
+
+/** Đọc mảng JSON từ localStorage; nếu dữ liệu lỗi thì dùng mảng rỗng. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function storedArray(key, description) {
   try {
     const value = JSON.parse(localStorage.getItem(key) || "[]");
@@ -118,29 +480,66 @@ function storedArray(key, description) {
   }
 }
 
+<<<<<<< HEAD
 const REVIEW_MIN_IMAGES = 2;
 
+=======
+function accountPassword(account) {
+  const overrides = JSON.parse(localStorage.getItem(PASSWORD_OVERRIDES_KEY) || "{}");
+  return overrides[account.accountId] || DEMO_PASSWORD;
+}
+
+/* Cấu hình đánh giá: số ảnh tối thiểu bắt buộc khi gửi hoặc chỉnh sửa. */
+const REVIEW_MIN_IMAGES = 2;
+
+
+/** Kiểm tra đơn hàng đã hoàn thành và đủ điều kiện đánh giá hay chưa. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function isOrderCompleted(order) {
   return ["Hoàn thành", "Đã giao"].includes(order?.status);
 }
 
+<<<<<<< HEAD
 function getOrderReviews(phone, orderId) {
   return storedArray(CUSTOMER_REVIEWS_KEY, "Saved demo reviews")
     .filter((review) => review.customerPhone === phone && review.orderId === orderId);
 }
 
+=======
+
+/** Lấy các đánh giá thuộc một đơn hàng của khách hàng. */
+function getOrderReviews(phone, orderId) {
+  return storedArray(CUSTOMER_REVIEWS_KEY, "Saved demo reviews").filter(
+    (review) => review.customerPhone === phone && review.orderId === orderId,
+  );
+}
+
+
+/** Kiểm tra khách hàng đã gửi đánh giá cho đơn hàng hay chưa. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function hasOrderReviewSubmission(phone, orderId) {
   return getOrderReviews(phone, orderId).length > 0;
 }
 
+<<<<<<< HEAD
+=======
+
+/** Kiểm tra đơn hàng có thể nhận đánh giá hay chưa. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function canReviewOrder(phone, order) {
   return Boolean(phone) && isOrderCompleted(order);
 }
 
+<<<<<<< HEAD
+=======
+
+/** Kiểm tra đánh giá của đơn hàng có thể được chỉnh sửa hay không. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function canEditOrderReviews(phone, orderId) {
   return hasOrderReviewSubmission(phone, orderId);
 }
 
+<<<<<<< HEAD
 function readFilesAsDataUrls(fileList) {
   return Promise.all([...fileList].map((file) => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -150,20 +549,52 @@ function readFilesAsDataUrls(fileList) {
   })));
 }
 
+=======
+
+/** Đọc các file ảnh đã chọn thành data URL để lưu trong demo. */
+function readFilesAsDataUrls(fileList) {
+  return Promise.all(
+    [...fileList].map(
+      (file) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(String(reader.result || ""));
+          reader.onerror = () =>
+            reject(reader.error || new Error("Không đọc được ảnh."));
+          reader.readAsDataURL(file);
+        }),
+    ),
+  );
+}
+
+
+/** Tạo bộ chọn số sao tương tác dùng trong form đánh giá. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function createStarPicker(name, selectedRating = 0) {
   const picker = makeElement("div", "review-star-picker");
   picker.setAttribute("role", "radiogroup");
   for (let rating = 1; rating <= 5; rating += 1) {
+<<<<<<< HEAD
     const button = makeElement("button", `review-star-button${rating <= selectedRating ? " is-active" : ""}`, "★");
+=======
+    const button = makeElement(
+      "button",
+      `review-star-button${rating <= selectedRating ? " is-active" : ""}`,
+      "★",
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     button.type = "button";
     button.setAttribute("role", "radio");
     button.setAttribute("aria-label", `${rating} sao`);
     button.setAttribute("aria-checked", String(rating === selectedRating));
+<<<<<<< HEAD
     button.addEventListener("mouseenter", () => {
       picker.querySelectorAll(".review-star-button").forEach((item, index) => {
         item.classList.toggle("is-hovered", index < rating);
       });
     });
+=======
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     button.addEventListener("click", () => {
       picker.querySelectorAll(".review-star-button").forEach((item, index) => {
         const active = index < rating;
@@ -179,6 +610,7 @@ function createStarPicker(name, selectedRating = 0) {
   hidden.name = name;
   hidden.value = String(selectedRating || 0);
   picker.append(hidden);
+<<<<<<< HEAD
   picker.addEventListener("mouseleave", () => {
     picker.querySelectorAll(".review-star-button").forEach((item) => item.classList.remove("is-hovered"));
   });
@@ -189,6 +621,20 @@ function seedDemoCustomerOrders() {
   const phone = "0901234562";
   const orders = storedArray(CUSTOMER_ORDERS_KEY, "Saved demo orders");
   const existingIds = new Set(orders.map((order) => order.id));
+=======
+  return picker;
+}
+
+
+/** Tạo đơn hàng và đánh giá mẫu phục vụ luồng đánh giá demo. */
+function seedDemoCustomerOrders() {
+  const phone = "0901234562";
+  const orders = storedArray(CUSTOMER_ORDERS_KEY, "Saved demo orders");
+  const existing = orders.filter((order) => order.customerPhone === phone);
+  const demoIds = new Set(["HX-DEMO-DELIVERED-01", "HX-DEMO-DELIVERED-02"]);
+  if (existing.length && existing.some((order) => demoIds.has(order.id)))
+    return;
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const now = Date.now();
   const demoOrders = [
     {
@@ -201,13 +647,29 @@ function seedDemoCustomerOrders() {
       address: "12 Nguyễn Huệ, Quận 1, TP.HCM",
       deliveryTime: "08:00 - 12:00",
       payment: "Thanh toán khi nhận hoa (COD)",
+<<<<<<< HEAD
       items: [{ id: "rose-red", name: "Hoa hồng đỏ", price: 18000, unit: "bó", quantity: 2 }],
+=======
+      items: [
+        {
+          id: "rose-red",
+          name: "Hoa hồng đỏ",
+          price: 18000,
+          unit: "bó",
+          quantity: 2,
+        },
+      ],
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       subtotal: 36000,
       shippingFee: 25000,
       total: 61000,
       status: "Đã giao",
       createdAt: new Date(now - 3 * 60 * 60 * 1000).toISOString(),
+<<<<<<< HEAD
       deliveredAt: new Date(now - 2 * 60 * 60 * 1000).toISOString()
+=======
+      deliveredAt: new Date(now - 2 * 60 * 60 * 1000).toISOString(),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     },
     {
       id: "HX-DEMO-DELIVERED-02",
@@ -219,12 +681,25 @@ function seedDemoCustomerOrders() {
       address: "25 Lê Lợi, Quận 1, TP.HCM",
       deliveryTime: "12:00 - 17:00",
       payment: "Thanh toán khi nhận hoa (COD)",
+<<<<<<< HEAD
       items: [{ id: "sunflower", name: "Bó hoa hướng dương", price: 25000, unit: "bó", quantity: 1 }],
+=======
+      items: [
+        {
+          id: "sunflower",
+          name: "Bó hoa hướng dương",
+          price: 25000,
+          unit: "bó",
+          quantity: 1,
+        },
+      ],
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       subtotal: 25000,
       shippingFee: 25000,
       total: 50000,
       status: "Đã giao",
       createdAt: new Date(now - 13 * 60 * 60 * 1000).toISOString(),
+<<<<<<< HEAD
       deliveredAt: new Date(now - 12 * 60 * 60 * 1000).toISOString()
     },
     {
@@ -250,6 +725,25 @@ function seedDemoCustomerOrders() {
   if (newOrders.length) localStorage.setItem(CUSTOMER_ORDERS_KEY, JSON.stringify([...newOrders, ...orders]));
   const reviews = storedArray(CUSTOMER_REVIEWS_KEY, "Saved demo reviews");
   if (!reviews.some((review) => review.customerPhone === phone && review.orderId === "HX-DEMO-DELIVERED-01")) {
+=======
+      deliveredAt: new Date(now - 12 * 60 * 60 * 1000).toISOString(),
+    },
+  ];
+  const merged = existing.length
+    ? orders.map(
+        (order) => demoOrders.find((demo) => demo.id === order.id) || order,
+      )
+    : [...demoOrders, ...orders];
+  localStorage.setItem(CUSTOMER_ORDERS_KEY, JSON.stringify(merged));
+  const reviews = storedArray(CUSTOMER_REVIEWS_KEY, "Saved demo reviews");
+  if (
+    !reviews.some(
+      (review) =>
+        review.customerPhone === phone &&
+        review.orderId === "HX-DEMO-DELIVERED-01",
+    )
+  ) {
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     reviews.unshift({
       orderId: "HX-DEMO-DELIVERED-01",
       productId: "rose-red",
@@ -260,12 +754,22 @@ function seedDemoCustomerOrders() {
       content: "Hoa đẹp, bó hoa được chuẩn bị rất cẩn thận.",
       images: [],
       createdAt: new Date(now - 60 * 60 * 1000).toISOString(),
+<<<<<<< HEAD
       updatedAt: new Date(now - 30 * 60 * 1000).toISOString()
+=======
+      updatedAt: new Date(now - 30 * 60 * 1000).toISOString(),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     });
     localStorage.setItem(CUSTOMER_REVIEWS_KEY, JSON.stringify(reviews));
   }
 }
 
+<<<<<<< HEAD
+=======
+
+/** Tạo và cấu hình một phần tử HTML có thể tái sử dụng. */
+/* THÔNG BÁO CHO NGƯỜI DÙNG: các textContent và nội dung truyền vào makeElement bên dưới có thể chỉnh sửa. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function makeElement(tag, className, text) {
   const element = document.createElement(tag);
   if (className) element.className = className;
@@ -273,16 +777,38 @@ function makeElement(tag, className, text) {
   return element;
 }
 
+<<<<<<< HEAD
 function showPageError(error) {
   console.error(error);
   const message = document.querySelector("#page-error") || document.querySelector("#login-error");
   if (message) {
     message.textContent = "Đã xảy ra lỗi khi tải dữ liệu. Hãy đảm bảo bạn chạy ứng dụng qua máy chủ tĩnh (HTTP server).";
+=======
+
+/** Hiển thị lỗi tải dữ liệu ở vùng thông báo chung của trang. */
+function showPageError(error) {
+  console.error(error);
+  const message =
+    document.querySelector("#page-error") ||
+    document.querySelector("#login-error");
+  if (message) {
+    message.textContent =
+      "Đã xảy ra lỗi khi tải dữ liệu. Hãy đảm bảo bạn chạy ứng dụng qua máy chủ tĩnh (HTTP server).";
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     message.hidden = false;
   }
 }
 
+<<<<<<< HEAD
 function createNavigationLink(label, href, icon, { current = false, cartCount = false } = {}) {
+=======
+function createNavigationLink(
+  label,
+  href,
+  icon,
+  { current = false, cartCount = false } = {},
+) {
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const link = document.createElement("a");
   link.className = `nav-link${cartCount ? " nav-icon" : ""}`;
   link.href = href;
@@ -296,30 +822,58 @@ function createNavigationLink(label, href, icon, { current = false, cartCount = 
   svg.setAttribute("aria-hidden", "true");
   const paths = {
     home: '<path d="m3 11 9-8 9 8v10h-6v-7H9v7H3z"/>',
+<<<<<<< HEAD
     register: '<path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm9 10a9 9 0 0 0-18 0z"/><path d="M19 8v6m-3-3h6"/>',
     flowers: '<path d="M12 2c1.7 0 2.4 2.2 2.1 4.5 1.7-1.6 3.8-2.5 5-1.3s.3 3.3-1.3 5C20.1 9.9 22.3 10.6 22.3 12s-2.2 2.1-4.5 1.8c1.6 1.7 2.5 3.8 1.3 5s-3.3.3-5-1.3C14.4 19.8 13.7 22 12 22s-2.4-2.2-2.1-4.5c-1.7 1.6-3.8 2.5-5 1.3s-.3-3.3 1.3-5C3.9 14.1 1.7 13.4 1.7 12s2.2-2.1 4.5-1.8c-1.6-1.7-2.5-3.8-1.3-5s3.3-.3 5 1.3C9.6 4.2 10.3 2 12 2Z"/>',
     phone: '<path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.2 11 11 0 0 0 3.5.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1A11 11 0 0 0 9 7.5a1 1 0 0 1-.2 1z"/>',
     account: '<path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm9 10a9 9 0 0 0-18 0z"/>',
     search: '<circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.2 16.2 5 5"/>',
     cart: '<path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'
+=======
+    register:
+      '<path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm9 10a9 9 0 0 0-18 0z"/><path d="M19 8v6m-3-3h6"/>',
+    flowers:
+      '<path d="M12 2c1.7 0 2.4 2.2 2.1 4.5 1.7-1.6 3.8-2.5 5-1.3s.3 3.3-1.3 5C20.1 9.9 22.3 10.6 22.3 12s-2.2 2.1-4.5 1.8c1.6 1.7 2.5 3.8 1.3 5s-3.3.3-5-1.3C14.4 19.8 13.7 22 12 22s-2.4-2.2-2.1-4.5c-1.7 1.6-3.8 2.5-5 1.3s-.3-3.3 1.3-5C3.9 14.1 1.7 13.4 1.7 12s2.2-2.1 4.5-1.8c-1.6-1.7-2.5-3.8-1.3-5s3.3-.3 5 1.3C9.6 4.2 10.3 2 12 2Z"/>',
+    phone:
+      '<path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.2 11 11 0 0 0 3.5.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1A11 11 0 0 0 9 7.5a1 1 0 0 1-.2 1z"/>',
+    account:
+      '<path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm9 10a9 9 0 0 0-18 0z"/>',
+    search: '<circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.2 16.2 5 5"/>',
+    cart: '<path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   };
   svg.innerHTML = paths[icon] || paths.home;
   link.append(svg);
   if (!cartCount) {
+<<<<<<< HEAD
     link.append(Object.assign(document.createElement("span"), { textContent: label }));
+=======
+    link.append(
+      Object.assign(document.createElement("span"), { textContent: label }),
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   }
   if (cartCount) {
     const badge = Object.assign(document.createElement("span"), {
       id: "cart-count",
       className: "cart-count",
       textContent: "0",
+<<<<<<< HEAD
       hidden: true
+=======
+      hidden: true,
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     });
     link.append(badge);
   }
   return link;
 }
 
+<<<<<<< HEAD
+=======
+
+/** Tạo tìm kiếm trên nav, gợi ý sản phẩm và điều hướng đến sản phẩm. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function createNavigationSearch() {
   const form = document.createElement("form");
   form.className = "nav-search";
@@ -337,7 +891,12 @@ function createNavigationSearch() {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("viewBox", "0 0 24 24");
   svg.setAttribute("aria-hidden", "true");
+<<<<<<< HEAD
   svg.innerHTML = '<circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.2 16.2 5 5"/>';
+=======
+  svg.innerHTML =
+    '<circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.2 16.2 5 5"/>';
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   button.append(svg);
   const suggestions = makeElement("div", "nav-search-suggestions");
   suggestions.setAttribute("role", "listbox");
@@ -350,10 +909,27 @@ function createNavigationSearch() {
       return;
     }
     const matches = flowers
+<<<<<<< HEAD
       .filter((product) => `${product.name} ${product.category} ${product.variety}`.toLocaleLowerCase("vi").includes(query))
       .slice(0, 6);
     if (!matches.length) {
       suggestions.append(makeElement("p", "nav-search-empty", "Không tìm thấy sản phẩm phù hợp."));
+=======
+      .filter((product) =>
+        `${product.name} ${product.category} ${product.variety}`
+          .toLocaleLowerCase("vi")
+          .includes(query),
+      )
+      .slice(0, 6);
+    if (!matches.length) {
+      suggestions.append(
+        makeElement(
+          "p",
+          "nav-search-empty",
+          "Không tìm thấy sản phẩm phù hợp.",
+        ),
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       suggestions.hidden = false;
       return;
     }
@@ -362,11 +938,26 @@ function createNavigationSearch() {
       suggestion.type = "button";
       suggestion.setAttribute("role", "option");
       suggestion.append(
+<<<<<<< HEAD
         makeElement("span", `nav-search-suggestion-art flower-art--${product.style}`, product.symbol),
         makeElement("span", "nav-search-suggestion-details", product.name)
       );
       suggestion.addEventListener("click", () => {
         const detailUrl = new URL("pages/customer/customer-product-detail.html", document.baseURI);
+=======
+        makeElement(
+          "span",
+          `nav-search-suggestion-art flower-art--${product.style}`,
+          product.symbol,
+        ),
+        makeElement("span", "nav-search-suggestion-details", product.name),
+      );
+      suggestion.addEventListener("click", () => {
+        const detailUrl = new URL(
+          "pages/customer/customer-product-detail.html",
+          document.baseURI,
+        );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         detailUrl.searchParams.set("id", product.id);
         location.assign(detailUrl);
       });
@@ -396,13 +987,25 @@ function createNavigationSearch() {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const query = input.value.trim();
+<<<<<<< HEAD
     const target = new URL("pages/customer/customer-products.html", document.baseURI);
+=======
+    const target = new URL(
+      "pages/customer/customer-products.html",
+      document.baseURI,
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     if (query) target.searchParams.set("q", query);
     location.assign(target);
   });
   return form;
 }
 
+<<<<<<< HEAD
+=======
+
+/** Tạo menu tài khoản cho thao tác xem hồ sơ và đăng xuất. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function createAccountMenu(account) {
   const container = document.createElement("div");
   container.className = "account-menu";
@@ -412,6 +1015,7 @@ function createAccountMenu(account) {
   const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   icon.setAttribute("viewBox", "0 0 24 24");
   icon.setAttribute("aria-hidden", "true");
+<<<<<<< HEAD
   icon.innerHTML = '<path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm9 10a9 9 0 0 0-18 0z"/>';
   trigger.append(icon, Object.assign(document.createElement("span"), { textContent: "Tài khoản" }));
   trigger.setAttribute("aria-expanded", "false");
@@ -429,6 +1033,31 @@ function createAccountMenu(account) {
       className: "account-menu-item",
       type: "button",
       textContent: "Đăng xuất"
+=======
+  icon.innerHTML =
+    '<path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm9 10a9 9 0 0 0-18 0z"/>';
+  trigger.append(
+    icon,
+    Object.assign(document.createElement("span"), { textContent: "Tài khoản" }),
+  );
+  trigger.setAttribute("aria-expanded", "false");
+  const menu = Object.assign(document.createElement("div"), {
+    className: "account-menu-panel",
+    hidden: true,
+  });
+  if (account) {
+    menu.append(
+      Object.assign(document.createElement("a"), {
+        className: "account-menu-item",
+        href: "pages/account/profile.html",
+        textContent: "Cập nhật tài khoản",
+      }),
+    );
+    const signOut = Object.assign(document.createElement("button"), {
+      className: "account-menu-item",
+      type: "button",
+      textContent: "Đăng xuất",
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     });
     signOut.addEventListener("click", () => {
       sessionStorage.removeItem(SESSION_KEY);
@@ -440,13 +1069,22 @@ function createAccountMenu(account) {
       Object.assign(document.createElement("a"), {
         className: "account-menu-item",
         href: "index.html",
+<<<<<<< HEAD
         textContent: "Đăng nhập"
+=======
+        textContent: "Đăng nhập",
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       }),
       Object.assign(document.createElement("a"), {
         className: "account-menu-item",
         href: "pages/customer/customer-register.html",
+<<<<<<< HEAD
         textContent: "Đăng ký"
       })
+=======
+        textContent: "Đăng ký",
+      }),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
   }
   trigger.addEventListener("click", () => {
@@ -464,6 +1102,11 @@ function createAccountMenu(account) {
   return container;
 }
 
+<<<<<<< HEAD
+=======
+
+/** Lắp header, trạng thái điều hướng dùng chung và cập nhật huy hiệu giỏ hàng. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function initializeNavigation() {
   let navInner = document.querySelector(".nav-inner");
   const header = document.querySelector(".site-header");
@@ -480,7 +1123,14 @@ function initializeNavigation() {
   const nav = navInner.closest(".main-nav");
   if (header && nav && nav.parentElement === header) header.after(nav);
   const updateNavHeight = () => {
+<<<<<<< HEAD
     document.documentElement.style.setProperty("--main-nav-height", `${nav.getBoundingClientRect().height}px`);
+=======
+    document.documentElement.style.setProperty(
+      "--main-nav-height",
+      `${nav.getBoundingClientRect().height}px`,
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   };
   const currentPhone = sessionStorage.getItem(SESSION_KEY);
   const account = accounts.find((item) => item.phone === currentPhone);
@@ -488,24 +1138,49 @@ function initializeNavigation() {
 
   const links = [
     createNavigationLink("Trang chủ", "home.html", "home", {
+<<<<<<< HEAD
       current: document.body.dataset.page === "home"
     })
+=======
+      current: document.body.dataset.page === "home",
+    }),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   ];
 
   if (!account || account.role === "customer") {
     links.push(
+<<<<<<< HEAD
       createNavigationLink("Sản phẩm", "pages/customer/customer-products.html", "flowers", {
         current: document.body.dataset.page === "products"
       }),
       createNavigationLink("Liên hệ", "pages/customer/customer-contact.html", "phone", {
         current: document.body.dataset.feature === "contact"
       })
+=======
+      createNavigationLink(
+        "Sản phẩm",
+        "pages/customer/customer-products.html",
+        "flowers",
+        {
+          current: document.body.dataset.page === "products",
+        },
+      ),
+      createNavigationLink(
+        "Liên hệ",
+        "pages/customer/customer-contact.html",
+        "phone",
+        {
+          current: document.body.dataset.feature === "contact",
+        },
+      ),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
   }
 
   if (account) {
     if (account.role === "customer") {
       links.push(
+<<<<<<< HEAD
         createNavigationLink("Đơn hàng", "pages/customer/customer-orders.html", "cart", {
           current: document.body.dataset.feature === "orders"
         })
@@ -515,6 +1190,27 @@ function initializeNavigation() {
         createNavigationLink("Quản trị", roleHome(roles[account.role]), "account", {
           current: document.body.dataset.page === "workspace"
         })
+=======
+        createNavigationLink(
+          "Đơn hàng",
+          "pages/customer/customer-orders.html",
+          "cart",
+          {
+            current: document.body.dataset.feature === "orders",
+          },
+        ),
+      );
+    } else {
+      links.push(
+        createNavigationLink(
+          "Quản trị",
+          roleHome(roles[account.role]),
+          "account",
+          {
+            current: document.body.dataset.page === "workspace",
+          },
+        ),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       );
     }
   }
@@ -526,10 +1222,22 @@ function initializeNavigation() {
 
   if (!account || account.role === "customer") {
     tools.append(
+<<<<<<< HEAD
       createNavigationLink("Giỏ hàng", account ? "pages/customer/customer-cart.html" : "index.html", "cart", {
         cartCount: true,
         current: document.body.dataset.feature === "cart"
       })
+=======
+      createNavigationLink(
+        "Giỏ hàng",
+        account ? "pages/customer/customer-cart.html" : "index.html",
+        "cart",
+        {
+          cartCount: true,
+          current: document.body.dataset.feature === "cart",
+        },
+      ),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
   }
 
@@ -541,13 +1249,25 @@ function initializeNavigation() {
   }
 }
 
+<<<<<<< HEAD
+=======
+
+/** Tải tài khoản demo từ data/accounts.json. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 async function loadAccounts() {
   const response = await fetch(new URL("data/accounts.json", document.baseURI));
   if (!response.ok) {
     throw new Error(`Could not load data/accounts.json (${response.status})`);
   }
   const baseAccounts = await response.json();
+<<<<<<< HEAD
   const registered = storedArray(REGISTERED_CUSTOMERS_KEY, "Saved demo customer accounts");
+=======
+  const registered = storedArray(
+    REGISTERED_CUSTOMERS_KEY,
+    "Saved demo customer accounts",
+  );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   let registeredAccountsChanged = false;
   registered.forEach((account) => {
     if (!account.accountId) {
@@ -558,19 +1278,37 @@ async function loadAccounts() {
   if (registeredAccountsChanged) {
     localStorage.setItem(REGISTERED_CUSTOMERS_KEY, JSON.stringify(registered));
   }
+<<<<<<< HEAD
   const overrides = JSON.parse(localStorage.getItem(ACCOUNT_OVERRIDES_KEY) || "{}");
+=======
+  const overrides = JSON.parse(
+    localStorage.getItem(ACCOUNT_OVERRIDES_KEY) || "{}",
+  );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   if (Object.prototype.hasOwnProperty.call(overrides, "undefined")) {
     delete overrides.undefined;
     localStorage.setItem(ACCOUNT_OVERRIDES_KEY, JSON.stringify(overrides));
   }
   accounts = [...baseAccounts, ...registered].map((account) => {
+<<<<<<< HEAD
     const accountWithId = { ...account, accountId: account.accountId || `demo-${account.phone}` };
+=======
+    const accountWithId = {
+      ...account,
+      accountId: account.accountId || `demo-${account.phone}`,
+    };
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     const override = overrides[accountWithId.accountId];
     return override ? { ...accountWithId, ...override } : accountWithId;
   });
   return accounts;
 }
 
+<<<<<<< HEAD
+=======
+
+/** Tải sản phẩm từ data/flowers.json. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 async function loadFlowers() {
   const response = await fetch(new URL("data/flowers.json", document.baseURI));
   if (!response.ok) {
@@ -581,6 +1319,11 @@ async function loadFlowers() {
   return flowers;
 }
 
+<<<<<<< HEAD
+=======
+
+/** Xử lý đăng nhập demo và lưu session theo vai trò. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function initializeLogin() {
   const phoneInput = document.querySelector("#phone");
   const passwordInput = document.querySelector("#password");
@@ -589,9 +1332,20 @@ function initializeLogin() {
   const loginButton = document.querySelector("#login-button");
   const errorMessage = document.querySelector("#login-error");
   const helpMessage = document.querySelector("#login-help");
+<<<<<<< HEAD
   const rememberedPhone = localStorage.getItem(REMEMBERED_PHONE_KEY);
 
   if (rememberedPhone && accounts.some((account) => account.phone === rememberedPhone)) {
+=======
+  const phoneError = document.querySelector("#phone-error");
+  const passwordError = document.querySelector("#password-error");
+  const rememberedPhone = localStorage.getItem(REMEMBERED_PHONE_KEY);
+
+  if (
+    rememberedPhone &&
+    accounts.some((account) => account.phone === rememberedPhone)
+  ) {
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     phoneInput.value = rememberedPhone;
     rememberPhone.checked = true;
   }
@@ -600,10 +1354,39 @@ function initializeLogin() {
   loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const phone = phoneInput.value.replace(/[\s()-]/g, "");
+<<<<<<< HEAD
     const account = accounts.find((entry) => entry.phone === phone);
 
     if (!account || passwordInput.value !== DEMO_PASSWORD) {
       errorMessage.textContent = "Số điện thoại hoặc mật khẩu chưa đúng. Vui lòng thử lại.";
+=======
+    phoneError.hidden = true;
+    passwordError.hidden = true;
+    errorMessage.hidden = true;
+    if (!phone) {
+      phoneError.textContent = "Vui lòng nhập số điện thoại.";
+      phoneError.hidden = false;
+    }
+    if (!passwordInput.value) {
+      passwordError.textContent = "Vui lòng nhập mật khẩu.";
+      passwordError.hidden = false;
+    }
+    if (!phone || !passwordInput.value) {
+      return;
+    }
+    if (!/^0\d{9}$/.test(phone)) {
+      phoneError.textContent = "Số điện thoại không hợp lệ.";
+      phoneError.hidden = false;
+      return;
+    }
+    const account = accounts.find((entry) => entry.phone === phone);
+
+    if (!account || passwordInput.value !== accountPassword(account)) {
+      errorMessage.textContent = "Số điện thoại hoặc mật khẩu chưa đúng. Vui lòng thử lại.";
+    if (!account || passwordInput.value !== DEMO_PASSWORD) {
+      errorMessage.textContent =
+        "Số điện thoại hoặc mật khẩu chưa đúng. Vui lòng thử lại.";
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       errorMessage.hidden = false;
       return;
     }
@@ -614,7 +1397,12 @@ function initializeLogin() {
       localStorage.removeItem(REMEMBERED_PHONE_KEY);
     }
     sessionStorage.setItem(SESSION_KEY, account.phone);
+<<<<<<< HEAD
     const destination = account.role === "customer" ? "home.html" : roleHome(roles[account.role]);
+=======
+    const destination =
+      account.role === "customer" ? "home.html" : roleHome(roles[account.role]);
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     location.assign(new URL(destination, document.baseURI));
   });
 
@@ -624,6 +1412,7 @@ function initializeLogin() {
     passwordInput.type = showingPassword ? "text" : "password";
     button.setAttribute("aria-label", showingPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu");
     button.setAttribute("aria-pressed", String(showingPassword));
+<<<<<<< HEAD
   });
 
   document.querySelector("#forgot-password").addEventListener("click", () => {
@@ -632,19 +1421,334 @@ function initializeLogin() {
   });
   document.querySelector("#register-link").addEventListener("click", () => {
     location.assign(new URL("pages/customer/customer-register.html", document.baseURI));
+=======
+    button.classList.toggle("is-visible", showingPassword);
+  });
+  document
+    .querySelector("#toggle-password")
+    .addEventListener("click", (event) => {
+      const button = event.currentTarget;
+      const showingPassword = passwordInput.type === "password";
+      passwordInput.type = showingPassword ? "text" : "password";
+      button.setAttribute(
+        "aria-label",
+        showingPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu",
+      );
+      button.setAttribute("aria-pressed", String(showingPassword));
+    });
+
+  document.querySelectorAll("[data-password-toggle]").forEach((button) => {
+    const targetInput = document.querySelector(`#${button.dataset.passwordToggle}`);
+    button.addEventListener("click", () => {
+      const showingPassword = targetInput.type === "password";
+      targetInput.type = showingPassword ? "text" : "password";
+      button.setAttribute("aria-label", showingPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu");
+      button.setAttribute("aria-pressed", String(showingPassword));
+      button.classList.toggle("is-visible", showingPassword);
+    });
+  });
+
+  const forgotForm = document.querySelector("#forgot-password-form");
+  const forgotPhoneInput = document.querySelector("#forgot-phone");
+  const forgotOtpFields = document.querySelector("#forgot-otp-fields");
+  const forgotOtpInput = document.querySelector("#forgot-otp");
+  const forgotPhoneError = document.querySelector("#forgot-phone-error");
+  const forgotOtpError = document.querySelector("#forgot-otp-error");
+  const forgotOtpCountdown = document.querySelector("#forgot-otp-countdown");
+  const forgotNewPasswordFields = document.querySelector("#forgot-new-password-fields");
+  const forgotNewPassword = document.querySelector("#forgot-new-password");
+  const forgotConfirmPassword = document.querySelector("#forgot-confirm-password");
+  const forgotNewPasswordError = document.querySelector("#forgot-new-password-error");
+  const forgotConfirmPasswordError = document.querySelector("#forgot-confirm-password-error");
+  const forgotMessage = document.querySelector("#forgot-password-message");
+  const forgotRegisterLink = document.querySelector("#forgot-register-link");
+  let resetAccount;
+  let resetOtp;
+  let resetOtpExpiresAt;
+  let otpExpiryTimer;
+  let otpCountdownTimer;
+  let otpVerified = false;
+
+  const stopOtpCountdown = () => {
+    clearInterval(otpCountdownTimer);
+    otpCountdownTimer = null;
+    forgotOtpCountdown.hidden = true;
+  };
+
+  const startOtpCountdown = () => {
+    clearInterval(otpCountdownTimer);
+    const updateCountdown = () => {
+      const secondsLeft = Math.max(0, Math.ceil((resetOtpExpiresAt - Date.now()) / 1000));
+      forgotOtpCountdown.textContent = `Mã OTP có hiệu lực trong ${secondsLeft}s.`;
+      forgotOtpCountdown.hidden = false;
+      if (secondsLeft === 0) {
+        clearInterval(otpCountdownTimer);
+        otpCountdownTimer = null;
+      }
+    };
+    updateCountdown();
+    otpCountdownTimer = setInterval(updateCountdown, 1000);
+  };
+
+  document.querySelector("#forgot-password").addEventListener("click", () => {
+    loginForm.hidden = true;
+    forgotForm.hidden = false;
+    document.querySelector("#signup-prompt").hidden = true;
+    helpMessage.hidden = true;
+    forgotPhoneError.hidden = true;
+    forgotOtpError.hidden = true;
+    forgotNewPasswordError.hidden = true;
+    forgotConfirmPasswordError.hidden = true;
+    forgotRegisterLink.hidden = true;
+    forgotPhoneInput.focus();
+  });
+
+  const sendOtp = () => {
+    const phone = forgotPhoneInput.value.replace(/[\s()-]/g, "");
+    clearTimeout(otpExpiryTimer);
+    otpExpiryTimer = null;
+    stopOtpCountdown();
+    forgotPhoneError.hidden = true;
+    forgotOtpError.hidden = true;
+    forgotNewPasswordError.hidden = true;
+    forgotConfirmPasswordError.hidden = true;
+    forgotMessage.hidden = true;
+    forgotRegisterLink.hidden = true;
+    if (!phone) {
+      forgotPhoneError.textContent = "Vui lòng nhập số điện thoại.";
+      forgotPhoneError.hidden = false;
+      return;
+    }
+    if (!/^0\d{9}$/.test(phone)) {
+      forgotPhoneError.textContent = "Số điện thoại không hợp lệ.";
+      forgotPhoneError.hidden = false;
+      return;
+    }
+    resetAccount = accounts.find((account) => account.phone === phone);
+    if (!resetAccount) {
+      clearTimeout(otpExpiryTimer);
+      otpExpiryTimer = null;
+      resetOtp = null;
+      resetOtpExpiresAt = null;
+      otpVerified = false;
+      stopOtpCountdown();
+      forgotOtpFields.hidden = true;
+      forgotNewPasswordFields.hidden = true;
+      forgotNewPassword.disabled = true;
+      forgotConfirmPassword.disabled = true;
+      forgotMessage.textContent = "Số điện thoại này chưa được đăng ký tài khoản. Vui lòng đăng ký tài khoản.";
+      forgotMessage.hidden = false;
+      forgotRegisterLink.hidden = false;
+      return;
+    }
+    resetOtp = String(Math.floor(100000 + Math.random() * 900000));
+    resetOtpExpiresAt = Date.now() + 30000;
+    otpExpiryTimer = setTimeout(() => {
+      if (!otpVerified && resetOtpExpiresAt && Date.now() >= resetOtpExpiresAt) {
+        forgotMessage.textContent = "Mã OTP đã hết hạn. Vui lòng gửi lại mã.";
+        forgotMessage.hidden = false;
+      }
+    }, 30000);
+    otpVerified = false;
+    startOtpCountdown();
+    forgotOtpInput.value = "";
+    forgotOtpFields.hidden = false;
+    forgotNewPasswordFields.hidden = true;
+    forgotNewPassword.disabled = true;
+    forgotConfirmPassword.disabled = true;
+    forgotMessage.textContent = `Mã OTP demo của bạn là ${resetOtp}.`;
+    forgotMessage.hidden = false;
+    forgotOtpInput.focus();
+  };
+
+  document.querySelector("#forgot-send-otp").addEventListener("click", sendOtp);
+  document.querySelector("#forgot-verify-otp").addEventListener("click", () => {
+    forgotOtpError.hidden = true;
+    forgotMessage.hidden = true;
+    if (!forgotOtpInput.value.trim()) {
+      forgotOtpError.textContent = "Vui lòng nhập mã OTP.";
+      forgotOtpError.hidden = false;
+      return;
+    }
+    if (Date.now() > resetOtpExpiresAt) {
+      forgotOtpError.textContent = "Mã OTP đã hết hạn. Vui lòng gửi lại mã.";
+      forgotOtpError.hidden = false;
+      return;
+    }
+    if (forgotOtpInput.value.trim() !== resetOtp) {
+      forgotOtpError.textContent = "Mã OTP không chính xác. Vui lòng thử lại.";
+      forgotOtpError.hidden = false;
+      return;
+    }
+    otpVerified = true;
+    stopOtpCountdown();
+    forgotNewPasswordFields.hidden = false;
+    forgotNewPassword.disabled = false;
+    forgotConfirmPassword.disabled = false;
+    forgotMessage.textContent = "";
+    forgotMessage.hidden = true;
+    forgotNewPassword.focus();
+  });
+
+  forgotForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!otpVerified || !resetAccount) return;
+    forgotNewPasswordError.hidden = true;
+    forgotConfirmPasswordError.hidden = true;
+    forgotMessage.hidden = true;
+    if (!forgotNewPassword.value) {
+      forgotNewPasswordError.textContent = "Vui lòng nhập mật khẩu mới.";
+      forgotNewPasswordError.hidden = false;
+      return;
+    }
+    if (forgotNewPassword.value.length < 8 || !/[A-Za-z]/.test(forgotNewPassword.value) || !/\d/.test(forgotNewPassword.value)) {
+      forgotNewPasswordError.textContent = "Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ cái và chữ số.";
+      forgotNewPasswordError.hidden = false;
+      return;
+    }
+    if (!forgotConfirmPassword.value) {
+      forgotConfirmPasswordError.textContent = "Vui lòng nhập lại mật khẩu.";
+      forgotConfirmPasswordError.hidden = false;
+      return;
+    }
+    if (forgotNewPassword.value !== forgotConfirmPassword.value) {
+      forgotConfirmPasswordError.textContent = "Mật khẩu xác nhận không khớp.";
+      forgotConfirmPasswordError.hidden = false;
+      return;
+    }
+    const overrides = JSON.parse(localStorage.getItem(PASSWORD_OVERRIDES_KEY) || "{}");
+    overrides[resetAccount.accountId] = forgotNewPassword.value;
+    localStorage.setItem(PASSWORD_OVERRIDES_KEY, JSON.stringify(overrides));
+    forgotForm.hidden = true;
+    loginForm.hidden = false;
+    document.querySelector("#signup-prompt").hidden = false;
+    loginHelp.textContent = "Đổi mật khẩu thành công";
+    loginHelp.hidden = false;
+    forgotForm.reset();
+    forgotOtpFields.hidden = true;
+    forgotPhoneError.hidden = true;
+    forgotOtpError.hidden = true;
+    forgotNewPasswordError.hidden = true;
+    forgotConfirmPasswordError.hidden = true;
+    resetAccount = null;
+    resetOtp = null;
+    resetOtpExpiresAt = null;
+    clearTimeout(otpExpiryTimer);
+    otpExpiryTimer = null;
+    stopOtpCountdown();
+    otpVerified = false;
+  });
+
+  document.querySelector("#forgot-password-cancel").addEventListener("click", () => {
+    forgotForm.hidden = true;
+    loginForm.hidden = false;
+    document.querySelector("#signup-prompt").hidden = false;
+    forgotMessage.hidden = true;
+    forgotForm.reset();
+    forgotOtpFields.hidden = true;
+    forgotPhoneError.hidden = true;
+    forgotOtpError.hidden = true;
+    forgotNewPasswordError.hidden = true;
+    forgotConfirmPasswordError.hidden = true;
+    forgotRegisterLink.hidden = true;
+    resetAccount = null;
+    resetOtp = null;
+    resetOtpExpiresAt = null;
+    clearTimeout(otpExpiryTimer);
+    otpExpiryTimer = null;
+    stopOtpCountdown();
+    otpVerified = false;
+  });
+  forgotRegisterLink.addEventListener("click", () => {
+    location.assign(new URL("pages/customer/customer-register.html", document.baseURI));
+    helpMessage.textContent =
+      "Chức năng khôi phục mật khẩu chưa có trong bản demo. Mật khẩu dùng thử là hoaxinh123.";
+    helpMessage.hidden = false;
+  });
+  document.querySelector("#register-link").addEventListener("click", () => {
+    location.assign(
+      new URL("pages/customer/customer-register.html", document.baseURI),
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   });
 }
 
 function initializeRegistration() {
+<<<<<<< HEAD
+=======
+  document.querySelectorAll("[data-password-toggle]").forEach((button) => {
+    const targetInput = document.querySelector(`#${button.dataset.passwordToggle}`);
+    button.addEventListener("click", () => {
+      const showingPassword = targetInput.type === "password";
+      targetInput.type = showingPassword ? "text" : "password";
+      button.setAttribute("aria-label", showingPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu");
+      button.setAttribute("aria-pressed", String(showingPassword));
+      button.classList.toggle("is-visible", showingPassword);
+    });
+  });
+
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   document.querySelector("#registration-form").addEventListener("submit", (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const name = String(formData.get("name")).trim();
     const phone = String(formData.get("phone")).replace(/[\s()-]/g, "");
+<<<<<<< HEAD
     const message = document.querySelector("#registration-message");
 
     if (name.length < 2 || !/^\d{10,11}$/.test(phone)) {
       message.textContent = "Vui lòng nhập họ tên và số điện thoại hợp lệ.";
+=======
+    const password = String(formData.get("password"));
+    const confirmPassword = String(formData.get("confirmPassword"));
+    const message = document.querySelector("#registration-message");
+    const nameError = document.querySelector("#register-name-error");
+    const phoneError = document.querySelector("#register-phone-error");
+    const passwordError = document.querySelector("#register-password-error");
+    const confirmPasswordError = document.querySelector("#register-confirm-password-error");
+
+    nameError.hidden = true;
+    phoneError.hidden = true;
+    passwordError.hidden = true;
+    confirmPasswordError.hidden = true;
+    message.hidden = true;
+
+    if (name.length < 2) {
+      nameError.textContent = "Vui lòng nhập họ tên.";
+      nameError.hidden = false;
+    }
+    if (!phone) {
+      phoneError.textContent = "Vui lòng nhập số điện thoại.";
+      phoneError.hidden = false;
+    } else if (!/^0\d{9}$/.test(phone)) {
+      phoneError.textContent = "Số điện thoại không hợp lệ.";
+      phoneError.hidden = false;
+    }
+    if (!password) {
+      passwordError.textContent = "Vui lòng nhập mật khẩu mới.";
+      passwordError.hidden = false;
+    } else if (password.length < 8 || !/[A-Za-z]/.test(password) || !/\d/.test(password)) {
+      passwordError.textContent = "Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ cái và chữ số.";
+      passwordError.hidden = false;
+    }
+    if (!confirmPassword) {
+      confirmPasswordError.textContent = "Vui lòng nhập lại mật khẩu.";
+      confirmPasswordError.hidden = false;
+    } else if (password !== confirmPassword) {
+      confirmPasswordError.textContent = "Mật khẩu xác nhận không khớp.";
+      confirmPasswordError.hidden = false;
+    }
+    if (name.length < 2 || !/^0\d{9}$/.test(phone) || !password || password.length < 8 || !/[A-Za-z]/.test(password) || !/\d/.test(password) || !confirmPassword || password !== confirmPassword) {
+      return;
+    }
+    if (password.length < 8 || !/[A-Za-z]/.test(password) || !/\d/.test(password)) {
+      message.textContent = "Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ cái và chữ số.";
+      message.hidden = false;
+      return;
+    }
+    if (password !== confirmPassword) {
+      message.textContent = "Mật khẩu xác nhận không khớp.";
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       message.hidden = false;
       return;
     }
@@ -658,11 +1762,65 @@ function initializeRegistration() {
     const registered = storedArray(REGISTERED_CUSTOMERS_KEY, "Saved demo customer accounts");
     registered.push(customer);
     localStorage.setItem(REGISTERED_CUSTOMERS_KEY, JSON.stringify(registered));
+<<<<<<< HEAD
     sessionStorage.setItem(SESSION_KEY, phone);
     location.assign(new URL("home.html", document.baseURI));
   });
 }
 
+=======
+    const overrides = JSON.parse(localStorage.getItem(PASSWORD_OVERRIDES_KEY) || "{}");
+    overrides[customer.accountId] = password;
+    localStorage.setItem(PASSWORD_OVERRIDES_KEY, JSON.stringify(overrides));
+    sessionStorage.setItem(SESSION_KEY, phone);
+    location.assign(new URL("home.html", document.baseURI));
+  });
+
+/** Xử lý đăng ký khách hàng demo và tạo session. */
+function initializeRegistration() {
+  document
+    .querySelector("#registration-form")
+    .addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.currentTarget);
+      const name = String(formData.get("name")).trim();
+      const phone = String(formData.get("phone")).replace(/[\s()-]/g, "");
+      const message = document.querySelector("#registration-message");
+
+      if (name.length < 2 || !/^\d{10,11}$/.test(phone)) {
+        message.textContent = "Vui lòng nhập họ tên và số điện thoại hợp lệ.";
+        message.hidden = false;
+        return;
+      }
+      if (accounts.some((account) => account.phone === phone)) {
+        message.textContent = "Số điện thoại này đã được đăng ký.";
+        message.hidden = false;
+        return;
+      }
+
+      const customer = {
+        accountId: `cust-${Date.now()}`,
+        name,
+        phone,
+        role: "customer",
+      };
+      const registered = storedArray(
+        REGISTERED_CUSTOMERS_KEY,
+        "Saved demo customer accounts",
+      );
+      registered.push(customer);
+      localStorage.setItem(
+        REGISTERED_CUSTOMERS_KEY,
+        JSON.stringify(registered),
+      );
+      sessionStorage.setItem(SESSION_KEY, phone);
+      location.assign(new URL("home.html", document.baseURI));
+    });
+}
+
+
+/** Hiển thị hồ sơ, thống kê chi tiêu và sổ địa chỉ. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function initializeProfile() {
   const phone = sessionStorage.getItem(SESSION_KEY);
   const account = accounts.find((item) => item.phone === phone);
@@ -675,7 +1833,11 @@ function initializeProfile() {
   form.elements.namedItem("name").value = account.name || "";
   form.elements.namedItem("phone").value = account.phone;
 
+<<<<<<< HEAD
   // Initialize Customer Stats & Sổ địa chỉ nếu là khách hàng
+=======
+  // Khởi tạo thống kê khách hàng và sổ địa chỉ nếu tài khoản là khách hàng.
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   if (account.role === "customer") {
     const statsContainer = document.querySelector("#customer-stats");
     const addressCard = document.querySelector("#address-book-card");
@@ -685,19 +1847,42 @@ function initializeProfile() {
 
     function renderCustomerStats() {
       if (!statsContainer) return;
+<<<<<<< HEAD
       const orders = storedArray(CUSTOMER_ORDERS_KEY, "Saved demo orders").filter((o) => o.customerPhone === account.phone);
       const totalSpent = orders.reduce((sum, o) => sum + (o.total || 0), 0);
       const addresses = storedArray(`${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`, "Saved customer addresses");
+=======
+      const orders = storedArray(
+        CUSTOMER_ORDERS_KEY,
+        "Saved demo orders",
+      ).filter((o) => o.customerPhone === account.phone);
+      const totalSpent = orders.reduce((sum, o) => sum + (o.total || 0), 0);
+      const addresses = storedArray(
+        `${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`,
+        "Saved customer addresses",
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 
       statsContainer.replaceChildren();
       const stats = [
         { label: "Tổng đơn hàng", value: orders.length },
         { label: "Tổng chi tiêu", value: currency.format(totalSpent) },
+<<<<<<< HEAD
         { label: "Địa chỉ đã lưu", value: addresses.length }
       ];
       stats.forEach((st) => {
         const card = makeElement("div", "customer-stat-card");
         card.append(makeElement("div", "stat-number", String(st.value)), makeElement("div", "stat-label", st.label));
+=======
+        { label: "Địa chỉ đã lưu", value: addresses.length },
+      ];
+      stats.forEach((st) => {
+        const card = makeElement("div", "customer-stat-card");
+        card.append(
+          makeElement("div", "stat-number", String(st.value)),
+          makeElement("div", "stat-label", st.label),
+        );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         statsContainer.append(card);
       });
       statsContainer.hidden = false;
@@ -707,14 +1892,36 @@ function initializeProfile() {
       if (!addressCard || !addressList) return;
       addressCard.hidden = false;
       addressList.replaceChildren();
+<<<<<<< HEAD
       const addresses = storedArray(`${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`, "Saved customer addresses");
       if (addresses.length === 0) {
         addressList.append(makeElement("p", "empty-state", "Chưa có địa chỉ nhận hàng nào được lưu."));
+=======
+      const addresses = storedArray(
+        `${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`,
+        "Saved customer addresses",
+      );
+      if (addresses.length === 0) {
+        addressList.append(
+          makeElement(
+            "p",
+            "empty-state",
+            "Chưa có địa chỉ nhận hàng nào được lưu.",
+          ),
+        );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         renderCustomerStats();
         return;
       }
       addresses.forEach((addr, index) => {
+<<<<<<< HEAD
         const item = makeElement("div", `address-card${index === 0 ? " is-default" : ""}`);
+=======
+        const item = makeElement(
+          "div",
+          `address-card${index === 0 ? " is-default" : ""}`,
+        );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         const info = makeElement("div", "address-card-info");
         info.append(makeElement("div", "address-card-text", addr));
         if (index === 0) {
@@ -722,22 +1929,52 @@ function initializeProfile() {
         }
         const actions = makeElement("div", "address-card-actions");
         if (index !== 0) {
+<<<<<<< HEAD
           const setDefaultBtn = makeElement("button", "btn-icon-text", "Đặt mặc định");
+=======
+          const setDefaultBtn = makeElement(
+            "button",
+            "btn-icon-text",
+            "Đặt mặc định",
+          );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
           setDefaultBtn.type = "button";
           setDefaultBtn.title = "Đặt làm địa chỉ ưu tiên khi mua hàng";
           setDefaultBtn.addEventListener("click", () => {
             const [selected] = addresses.splice(index, 1);
             addresses.unshift(selected);
+<<<<<<< HEAD
             localStorage.setItem(`${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`, JSON.stringify(addresses));
+=======
+            localStorage.setItem(
+              `${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`,
+              JSON.stringify(addresses),
+            );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
             renderAddressBook();
           });
           actions.append(setDefaultBtn);
         }
+<<<<<<< HEAD
         const deleteBtn = makeElement("button", "btn-icon-text btn-delete", "Xóa");
         deleteBtn.type = "button";
         deleteBtn.addEventListener("click", () => {
           addresses.splice(index, 1);
           localStorage.setItem(`${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`, JSON.stringify(addresses));
+=======
+        const deleteBtn = makeElement(
+          "button",
+          "btn-icon-text btn-delete",
+          "Xóa",
+        );
+        deleteBtn.type = "button";
+        deleteBtn.addEventListener("click", () => {
+          addresses.splice(index, 1);
+          localStorage.setItem(
+            `${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`,
+            JSON.stringify(addresses),
+          );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
           renderAddressBook();
         });
         actions.append(deleteBtn);
@@ -754,12 +1991,24 @@ function initializeProfile() {
         const newAddr = String(input.value).trim();
         if (newAddr.length < 5) {
           if (addressMessage) {
+<<<<<<< HEAD
             addressMessage.textContent = "Vui lòng nhập địa chỉ cụ thể hơn (tối thiểu 5 ký tự).";
+=======
+            addressMessage.textContent =
+              "Vui lòng nhập địa chỉ cụ thể hơn (tối thiểu 5 ký tự).";
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
             addressMessage.hidden = false;
           }
           return;
         }
+<<<<<<< HEAD
         const addresses = storedArray(`${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`, "Saved customer addresses");
+=======
+        const addresses = storedArray(
+          `${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`,
+          "Saved customer addresses",
+        );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         if (addresses.includes(newAddr)) {
           if (addressMessage) {
             addressMessage.textContent = "Địa chỉ này đã có trong danh sách.";
@@ -768,7 +2017,14 @@ function initializeProfile() {
           return;
         }
         addresses.push(newAddr);
+<<<<<<< HEAD
         localStorage.setItem(`${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`, JSON.stringify(addresses));
+=======
+        localStorage.setItem(
+          `${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`,
+          JSON.stringify(addresses),
+        );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         input.value = "";
         if (addressMessage) {
           addressMessage.textContent = "Đã thêm địa chỉ mới thành công.";
@@ -793,24 +2049,58 @@ function initializeProfile() {
       message.hidden = false;
       return;
     }
+<<<<<<< HEAD
     if (accounts.some((item) => item.phone === updatedPhone && item.accountId !== account.accountId)) {
+=======
+    if (
+      accounts.some(
+        (item) =>
+          item.phone === updatedPhone && item.accountId !== account.accountId,
+      )
+    ) {
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       message.textContent = "Số điện thoại này đã được tài khoản khác sử dụng.";
       message.hidden = false;
       return;
     }
 
+<<<<<<< HEAD
     const overrides = JSON.parse(localStorage.getItem(ACCOUNT_OVERRIDES_KEY) || "{}");
+=======
+    const overrides = JSON.parse(
+      localStorage.getItem(ACCOUNT_OVERRIDES_KEY) || "{}",
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     overrides[account.accountId] = { name, phone: updatedPhone };
     localStorage.setItem(ACCOUNT_OVERRIDES_KEY, JSON.stringify(overrides));
 
     if (account.role === "customer") {
+<<<<<<< HEAD
       const registered = storedArray(REGISTERED_CUSTOMERS_KEY, "Saved demo customer accounts");
       const registeredAccount = registered.find((item) => item.accountId === account.accountId || (!item.accountId && item.phone === phone));
+=======
+      const registered = storedArray(
+        REGISTERED_CUSTOMERS_KEY,
+        "Saved demo customer accounts",
+      );
+      const registeredAccount = registered.find(
+        (item) =>
+          item.accountId === account.accountId ||
+          (!item.accountId && item.phone === phone),
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       if (registeredAccount) {
         registeredAccount.accountId = account.accountId;
         registeredAccount.name = name;
         registeredAccount.phone = updatedPhone;
+<<<<<<< HEAD
         localStorage.setItem(REGISTERED_CUSTOMERS_KEY, JSON.stringify(registered));
+=======
+        localStorage.setItem(
+          REGISTERED_CUSTOMERS_KEY,
+          JSON.stringify(registered),
+        );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       }
     }
 
@@ -828,7 +2118,11 @@ function initializeProfile() {
       (record) => {
         record.customerPhone = updatedPhone;
         record.customerName = name;
+<<<<<<< HEAD
       }
+=======
+      },
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
     updateStoredRecords(
       CUSTOMER_REVIEWS_KEY,
@@ -837,7 +2131,11 @@ function initializeProfile() {
       (record) => {
         record.customerPhone = updatedPhone;
         record.customerName = name;
+<<<<<<< HEAD
       }
+=======
+      },
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
     updateStoredRecords(
       CUSTOMER_CONTACTS_KEY,
@@ -846,7 +2144,11 @@ function initializeProfile() {
       (record) => {
         record.phone = updatedPhone;
         record.customerName = name;
+<<<<<<< HEAD
       }
+=======
+      },
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
     if (account.role === "customer" && updatedPhone !== phone) {
       saveCustomerCart(updatedPhone, getCustomerCart(phone));
@@ -854,7 +2156,14 @@ function initializeProfile() {
       const oldAddressKey = `${CUSTOMER_ADDRESSES_KEY_PREFIX}${phone}`;
       const newAddressKey = `${CUSTOMER_ADDRESSES_KEY_PREFIX}${updatedPhone}`;
       if (localStorage.getItem(oldAddressKey)) {
+<<<<<<< HEAD
         localStorage.setItem(newAddressKey, localStorage.getItem(oldAddressKey));
+=======
+        localStorage.setItem(
+          newAddressKey,
+          localStorage.getItem(oldAddressKey),
+        );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         localStorage.removeItem(oldAddressKey);
       }
     }
@@ -869,6 +2178,11 @@ function initializeProfile() {
   });
 }
 
+<<<<<<< HEAD
+=======
+
+/** Xử lý form liên hệ hỗ trợ khách hàng trong demo. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function initializeContactForm(account) {
   const form = document.querySelector("#contact-form");
   const message = document.querySelector("#contact-message");
@@ -889,24 +2203,45 @@ function initializeContactForm(account) {
     const content = String(formData.get("content")).trim();
     if (!content) return;
 
+<<<<<<< HEAD
     const contacts = storedArray(CUSTOMER_CONTACTS_KEY, "Saved customer contacts");
+=======
+    const contacts = storedArray(
+      CUSTOMER_CONTACTS_KEY,
+      "Saved customer contacts",
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     contacts.unshift({
       id: `LH${Date.now()}`,
       customerName: account.name || "Khách hàng",
       phone: account.phone,
       subject,
       content,
+<<<<<<< HEAD
       createdAt: new Date().toISOString()
+=======
+      createdAt: new Date().toISOString(),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     });
     localStorage.setItem(CUSTOMER_CONTACTS_KEY, JSON.stringify(contacts));
     form.reset();
     if (message) {
+<<<<<<< HEAD
       message.textContent = "Cảm ơn bạn đã gửi liên hệ. Bộ phận CSKH sẽ phản hồi sớm nhất.";
+=======
+      message.textContent =
+        "Cảm ơn bạn đã gửi liên hệ. Bộ phận CSKH sẽ phản hồi sớm nhất.";
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       message.hidden = false;
     }
   });
 }
 
+<<<<<<< HEAD
+=======
+
+/** Hiển thị sản phẩm, bộ lọc, tìm kiếm và gợi ý sản phẩm. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function renderFlowerProducts(account) {
   const grid = document.querySelector("#products-grid");
   const toolbar = document.querySelector(".product-toolbar");
@@ -919,14 +2254,27 @@ function renderFlowerProducts(account) {
     const nav = document.querySelector(".main-nav");
     const navBottom = nav ? nav.getBoundingClientRect().bottom : 0;
     toolbar.style.top = `${navBottom}px`;
+<<<<<<< HEAD
     toolbar.classList.toggle("is-stuck", toolbar.getBoundingClientRect().top <= navBottom + 1);
+=======
+    toolbar.classList.toggle(
+      "is-stuck",
+      toolbar.getBoundingClientRect().top <= navBottom + 1,
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   };
   window.addEventListener("scroll", updateStickyToolbar, { passive: true });
   window.addEventListener("resize", updateStickyToolbar, { passive: true });
   updateStickyToolbar();
   const params = new URLSearchParams(location.search);
   search.value = params.get("q") || "";
+<<<<<<< HEAD
   let selectedGroup = ["hoa", "phu-kien"].includes(params.get("group")) ? params.get("group") : "";
+=======
+  let selectedGroup = ["hoa", "phu-kien"].includes(params.get("group"))
+    ? params.get("group")
+    : "";
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   let selectedCategory = params.get("category") || "";
   const searchField = search.closest(".product-search-field");
   const suggestions = makeElement("div", "product-search-suggestions");
@@ -947,6 +2295,7 @@ function renderFlowerProducts(account) {
     categoryList.replaceChildren();
     const groups = [
       { id: "hoa", label: "Hoa" },
+<<<<<<< HEAD
       { id: "phu-kien", label: "Phụ kiện" }
     ];
     const categories = [...new Set(flowers
@@ -961,6 +2310,40 @@ function renderFlowerProducts(account) {
       const option = makeElement("button", `product-category-option${category ? " product-category-option--child" : ""}`, label);
       option.type = "button";
       option.setAttribute("aria-pressed", String(selectedGroup === group && selectedCategory === category));
+=======
+      { id: "phu-kien", label: "Phụ kiện" },
+    ];
+    const categories = [
+      ...new Set(
+        flowers
+          .filter(
+            (product) => !selectedGroup || product.group === selectedGroup,
+          )
+          .map((product) => product.category),
+      ),
+    ];
+    if (!categories.includes(selectedCategory)) selectedCategory = "";
+    const currentGroup = groups.find((group) => group.id === selectedGroup);
+    categoryButton.setAttribute(
+      "aria-label",
+      selectedCategory
+        ? `Danh mục sản phẩm: ${selectedCategory}`
+        : currentGroup
+          ? `Danh mục sản phẩm: ${currentGroup.label}`
+          : "Chọn danh mục sản phẩm",
+    );
+    const addCategoryOption = (label, { group = "", category = "" } = {}) => {
+      const option = makeElement(
+        "button",
+        `product-category-option${category ? " product-category-option--child" : ""}`,
+        label,
+      );
+      option.type = "button";
+      option.setAttribute(
+        "aria-pressed",
+        String(selectedGroup === group && selectedCategory === category),
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       option.addEventListener("click", () => {
         selectedGroup = group;
         selectedCategory = category;
@@ -973,9 +2356,19 @@ function renderFlowerProducts(account) {
     };
     addCategoryOption("Tất cả sản phẩm");
     groups.forEach((group) => {
+<<<<<<< HEAD
       const groupCategories = [...new Set(flowers
         .filter((product) => product.group === group.id)
         .map((product) => product.category))];
+=======
+      const groupCategories = [
+        ...new Set(
+          flowers
+            .filter((product) => product.group === group.id)
+            .map((product) => product.category),
+        ),
+      ];
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       addCategoryOption(group.label, { group: group.id });
       groupCategories.forEach((category) => {
         addCategoryOption(category, { group: group.id, category });
@@ -989,7 +2382,14 @@ function renderFlowerProducts(account) {
     categoryList.hidden = expanded;
   });
   document.addEventListener("click", (event) => {
+<<<<<<< HEAD
     if (!categoryList.contains(event.target) && !categoryButton.contains(event.target)) {
+=======
+    if (
+      !categoryList.contains(event.target) &&
+      !categoryButton.contains(event.target)
+    ) {
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       categoryList.hidden = true;
       categoryButton.setAttribute("aria-expanded", "false");
     }
@@ -1000,8 +2400,18 @@ function renderFlowerProducts(account) {
     const query = search.value.trim().toLocaleLowerCase("vi");
     const visibleProducts = flowers.filter((product) => {
       const matchesGroup = !selectedGroup || product.group === selectedGroup;
+<<<<<<< HEAD
       const matchesCategory = !selectedCategory || product.category === selectedCategory;
       const matchesQuery = !query || `${product.name} ${product.category} ${product.variety} ${product.description}`.toLocaleLowerCase("vi").includes(query);
+=======
+      const matchesCategory =
+        !selectedCategory || product.category === selectedCategory;
+      const matchesQuery =
+        !query ||
+        `${product.name} ${product.category} ${product.variety} ${product.description}`
+          .toLocaleLowerCase("vi")
+          .includes(query);
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       return matchesGroup && matchesCategory && matchesQuery;
     });
 
@@ -1018,11 +2428,24 @@ function renderFlowerProducts(account) {
         location.assign(new URL(detailUrl, document.baseURI));
       });
       card.addEventListener("keydown", (event) => {
+<<<<<<< HEAD
         if (event.target !== card || !["Enter", " "].includes(event.key)) return;
         event.preventDefault();
         location.assign(new URL(detailUrl, document.baseURI));
       });
       const art = makeElement("div", `flower-art flower-art--${product.style}`, product.symbol);
+=======
+        if (event.target !== card || !["Enter", " "].includes(event.key))
+          return;
+        event.preventDefault();
+        location.assign(new URL(detailUrl, document.baseURI));
+      });
+      const art = makeElement(
+        "div",
+        `flower-art flower-art--${product.style}`,
+        product.symbol,
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       art.setAttribute("aria-hidden", "true");
       art.setAttribute("role", "img");
       art.setAttribute("aria-label", product.name);
@@ -1030,6 +2453,7 @@ function renderFlowerProducts(account) {
       details.append(
         makeElement("p", "flower-category-label", product.category),
         makeElement("h2", "", product.name),
+<<<<<<< HEAD
         makeElement("p", "flower-variety", `${product.group === "hoa" ? "Giống" : "Loại"}: ${product.variety}`),
         makeElement("p", "flower-description", product.description)
       );
@@ -1037,6 +2461,31 @@ function renderFlowerProducts(account) {
       const price = makeElement("p", "flower-price", `${currency.format(product.price)} / ${product.unit}`);
       details.append(stock, price);
       const detailLink = makeElement("a", "product-detail-link", "Xem chi tiết");
+=======
+        makeElement(
+          "p",
+          "flower-variety",
+          `${product.group === "hoa" ? "Giống" : "Loại"}: ${product.variety}`,
+        ),
+        makeElement("p", "flower-description", product.description),
+      );
+      const stock = makeElement(
+        "p",
+        "flower-stock",
+        `Còn ${product.stock} ${product.unit}`,
+      );
+      const price = makeElement(
+        "p",
+        "flower-price",
+        `${currency.format(product.price)} / ${product.unit}`,
+      );
+      details.append(stock, price);
+      const detailLink = makeElement(
+        "a",
+        "product-detail-link",
+        "Xem chi tiết",
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       detailLink.href = detailUrl;
       details.append(detailLink);
       card.append(art, details);
@@ -1044,7 +2493,17 @@ function renderFlowerProducts(account) {
     });
 
     if (visibleProducts.length === 0) {
+<<<<<<< HEAD
       grid.append(makeElement("p", "empty-state", "Không tìm thấy sản phẩm phù hợp với bộ lọc hiện tại."));
+=======
+      grid.append(
+        makeElement(
+          "p",
+          "empty-state",
+          "Không tìm thấy sản phẩm phù hợp với bộ lọc hiện tại.",
+        ),
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     }
   }
 
@@ -1057,11 +2516,28 @@ function renderFlowerProducts(account) {
       return;
     }
     const matches = flowers
+<<<<<<< HEAD
       .filter((product) => `${product.name} ${product.category} ${product.variety} ${product.description}`
         .toLocaleLowerCase("vi").includes(query))
       .slice(0, 6);
     if (!matches.length) {
       suggestions.append(makeElement("p", "nav-search-empty", "Không tìm thấy sản phẩm phù hợp."));
+=======
+      .filter((product) =>
+        `${product.name} ${product.category} ${product.variety} ${product.description}`
+          .toLocaleLowerCase("vi")
+          .includes(query),
+      )
+      .slice(0, 6);
+    if (!matches.length) {
+      suggestions.append(
+        makeElement(
+          "p",
+          "nav-search-empty",
+          "Không tìm thấy sản phẩm phù hợp.",
+        ),
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       suggestions.hidden = false;
       search.setAttribute("aria-expanded", "true");
       return;
@@ -1071,11 +2547,26 @@ function renderFlowerProducts(account) {
       suggestion.type = "button";
       suggestion.setAttribute("role", "option");
       suggestion.append(
+<<<<<<< HEAD
         makeElement("span", `nav-search-suggestion-art flower-art--${product.style}`, product.symbol),
         makeElement("span", "nav-search-suggestion-details", product.name)
       );
       suggestion.addEventListener("click", () => {
         const detailUrl = new URL("pages/customer/customer-product-detail.html", document.baseURI);
+=======
+        makeElement(
+          "span",
+          `nav-search-suggestion-art flower-art--${product.style}`,
+          product.symbol,
+        ),
+        makeElement("span", "nav-search-suggestion-details", product.name),
+      );
+      suggestion.addEventListener("click", () => {
+        const detailUrl = new URL(
+          "pages/customer/customer-product-detail.html",
+          document.baseURI,
+        );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         detailUrl.searchParams.set("id", product.id);
         location.assign(detailUrl);
       });
@@ -1111,7 +2602,18 @@ function renderFlowerProducts(account) {
   drawProducts();
 }
 
+<<<<<<< HEAD
 function addFlowerToCart(account, flower, quantity, message) {
+=======
+
+/** Kiểm tra tồn kho và thêm sản phẩm vào giỏ của khách hàng. */
+function addFlowerToCart(account, flower, quantity, message) {
+  if (!isFlowerAvailable(flower)) {
+    message.textContent = `${flower.name} hiện không còn kinh doanh hoặc đã hết hàng.`;
+    message.hidden = false;
+    return false;
+  }
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   if (!Number.isInteger(quantity) || quantity < 1 || quantity > flower.stock) {
     message.textContent = `Số lượng ${flower.name} phải từ 1 đến ${flower.stock} ${flower.unit}.`;
     message.hidden = false;
@@ -1127,7 +2629,17 @@ function addFlowerToCart(account, flower, quantity, message) {
   if (item) {
     item.quantity += quantity;
   } else {
+<<<<<<< HEAD
     cart.push({ id: flower.id, name: flower.name, price: flower.price, unit: flower.unit, quantity });
+=======
+    cart.push({
+      id: flower.id,
+      name: flower.name,
+      price: flower.price,
+      unit: flower.unit,
+      quantity,
+    });
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   }
   saveCustomerCart(account.phone, cart);
   updateCartCount(account.phone);
@@ -1136,13 +2648,29 @@ function addFlowerToCart(account, flower, quantity, message) {
   return true;
 }
 
+<<<<<<< HEAD
 function renderProductDetail(account) {
   const product = flowers.find((flower) => flower.id === new URLSearchParams(location.search).get("id"));
+=======
+
+/** Hiển thị chi tiết sản phẩm, giới hạn số lượng, thao tác mua và đánh giá. */
+function renderProductDetail(account) {
+  const product = flowers.find(
+    (flower) => flower.id === new URLSearchParams(location.search).get("id"),
+  );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const content = document.querySelector("#product-detail");
   if (!product) {
     content.append(
       makeElement("div", "empty-state", "Không tìm thấy sản phẩm."),
+<<<<<<< HEAD
       Object.assign(makeElement("a", "button button-primary", "Quay lại sản phẩm"), { href: "pages/customer/customer-products.html" })
+=======
+      Object.assign(
+        makeElement("a", "button button-primary", "Quay lại sản phẩm"),
+        { href: "pages/customer/customer-products.html" },
+      ),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
     return;
   }
@@ -1150,27 +2678,65 @@ function renderProductDetail(account) {
   const breadcrumb = document.querySelector("#product-breadcrumb");
   breadcrumb.append(makeElement("span", "", product.name));
   document.title = `${product.name} | Hoa Xinh`;
+<<<<<<< HEAD
   const art = makeElement("div", `product-detail-art flower-art--${product.style}`, product.symbol);
+=======
+  const art = makeElement(
+    "div",
+    `product-detail-art flower-art--${product.style}`,
+    product.symbol,
+  );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   art.setAttribute("role", "img");
   art.setAttribute("aria-label", product.name);
 
   // Ratings calculation
+<<<<<<< HEAD
   const allReviews = storedArray(CUSTOMER_REVIEWS_KEY, "Saved demo reviews").filter((r) => r.productId === product.id);
   const avgRating = allReviews.length
     ? (allReviews.reduce((sum, r) => sum + Number(r.rating || 5), 0) / allReviews.length).toFixed(1)
+=======
+  const allReviews = storedArray(
+    CUSTOMER_REVIEWS_KEY,
+    "Saved demo reviews",
+  ).filter((r) => r.productId === product.id);
+  const avgRating = allReviews.length
+    ? (
+        allReviews.reduce((sum, r) => sum + Number(r.rating || 5), 0) /
+        allReviews.length
+      ).toFixed(1)
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     : null;
   const ratingBadge = makeElement("div", "product-rating-badge");
   if (avgRating) {
     const starCount = Math.round(Number(avgRating));
     ratingBadge.append(
+<<<<<<< HEAD
       makeElement("span", "product-rating-stars", "★".repeat(starCount) + "☆".repeat(5 - starCount)),
       makeElement("strong", "", `${avgRating} / 5`),
       makeElement("span", "product-rating-count", `(${allReviews.length} đánh giá)`)
+=======
+      makeElement(
+        "span",
+        "product-rating-stars",
+        "★".repeat(starCount) + "☆".repeat(5 - starCount),
+      ),
+      makeElement("strong", "", `${avgRating} / 5`),
+      makeElement(
+        "span",
+        "product-rating-count",
+        `(${allReviews.length} đánh giá)`,
+      ),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
   } else {
     ratingBadge.append(
       makeElement("span", "product-rating-stars", "★★★★★"),
+<<<<<<< HEAD
       makeElement("span", "product-rating-count", "(Chưa có đánh giá)")
+=======
+      makeElement("span", "product-rating-count", "(Chưa có đánh giá)"),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
   }
 
@@ -1179,11 +2745,28 @@ function renderProductDetail(account) {
     makeElement("p", "flower-category-label", product.category),
     makeElement("h1", "", product.name),
     ratingBadge,
+<<<<<<< HEAD
     makeElement("p", "product-detail-variety", `${product.group === "hoa" ? "Giống hoa" : "Loại phụ kiện"}: ${product.variety}`),
     makeElement("p", "product-detail-price", `${currency.format(product.price)} / ${product.unit}`),
     makeElement("p", "flower-stock", `Còn ${product.stock} ${product.unit}`),
     makeElement("p", "product-detail-description", product.description)
   );
+=======
+    makeElement(
+      "p",
+      "product-detail-variety",
+      `${product.group === "hoa" ? "Giống hoa" : "Loại phụ kiện"}: ${product.variety}`,
+    ),
+    makeElement(
+      "p",
+      "product-detail-price",
+      `${currency.format(product.price)} / ${product.unit}`,
+    ),
+    makeElement("p", "flower-stock", `Còn ${product.stock} ${product.unit}`),
+    makeElement("p", "product-detail-description", product.description),
+  );
+  // THÔNG BÁO CHI TIẾT SẢN PHẨM: thông báo giới hạn tồn, thêm giỏ và kiểm tra mua hàng được tạo tại đây.
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const formMessage = makeElement("p", "contact-status");
   formMessage.setAttribute("role", "status");
   formMessage.hidden = true;
@@ -1206,8 +2789,29 @@ function renderProductDetail(account) {
     const increment = makeElement("button", "quantity-stepper", "+");
     increment.type = "button";
     increment.setAttribute("aria-label", "Tăng số lượng");
+<<<<<<< HEAD
     const updateStepperState = () => {
       const amount = Number(quantity.value);
+=======
+    const updateStepperState = (announceAdjustment = false) => {
+      let amount = Number(quantity.value);
+      let adjusted = false;
+      if (Number.isFinite(amount) && amount > product.stock) {
+        amount = product.stock;
+        quantity.value = String(product.stock);
+        adjusted = true;
+        if (announceAdjustment) {
+          formMessage.textContent = `Số lượng bạn chọn vượt quá tồn kho hiện tại. Đã điều chỉnh về ${product.stock} ${product.unit}.`;
+          formMessage.hidden = false;
+        }
+      }
+      if (!adjusted && Number.isInteger(amount) && amount === product.stock) {
+        formMessage.textContent = `Bạn đã đạt số lượng tối đa theo tồn kho: ${product.stock} ${product.unit}.`;
+        formMessage.hidden = false;
+      } else if (!adjusted && Number.isInteger(amount) && amount < product.stock) {
+        formMessage.hidden = true;
+      }
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       decrement.disabled = !Number.isInteger(amount) || amount <= 1;
       increment.disabled = !Number.isInteger(amount) || amount >= product.stock;
     };
@@ -1216,21 +2820,43 @@ function renderProductDetail(account) {
       updateStepperState();
     });
     increment.addEventListener("click", () => {
+<<<<<<< HEAD
       quantity.value = String(Math.min(product.stock, Number(quantity.value) + 1));
       updateStepperState();
     });
     quantity.addEventListener("input", updateStepperState);
+=======
+      quantity.value = String(
+        Math.min(product.stock, Number(quantity.value) + 1),
+      );
+      updateStepperState();
+    });
+    quantity.addEventListener("input", () => updateStepperState(true));
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     quantityRow.append(quantityLabel, decrement, quantity, increment);
     const purchaseButtons = makeElement("div", "product-purchase-buttons");
     const addButton = makeElement("button", "button product-add-button");
     addButton.type = "button";
     addButton.setAttribute("aria-label", "Thêm vào giỏ hàng");
     addButton.title = "Thêm vào giỏ hàng";
+<<<<<<< HEAD
     addButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/><circle cx="18" cy="17" r="4" fill="#fff"/><path d="M18 14.8v4.4m-2.2-2.2h4.4"/></svg>';
     addButton.addEventListener("click", () => {
       addFlowerToCart(account, product, Number(quantity.value), formMessage);
     });
     const buyButton = makeElement("button", "button product-buy-button", "Mua ngay");
+=======
+    addButton.innerHTML =
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/><circle cx="18" cy="17" r="4" fill="#fff"/><path d="M18 14.8v4.4m-2.2-2.2h4.4"/></svg>';
+    addButton.addEventListener("click", () => {
+      addFlowerToCart(account, product, Number(quantity.value), formMessage);
+    });
+    const buyButton = makeElement(
+      "button",
+      "button product-buy-button",
+      "Mua ngay",
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     buyButton.type = "button";
     buyButton.addEventListener("click", () => {
       const amount = Number(quantity.value);
@@ -1239,7 +2865,14 @@ function renderProductDetail(account) {
         formMessage.hidden = false;
         return;
       }
+<<<<<<< HEAD
       const checkout = new URL("pages/customer/customer-place-order.html", document.baseURI);
+=======
+      const checkout = new URL(
+        "pages/customer/customer-place-order.html",
+        document.baseURI,
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       checkout.searchParams.set("buyNow", product.id);
       checkout.searchParams.set("quantity", String(amount));
       location.assign(checkout);
@@ -1249,17 +2882,34 @@ function renderProductDetail(account) {
   } else if (account?.role === "customer") {
     actions.append(makeElement("p", "flower-stock-empty", "Tạm hết hàng"));
   } else {
+<<<<<<< HEAD
     const loginLink = makeElement("a", "button button-primary", "Đăng nhập để mua");
+=======
+    const loginLink = makeElement(
+      "a",
+      "button button-primary",
+      "Đăng nhập để mua",
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     loginLink.href = "index.html";
     actions.append(loginLink);
   }
   info.append(formMessage, actions);
+<<<<<<< HEAD
   const meta = makeElement("p", "product-detail-category", `Danh mục: ${product.category}`);
+=======
+  const meta = makeElement(
+    "p",
+    "product-detail-category",
+    `Danh mục: ${product.category}`,
+  );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const layout = makeElement("section", "product-detail-layout");
   layout.setAttribute("aria-label", `Chi tiết ${product.name}`);
   layout.append(art, info);
   content.append(layout, meta);
 
+<<<<<<< HEAD
   // Cross-sell & Related Products Section (1-click navigation)
   const relatedSection = makeElement("section", "product-related-section");
   relatedSection.append(makeElement("h2", "", product.group === "hoa" ? "Gợi ý phụ kiện cắm hoa & Sản phẩm liên quan" : "Hoa tươi phối kèm phụ kiện"));
@@ -1268,6 +2918,28 @@ function renderProductDetail(account) {
   if (product.group === "hoa") {
     const accessories = flowers.filter((f) => f.group === "phu-kien").slice(0, 2);
     const otherFlowers = flowers.filter((f) => f.group === "hoa" && f.id !== product.id).slice(0, 2);
+=======
+  // Khu vực sản phẩm bán kèm và sản phẩm liên quan, hỗ trợ điều hướng một lần bấm.
+  const relatedSection = makeElement("section", "product-related-section");
+  relatedSection.append(
+    makeElement(
+      "h2",
+      "",
+      product.group === "hoa"
+        ? "Gợi ý phụ kiện cắm hoa & Sản phẩm liên quan"
+        : "Hoa tươi phối kèm phụ kiện",
+    ),
+  );
+  const relatedGrid = makeElement("div", "related-grid");
+  let relatedItems = [];
+  if (product.group === "hoa") {
+    const accessories = flowers
+      .filter((f) => f.group === "phu-kien")
+      .slice(0, 2);
+    const otherFlowers = flowers
+      .filter((f) => f.group === "hoa" && f.id !== product.id)
+      .slice(0, 2);
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     relatedItems = [...accessories, ...otherFlowers];
   } else {
     relatedItems = flowers.filter((f) => f.group === "hoa").slice(0, 4);
@@ -1275,34 +2947,93 @@ function renderProductDetail(account) {
   relatedItems.forEach((rel) => {
     const card = makeElement("a", "related-card");
     card.href = `pages/customer/customer-product-detail.html?id=${encodeURIComponent(rel.id)}`;
+<<<<<<< HEAD
     const cardArt = makeElement("span", `related-card-art flower-art--${rel.style}`, rel.symbol);
     card.append(
       cardArt,
       makeElement("span", "related-card-title", rel.name),
       makeElement("span", "related-card-price", `${currency.format(rel.price)} / ${rel.unit}`)
+=======
+    const cardArt = makeElement(
+      "span",
+      `related-card-art flower-art--${rel.style}`,
+      rel.symbol,
+    );
+    card.append(
+      cardArt,
+      makeElement("span", "related-card-title", rel.name),
+      makeElement(
+        "span",
+        "related-card-price",
+        `${currency.format(rel.price)} / ${rel.unit}`,
+      ),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
     relatedGrid.append(card);
   });
   relatedSection.append(relatedGrid);
   content.append(relatedSection);
 
+<<<<<<< HEAD
   // Customer Reviews on Product Detail
   const reviewsSection = makeElement("section", "product-reviews-section");
   reviewsSection.append(makeElement("h2", "", `Đánh giá từ khách hàng (${allReviews.length})`));
   if (allReviews.length === 0) {
     reviewsSection.append(makeElement("p", "empty-state", "Chưa có nhận xét nào cho sản phẩm này. Hãy mua hoa để gửi đánh giá đầu tiên!"));
+=======
+  // Đánh giá của khách hàng trên trang chi tiết sản phẩm.
+  const reviewsSection = makeElement("section", "product-reviews-section");
+  reviewsSection.append(
+    makeElement("h2", "", `Đánh giá từ khách hàng (${allReviews.length})`),
+  );
+  if (allReviews.length === 0) {
+    reviewsSection.append(
+      makeElement(
+        "p",
+        "empty-state",
+        "Chưa có nhận xét nào cho sản phẩm này. Hãy mua hoa để gửi đánh giá đầu tiên!",
+      ),
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   } else {
     const list = makeElement("div", "product-reviews-list");
     allReviews.forEach((review) => {
       const item = makeElement("article", "product-review-item");
       const header = makeElement("div", "product-review-header");
       header.append(
+<<<<<<< HEAD
         makeElement("span", "product-review-user", review.customerName || "Khách hàng"),
         makeElement("span", "product-review-date", review.createdAt ? new Date(review.createdAt).toLocaleDateString("vi-VN") : "")
       );
       const starRating = Number(review.rating || 5);
       const stars = makeElement("p", "review-stars", "★".repeat(starRating) + "☆".repeat(5 - starRating));
       const comment = makeElement("p", "product-review-comment", review.content || "");
+=======
+        makeElement(
+          "span",
+          "product-review-user",
+          review.customerName || "Khách hàng",
+        ),
+        makeElement(
+          "span",
+          "product-review-date",
+          review.createdAt
+            ? new Date(review.createdAt).toLocaleDateString("vi-VN")
+            : "",
+        ),
+      );
+      const starRating = Number(review.rating || 5);
+      const stars = makeElement(
+        "p",
+        "review-stars",
+        "★".repeat(starRating) + "☆".repeat(5 - starRating),
+      );
+      const comment = makeElement(
+        "p",
+        "product-review-comment",
+        review.content || "",
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       item.append(header, stars, comment);
       list.append(item);
     });
@@ -1311,7 +3042,14 @@ function renderProductDetail(account) {
   content.append(reviewsSection);
 }
 
+<<<<<<< HEAD
 function renderCart(account, moduleView) {
+=======
+
+/** Hiển thị các dòng giỏ hàng, điều chỉnh tồn kho cũ, khóa sản phẩm không khả dụng và tính khuyến mãi. */
+function renderCart(account, moduleView) {
+  seedDemoCartEdgeCases(account);
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const cart = getCustomerCart(account.phone);
   moduleView.replaceChildren();
   if (cart.length === 0) {
@@ -1319,32 +3057,65 @@ function renderCart(account, moduleView) {
     empty.append(
       makeElement("h2", "", "Giỏ hàng đang trống"),
       makeElement("p", "", "Chọn hoa hoặc phụ kiện để bắt đầu."),
+<<<<<<< HEAD
       Object.assign(makeElement("a", "button button-primary", "Xem sản phẩm"), { href: "pages/customer/customer-products.html" })
+=======
+      Object.assign(makeElement("a", "button button-primary", "Xem sản phẩm"), {
+        href: "pages/customer/customer-products.html",
+      }),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
     moduleView.append(empty);
     return;
   }
 
   const cartSection = makeElement("section", "cart-content");
+<<<<<<< HEAD
+=======
+  // THÔNG BÁO GIỎ HÀNG: phản hồi dùng cho điều chỉnh số lượng; thông báo từng dòng giải thích tồn kho cũ, đạt tối đa hoặc không khả dụng.
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const feedback = makeElement("p", "form-message");
   feedback.hidden = true;
   const listHeader = makeElement("div", "cart-list-header");
   listHeader.append(makeElement("h2", "", "Sản phẩm trong giỏ hàng"));
   const list = makeElement("div", "cart-list");
   let totalText;
+<<<<<<< HEAD
   let freeshipNote;
   const updateCartSummary = () => {
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
     freeshipNote.textContent = total >= 300000
       ? "Đơn hàng đã đủ điều kiện miễn phí giao hàng tiêu chuẩn."
       : `Mua thêm ${currency.format(300000 - total)} để nhận miễn phí giao hàng tiêu chuẩn (đơn từ 300.000đ).`;
+=======
+  let discountedTotalText;
+  let discountText;
+  let freeshipNote;
+  let cartChanged = false;
+  const updateCartSummary = () => {
+    const total = cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0,
+    );
+    freeshipNote.textContent =
+      total >= 300000
+        ? "Đơn hàng đã đủ điều kiện miễn phí giao hàng tiêu chuẩn."
+        : `Mua thêm ${currency.format(300000 - total)} để nhận miễn phí giao hàng tiêu chuẩn (đơn từ 300.000đ).`;
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     freeshipNote.classList.toggle("is-qualified", total >= 300000);
     totalText.textContent = `Tạm tính: ${currency.format(total)}`;
   };
   cart.forEach((item) => {
     const row = makeElement("article", "cart-row");
     const details = makeElement("div", "cart-row-details");
+<<<<<<< HEAD
     details.append(makeElement("h3", "", item.name), makeElement("p", "", `${currency.format(item.price)} / ${item.unit}`));
+=======
+    details.append(
+      makeElement("h3", "", item.name),
+      makeElement("p", "", `${currency.format(item.price)} / ${item.unit}`),
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     const quantityControl = makeElement("div", "cart-quantity-control");
     const decrement = makeElement("button", "quantity-stepper", "-");
     decrement.type = "button";
@@ -1352,6 +3123,7 @@ function renderCart(account, moduleView) {
     const quantity = document.createElement("input");
     quantity.type = "number";
     quantity.min = "1";
+<<<<<<< HEAD
     const flower = flowers.find((entry) => entry.id === item.id);
     quantity.max = String(flower?.stock || item.quantity);
     quantity.value = String(item.quantity);
@@ -1368,50 +3140,131 @@ function renderCart(account, moduleView) {
         return;
       }
       item.quantity = nextQuantity;
+=======
+    quantity.max = String(stockLimit || item.quantity);
+    quantity.value = String(item.quantity);
+    quantity.disabled = !available;
+    quantity.setAttribute("aria-label", `Số lượng ${item.name}`);
+    const maxNotice = makeElement("p", "cart-max-notice", `Bạn đã đạt số lượng tối đa theo tồn kho: ${stockLimit} ${item.unit}.`);
+    maxNotice.hidden = !(available && item.quantity === stockLimit && !item.stockAdjustedNotice);
+    const increment = makeElement("button", "quantity-stepper", "+");
+    increment.type = "button";
+    increment.setAttribute("aria-label", `Tăng số lượng ${item.name}`);
+    const lineTotal = makeElement(
+      "strong",
+      "cart-line-total",
+      currency.format(item.price * item.quantity),
+    );
+    const syncQuantity = () => {
+      const nextQuantity = Number(quantity.value);
+      if (
+        !Number.isInteger(nextQuantity) ||
+        nextQuantity < 1 ||
+        !flower ||
+        nextQuantity > flower.stock
+      ) {
+        feedback.textContent = `Số lượng ${item.name} phải từ 1 đến ${flower?.stock || item.quantity}.`;
+        feedback.hidden = false;
+        maxNotice.hidden = false;
+        lineTotal.textContent = currency.format(item.price * stockLimit);
+        updateCartSummary();
+        return;
+      }
+      item.quantity = nextQuantity;
+      item.stockAdjustedNotice = false;
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       saveCustomerCart(account.phone, cart);
       updateCartCount(account.phone);
       lineTotal.textContent = currency.format(item.price * nextQuantity);
       feedback.hidden = true;
+<<<<<<< HEAD
+=======
+      maxNotice.hidden = nextQuantity !== stockLimit;
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       updateCartSummary();
     };
     const updateStepperState = () => {
       const amount = Number(quantity.value);
       decrement.disabled = !Number.isInteger(amount) || amount <= 1;
+<<<<<<< HEAD
       increment.disabled = !Number.isInteger(amount) || amount >= (flower?.stock || item.quantity);
     };
     decrement.addEventListener("click", () => {
+=======
+      increment.disabled =
+        !Number.isInteger(amount) || amount >= (flower?.stock || item.quantity);
+    };
+    decrement.addEventListener("click", () => {
+      if (!available) return;
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       quantity.value = String(Math.max(1, Number(quantity.value) - 1));
       updateStepperState();
       syncQuantity();
     });
     increment.addEventListener("click", () => {
+<<<<<<< HEAD
       quantity.value = String(Math.min(flower?.stock || item.quantity, Number(quantity.value) + 1));
+=======
+      quantity.value = String(
+        Math.min(flower?.stock || item.quantity, Number(quantity.value) + 1),
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       updateStepperState();
       syncQuantity();
     });
     quantity.addEventListener("input", () => {
+<<<<<<< HEAD
+=======
+      if (!available) return;
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       updateStepperState();
       syncQuantity();
     });
     updateStepperState();
     quantityControl.append(decrement, quantity, increment);
+<<<<<<< HEAD
+=======
+    if (available) details.append(maxNotice);
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     const removeButton = makeElement("button", "cart-remove-button");
     removeButton.type = "button";
     removeButton.setAttribute("aria-label", `Xóa ${item.name} khỏi giỏ hàng`);
     removeButton.title = `Xóa ${item.name}`;
+<<<<<<< HEAD
     removeButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-1 13H7L6 7m4 4v5m4-5v5"/></svg>';
     removeButton.addEventListener("click", () => {
       saveCustomerCart(account.phone, cart.filter((entry) => entry.id !== item.id));
+=======
+    removeButton.innerHTML =
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-1 13H7L6 7m4 4v5m4-5v5"/></svg>';
+    removeButton.addEventListener("click", () => {
+      saveCustomerCart(
+        account.phone,
+        cart.filter((entry) => entry.id !== item.id),
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       renderCart(account, moduleView);
     });
     row.append(details, quantityControl, lineTotal, removeButton);
     list.append(row);
   });
+<<<<<<< HEAD
 
   const summary = makeElement("div", "cart-summary");
   freeshipNote = makeElement("p", "cart-freeship-note");
   totalText = makeElement("p", "", "");
   summary.append(freeshipNote, totalText);
+=======
+  if (cartChanged) saveCustomerCart(account.phone, cart);
+
+  const summary = makeElement("div", "cart-summary");
+  freeshipNote = makeElement("p", "cart-freeship-note");
+  discountText = makeElement("p", "cart-discount");
+  discountText.setAttribute("role", "status");
+  totalText = makeElement("p", "cart-subtotal", "");
+  discountedTotalText = makeElement("p", "cart-discounted-total", "");
+  summary.append(discountText, freeshipNote, totalText, discountedTotalText);
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   updateCartSummary();
   const checkout = makeElement("a", "button button-primary", "Đặt hàng");
   checkout.href = "pages/customer/customer-place-order.html";
@@ -1420,7 +3273,14 @@ function renderCart(account, moduleView) {
   moduleView.append(cartSection);
 }
 
+<<<<<<< HEAD
 function renderCheckout(account, moduleView) {
+=======
+
+/** Hiển thị checkout, kiểm tra tồn kho và tạo đơn hàng demo. */
+function renderCheckout(account, moduleView) {
+  // THÔNG BÁO CHECKOUT: thông báo giỏ không hợp lệ, địa chỉ, tồn kho và gửi đơn được tạo tại renderer này.
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const searchParams = new URLSearchParams(location.search);
   const buyNowId = searchParams.get("buyNow");
   const isDirectPurchase = buyNowId !== null;
@@ -1428,6 +3288,7 @@ function renderCheckout(account, moduleView) {
   if (isDirectPurchase) {
     const flower = flowers.find((item) => item.id === buyNowId);
     const quantity = Number(searchParams.get("quantity"));
+<<<<<<< HEAD
     if (!flower || !Number.isInteger(quantity) || quantity < 1 || quantity > flower.stock) {
       moduleView.replaceChildren();
       moduleView.append(
@@ -1437,20 +3298,70 @@ function renderCheckout(account, moduleView) {
       return;
     }
     checkoutItems = [{ id: flower.id, name: flower.name, price: flower.price, unit: flower.unit, quantity }];
+=======
+    if (
+      !flower ||
+      !Number.isInteger(quantity) ||
+      quantity < 1 ||
+      quantity > flower.stock
+    ) {
+      moduleView.replaceChildren();
+      moduleView.append(
+        makeElement(
+          "div",
+          "empty-state",
+          "Thông tin sản phẩm hoặc số lượng không hợp lệ.",
+        ),
+        Object.assign(
+          makeElement("a", "button button-primary", "Quay lại sản phẩm"),
+          { href: "pages/customer/customer-products.html" },
+        ),
+      );
+      return;
+    }
+    checkoutItems = [
+      {
+        id: flower.id,
+        name: flower.name,
+        price: flower.price,
+        unit: flower.unit,
+        quantity,
+      },
+    ];
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   }
   moduleView.replaceChildren();
   if (checkoutItems.length === 0) {
     const empty = makeElement("div", "empty-state");
     empty.append(
       makeElement("h2", "", "Chưa có sản phẩm trong giỏ"),
+<<<<<<< HEAD
       makeElement("p", "", "Thêm hoa hoặc phụ kiện vào giỏ trước khi gửi đơn đặt hàng."),
       Object.assign(makeElement("a", "button button-primary", "Chọn sản phẩm"), { href: "pages/customer/customer-products.html" })
+=======
+      makeElement(
+        "p",
+        "",
+        "Thêm hoa hoặc phụ kiện vào giỏ trước khi gửi đơn đặt hàng.",
+      ),
+      Object.assign(
+        makeElement("a", "button button-primary", "Chọn sản phẩm"),
+        { href: "pages/customer/customer-products.html" },
+      ),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
     moduleView.append(empty);
     return;
   }
 
+<<<<<<< HEAD
   const subtotal = checkoutItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+=======
+  const subtotal = checkoutItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   let fulfillment = "delivery";
   let deliveryType = "standard"; // standard | express | pickup
 
@@ -1466,6 +3377,7 @@ function renderCheckout(account, moduleView) {
       <div class="checkout-customer-column">
         <section class="checkout-section">
           <h2>Thông tin người nhận</h2>
+<<<<<<< HEAD
           <label>Họ tên người nhận<input name="name" autocomplete="name" required></label>
           <label>Số điện thoại<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required></label>
           <div class="checkout-address-fields" id="checkout-address-fields">
@@ -1475,6 +3387,18 @@ function renderCheckout(account, moduleView) {
             </select>
             <label class="checkout-new-address-label" for="checkout-address">Địa chỉ nhận hàng</label>
             <textarea id="checkout-address" name="address" autocomplete="street-address" rows="3" placeholder="Nhập địa chỉ để tìm gợi ý..." aria-autocomplete="list" aria-controls="checkout-address-suggestions" aria-expanded="false"></textarea>
+=======
+          <label>Người nhận đã lưu
+            <select id="checkout-saved-address" name="savedAddress">
+              <option value="">Người nhận đã lưu</option>
+            </select>
+          </label>
+          <label>Tên người nhận<input name="name" autocomplete="name" placeholder="Tên người nhận"></label>
+          <label>Số điện thoại<input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Số điện thoại"></label>
+          <div class="checkout-address-fields" id="checkout-address-fields">
+            <label class="checkout-new-address-label" for="checkout-address">Địa chỉ</label>
+            <textarea id="checkout-address" name="address" autocomplete="street-address" rows="3" placeholder="Số nhà, đường, phường..." aria-autocomplete="list" aria-controls="checkout-address-suggestions" aria-expanded="false"></textarea>
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
             <div id="checkout-address-suggestions" class="checkout-address-suggestions" role="listbox" aria-label="Gợi ý địa chỉ" hidden></div>
             <label class="checkout-save-address"><input type="checkbox" name="saveAddress">Lưu địa chỉ này cho lần mua sau</label>
           </div>
@@ -1498,7 +3422,11 @@ function renderCheckout(account, moduleView) {
             </label>
           </div>
           <label id="checkout-delivery-time-field">Khung giờ nhận hàng
+<<<<<<< HEAD
             <select name="deliveryTime" required>
+=======
+            <select name="deliveryTime">
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
               <option value="">Chọn khung giờ</option>
               <option value="08:00 - 12:00">08:00 - 12:00</option>
               <option value="12:00 - 17:00">12:00 - 17:00</option>
@@ -1516,8 +3444,12 @@ function renderCheckout(account, moduleView) {
         <section class="checkout-section checkout-payment">
           <h2>Phương thức thanh toán</h2>
           <label class="checkout-payment-option"><input type="radio" name="payment" value="Thanh toán khi nhận hoa (COD)" checked>Thanh toán khi nhận hàng (COD)</label>
+<<<<<<< HEAD
           <label class="checkout-payment-option"><input type="radio" name="payment" value="Thanh toán trực tuyến">Thanh toán trực tuyến qua cổng OnePay</label>
           <p class="checkout-demo-note">Thanh toán trực tuyến là lựa chọn minh họa trong demo.</p>
+=======
+          <label class="checkout-payment-option"><input type="radio" name="payment" value="Thanh toán trực tuyến">Thanh toán trực tuyến qua Momo</label>
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
           <div id="checkout-summary" class="checkout-summary"></div>
           <p id="checkout-error" class="form-message" role="alert" hidden></p>
           <button class="button button-primary checkout-submit" type="submit">Đặt hàng</button>
@@ -1530,10 +3462,22 @@ function renderCheckout(account, moduleView) {
   form.elements.namedItem("phone").value = account.phone;
 
   // Saved Addresses Setup (1-click auto-select)
+<<<<<<< HEAD
   const savedAddresses = storedArray(`${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`, "Saved customer addresses");
   const addressSelect = form.querySelector("#checkout-saved-address");
   const addressInput = form.querySelector("#checkout-address");
   addressSelect.options[0].textContent = savedAddresses.length ? "Chọn địa chỉ đã lưu" : "Chưa có địa chỉ đã lưu";
+=======
+  const savedAddresses = storedArray(
+    `${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`,
+    "Saved customer addresses",
+  );
+  const addressSelect = form.querySelector("#checkout-saved-address");
+  const addressInput = form.querySelector("#checkout-address");
+  addressSelect.options[0].textContent = savedAddresses.length
+    ? "Chọn địa chỉ đã lưu"
+    : "Chưa có địa chỉ đã lưu";
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   savedAddresses.forEach((address, index) => {
     const option = document.createElement("option");
     option.value = String(index);
@@ -1541,7 +3485,14 @@ function renderCheckout(account, moduleView) {
     addressSelect.append(option);
   });
   addressSelect.addEventListener("change", () => {
+<<<<<<< HEAD
     const selectedAddress = addressSelect.value === "" ? "" : savedAddresses[Number(addressSelect.value)];
+=======
+    const selectedAddress =
+      addressSelect.value === ""
+        ? ""
+        : savedAddresses[Number(addressSelect.value)];
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     if (selectedAddress) {
       addressInput.value = selectedAddress;
       addressInput.readOnly = true;
@@ -1556,15 +3507,36 @@ function renderCheckout(account, moduleView) {
     if (addressSelect.value !== "") addressSelect.value = "";
   });
 
+<<<<<<< HEAD
   const addressSuggestions = form.querySelector("#checkout-address-suggestions");
+=======
+  const addressSuggestions = form.querySelector(
+    "#checkout-address-suggestions",
+  );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   let addressSearchTimer;
   let addressSearchController;
   let activeSuggestionIndex = -1;
 
   function formatPhotonAddress(properties) {
+<<<<<<< HEAD
     const street = [properties.housenumber, properties.street || properties.name].filter(Boolean).join(" ");
     const locality = [properties.district, properties.city, properties.state, properties.country]
       .filter((part, index, parts) => part && parts.indexOf(part) === index);
+=======
+    const street = [
+      properties.housenumber,
+      properties.street || properties.name,
+    ]
+      .filter(Boolean)
+      .join(" ");
+    const locality = [
+      properties.district,
+      properties.city,
+      properties.state,
+      properties.country,
+    ].filter((part, index, parts) => part && parts.indexOf(part) === index);
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     return [...(street ? [street] : []), ...locality].join(", ");
   }
 
@@ -1598,19 +3570,39 @@ function renderCheckout(account, moduleView) {
         url.searchParams.set("limit", "6");
         url.searchParams.set("lang", "vi");
         const response = await fetch(url, { signal: controller.signal });
+<<<<<<< HEAD
         if (!response.ok) throw new Error(`Địa chỉ gợi ý không khả dụng (${response.status}).`);
+=======
+        if (!response.ok)
+          throw new Error(`Địa chỉ gợi ý không khả dụng (${response.status}).`);
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         const data = await response.json();
         if (controller.signal.aborted) return;
         const suggestions = (data.features || [])
           .map((feature) => formatPhotonAddress(feature.properties || {}))
+<<<<<<< HEAD
           .filter((address, index, addresses) => address && addresses.indexOf(address) === index);
+=======
+          .filter(
+            (address, index, addresses) =>
+              address && addresses.indexOf(address) === index,
+          );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         if (!suggestions.length) {
           return;
         }
 
         addressSuggestions.replaceChildren();
         suggestions.forEach((address, index) => {
+<<<<<<< HEAD
           const option = makeElement("button", "checkout-address-suggestion", address);
+=======
+          const option = makeElement(
+            "button",
+            "checkout-address-suggestion",
+            address,
+          );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
           option.type = "button";
           option.id = `checkout-address-suggestion-${index}`;
           option.setAttribute("role", "option");
@@ -1631,9 +3623,27 @@ function renderCheckout(account, moduleView) {
     if (addressSuggestions.hidden || !options.length) return;
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
       event.preventDefault();
+<<<<<<< HEAD
       activeSuggestionIndex = (activeSuggestionIndex + (event.key === "ArrowDown" ? 1 : -1) + options.length) % options.length;
       options.forEach((option, index) => option.setAttribute("aria-selected", String(index === activeSuggestionIndex)));
       addressInput.setAttribute("aria-activedescendant", options[activeSuggestionIndex].id);
+=======
+      activeSuggestionIndex =
+        (activeSuggestionIndex +
+          (event.key === "ArrowDown" ? 1 : -1) +
+          options.length) %
+        options.length;
+      options.forEach((option, index) =>
+        option.setAttribute(
+          "aria-selected",
+          String(index === activeSuggestionIndex),
+        ),
+      );
+      addressInput.setAttribute(
+        "aria-activedescendant",
+        options[activeSuggestionIndex].id,
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     } else if (event.key === "Enter" && activeSuggestionIndex >= 0) {
       event.preventDefault();
       selectAddress(options[activeSuggestionIndex].textContent);
@@ -1642,7 +3652,11 @@ function renderCheckout(account, moduleView) {
     }
   });
 
+<<<<<<< HEAD
   // Fulfillment selector
+=======
+  // Bộ chọn hình thức nhận hàng.
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const addressFields = form.querySelector("#checkout-address-fields");
   const deliveryTypeOptions = form.querySelector("#checkout-delivery-options");
   form.querySelectorAll("[data-fulfillment]").forEach((button) => {
@@ -1655,32 +3669,62 @@ function renderCheckout(account, moduleView) {
       });
       addressFields.hidden = fulfillment !== "delivery";
       deliveryTypeOptions.hidden = fulfillment !== "delivery";
+<<<<<<< HEAD
       addressInput.required = fulfillment === "delivery";
       form.querySelector("#checkout-delivery-time-field").hidden = fulfillment !== "delivery";
       form.elements.namedItem("deliveryTime").required = fulfillment === "delivery";
+=======
+      addressInput.required = false;
+      form.querySelector("#checkout-delivery-time-field").hidden =
+        fulfillment !== "delivery";
+      form.elements.namedItem("deliveryTime").required = false;
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       updateSummary();
     });
   });
 
+<<<<<<< HEAD
   // Delivery type selector (standard vs express)
   form.querySelectorAll(".delivery-option-card").forEach((card) => {
     card.addEventListener("click", () => {
       deliveryType = card.dataset.type;
       form.querySelectorAll(".delivery-option-card").forEach((c) => c.classList.toggle("is-active", c === card));
+=======
+  // Bộ chọn loại giao hàng: tiêu chuẩn hoặc hỏa tốc.
+  form.querySelectorAll(".delivery-option-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      deliveryType = card.dataset.type;
+      form
+        .querySelectorAll(".delivery-option-card")
+        .forEach((c) => c.classList.toggle("is-active", c === card));
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       updateSummary();
     });
   });
 
+<<<<<<< HEAD
   // Items list
+=======
+  // Danh sách sản phẩm trong đơn.
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const itemList = form.querySelector("#checkout-items");
   checkoutItems.forEach((item) => {
     const flower = flowers.find((entry) => entry.id === item.id);
     const row = makeElement("article", "checkout-item");
+<<<<<<< HEAD
     const art = makeElement("span", `checkout-item-art flower-art--${flower?.style || "rose"}`, flower?.symbol || "✿");
+=======
+    const art = makeElement(
+      "span",
+      `checkout-item-art flower-art--${flower?.style || "rose"}`,
+      flower?.symbol || "✿",
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     art.setAttribute("aria-hidden", "true");
     const details = makeElement("span", "checkout-item-details");
     details.append(
       makeElement("strong", "", item.name),
+<<<<<<< HEAD
       makeElement("span", "", `${item.quantity} ${item.unit}`)
     );
     row.append(art, details, makeElement("strong", "checkout-item-total", currency.format(item.price * item.quantity)));
@@ -1688,15 +3732,38 @@ function renderCheckout(account, moduleView) {
   });
 
   // Calculate & update summary
+=======
+      makeElement("span", "", `${item.quantity} ${item.unit}`),
+    );
+    row.append(
+      art,
+      details,
+      makeElement(
+        "strong",
+        "checkout-item-total",
+        currency.format(item.price * item.quantity),
+      ),
+    );
+    itemList.append(row);
+  });
+
+  // Tính và cập nhật phần tổng kết đơn hàng.
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const summary = form.querySelector("#checkout-summary");
   function updateSummary() {
     summary.replaceChildren();
     let shippingFee = 0;
     if (fulfillment === "delivery") {
       if (deliveryType === "express") {
+<<<<<<< HEAD
         shippingFee = 40000;
       } else {
         shippingFee = subtotal >= 300000 ? 0 : 25000;
+=======
+        shippingFee = subtotal >= 500000 ? 0 : 40000;
+      } else {
+        shippingFee = subtotal >= 500000 ? 0 : 25000;
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       }
     }
 
@@ -1704,11 +3771,23 @@ function renderCheckout(account, moduleView) {
 
     const lines = [
       ["Tổng tiền hàng", currency.format(subtotal)],
+<<<<<<< HEAD
       ["Phí giao hàng", fulfillment === "pickup" ? "0 ₫ (Nhận tại shop)" : (shippingFee === 0 ? "Miễn phí" : currency.format(shippingFee))]
+=======
+      [
+        "Phí giao hàng",
+        fulfillment === "pickup"
+          ? "0 ₫ (Nhận tại shop)"
+          : shippingFee === 0
+            ? "0 ₫"
+            : currency.format(shippingFee),
+      ],
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     ];
 
     lines.forEach(([label, value]) => {
       const line = makeElement("div", "checkout-total-line");
+<<<<<<< HEAD
       line.append(makeElement("span", "", label), makeElement("span", "", value));
       summary.append(line);
     });
@@ -1720,18 +3799,167 @@ function renderCheckout(account, moduleView) {
   updateSummary();
 
   // Form submit
+=======
+      line.append(
+        makeElement("span", "", label),
+        makeElement("span", "", value),
+      );
+      summary.append(line);
+    });
+    const totalLine = makeElement(
+      "div",
+      "checkout-total-line checkout-total-final",
+    );
+    totalLine.append(
+      makeElement("strong", "", "Tổng thanh toán"),
+      makeElement("strong", "", currency.format(finalTotal)),
+    );
+    summary.append(totalLine);
+  }
+
+  const fieldNames = {
+    name: form.elements.namedItem("name"),
+    phone: form.elements.namedItem("phone"),
+    address: form.elements.namedItem("address"),
+    deliveryTime: form.elements.namedItem("deliveryTime"),
+  };
+
+  function setFieldError(field, message) {
+    if (!field) return;
+
+    const wrapper =
+      field.closest("label") ||
+      field.closest(".checkout-address-fields") ||
+      field.parentElement;
+    if (!wrapper) return;
+
+    const errorNode = wrapper.querySelector(".field-error");
+    const saveAddressNode = wrapper.querySelector(".checkout-save-address");
+    if (message) {
+      field.classList.add("is-invalid");
+      field.setAttribute("aria-invalid", "true");
+      wrapper.classList.add("has-error");
+      if (errorNode) {
+        errorNode.textContent = message;
+        errorNode.hidden = false;
+      } else {
+        const node = document.createElement("div");
+        node.className = "field-error";
+        node.setAttribute("role", "alert");
+        node.textContent = message;
+        if (
+          wrapper.classList.contains("checkout-address-fields") &&
+          saveAddressNode
+        ) {
+          wrapper.insertBefore(node, saveAddressNode);
+        } else {
+          wrapper.append(node);
+        }
+      }
+    } else {
+      field.classList.remove("is-invalid");
+      field.setAttribute("aria-invalid", "false");
+      wrapper.classList.remove("has-error");
+      if (errorNode) {
+        errorNode.textContent = "";
+        errorNode.hidden = true;
+      }
+    }
+  }
+
+  function validateCheckoutFields() {
+    let hasError = false;
+
+    const nameValue = String(fieldNames.name?.value ?? "").trim();
+    if (!nameValue) {
+      hasError = true;
+      setFieldError(fieldNames.name, "Vui lòng nhập tên người nhận");
+    } else if (nameValue.length < 2 || /[0-9]|[^\p{L}\s'.-]/u.test(nameValue)) {
+      hasError = true;
+      setFieldError(fieldNames.name, "Tên người nhận không hợp lệ");
+    } else {
+      setFieldError(fieldNames.name, "");
+    }
+
+    const phoneValue = String(fieldNames.phone?.value ?? "")
+      .replace(/[\s()-]/g, "")
+      .trim();
+    if (!phoneValue) {
+      hasError = true;
+      setFieldError(fieldNames.phone, "Vui lòng nhập số điện thoại");
+    } else if (!/^0\d{9}$/.test(phoneValue)) {
+      hasError = true;
+      setFieldError(fieldNames.phone, "Số điện thoại không hợp lệ");
+    } else {
+      setFieldError(fieldNames.phone, "");
+    }
+
+    if (fulfillment === "delivery") {
+      const addressValue = String(fieldNames.address?.value ?? "").trim();
+      if (!addressValue) {
+        hasError = true;
+        setFieldError(fieldNames.address, "Vui lòng nhập địa chỉ giao hàng");
+      } else if (addressValue.length < 10) {
+        hasError = true;
+        setFieldError(fieldNames.address, "Địa chỉ không hợp lệ");
+      } else {
+        setFieldError(fieldNames.address, "");
+      }
+    } else {
+      setFieldError(fieldNames.address, "");
+    }
+
+    if (fulfillment === "delivery") {
+      const timeValue = String(fieldNames.deliveryTime?.value ?? "").trim();
+      if (!timeValue) {
+        hasError = true;
+        setFieldError(
+          fieldNames.deliveryTime,
+          "Vui lòng chọn khung giờ nhận hàng",
+        );
+      } else {
+        setFieldError(fieldNames.deliveryTime, "");
+      }
+    } else {
+      setFieldError(fieldNames.deliveryTime, "");
+    }
+
+    return !hasError;
+  }
+
+  Object.values(fieldNames).forEach((field) => {
+    if (!field) return;
+    const clearError = () => {
+      setFieldError(field, "");
+    };
+    field.addEventListener("input", clearError);
+    field.addEventListener("change", clearError);
+  });
+
+  updateSummary();
+
+  // Xử lý gửi form.
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const data = new FormData(form);
     const name = String(data.get("name")).trim();
     const phone = String(data.get("phone")).replace(/[\s()-]/g, "");
     const address = String(data.get("address")).trim();
+<<<<<<< HEAD
     const error = form.querySelector("#checkout-error");
     if (name.length < 2 || !/^\d{10,11}$/.test(phone) || (fulfillment === "delivery" && !address)) {
       error.textContent = "Vui lòng nhập họ tên, số điện thoại và địa chỉ giao hàng hợp lệ.";
       error.hidden = false;
       return;
     }
+=======
+
+    if (!validateCheckoutFields()) {
+      return;
+    }
+
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     const unavailable = checkoutItems.find((item) => {
       const flower = flowers.find((entry) => entry.id === item.id);
       return !flower || item.quantity > flower.stock;
@@ -1741,14 +3969,38 @@ function renderCheckout(account, moduleView) {
       error.hidden = false;
       return;
     }
+<<<<<<< HEAD
     if (fulfillment === "delivery" && data.get("saveAddress") === "on" && !savedAddresses.includes(address)) {
       savedAddresses.push(address);
       localStorage.setItem(`${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`, JSON.stringify(savedAddresses));
+=======
+    if (
+      fulfillment === "delivery" &&
+      data.get("saveAddress") === "on" &&
+      !savedAddresses.includes(address)
+    ) {
+      savedAddresses.push(address);
+      localStorage.setItem(
+        `${CUSTOMER_ADDRESSES_KEY_PREFIX}${account.phone}`,
+        JSON.stringify(savedAddresses),
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     }
 
     let shippingFee = 0;
     if (fulfillment === "delivery") {
+<<<<<<< HEAD
       shippingFee = deliveryType === "express" ? 40000 : (subtotal >= 300000 ? 0 : 25000);
+=======
+      shippingFee =
+        deliveryType === "express"
+          ? subtotal >= 500000
+            ? 0
+            : 40000
+          : subtotal >= 500000
+            ? 0
+            : 25000;
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     }
     const finalTotal = subtotal + shippingFee;
 
@@ -1761,7 +4013,12 @@ function renderCheckout(account, moduleView) {
       fulfillment,
       deliveryType: fulfillment === "delivery" ? deliveryType : "pickup",
       address: fulfillment === "delivery" ? address : "",
+<<<<<<< HEAD
       deliveryTime: fulfillment === "delivery" ? String(data.get("deliveryTime")) : "",
+=======
+      deliveryTime:
+        fulfillment === "delivery" ? String(data.get("deliveryTime")) : "",
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       payment: String(data.get("payment")),
       note: String(data.get("note")).trim(),
       items: checkoutItems.map((item) => ({ ...item })),
@@ -1769,7 +4026,11 @@ function renderCheckout(account, moduleView) {
       shippingFee,
       total: finalTotal,
       status: "Chờ xác nhận",
+<<<<<<< HEAD
       createdAt: new Date().toISOString()
+=======
+      createdAt: new Date().toISOString(),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     };
     orders.unshift(order);
     localStorage.setItem(CUSTOMER_ORDERS_KEY, JSON.stringify(orders));
@@ -1780,6 +4041,7 @@ function renderCheckout(account, moduleView) {
   moduleView.append(form);
 }
 
+<<<<<<< HEAD
 function renderOrders(account, moduleView) {
   moduleView.replaceChildren();
   const allOrders = storedArray(CUSTOMER_ORDERS_KEY, "Saved demo orders")
@@ -1791,43 +4053,110 @@ function renderOrders(account, moduleView) {
       makeElement("h2", "", "Bạn chưa có đơn hàng"),
       makeElement("p", "", "Đơn hàng sau khi đặt sẽ xuất hiện tại đây để bạn theo dõi."),
       Object.assign(makeElement("a", "button button-primary", "Chọn sản phẩm"), { href: "pages/customer/customer-products.html" })
+=======
+
+/** Hiển thị lịch sử đơn, bộ lọc, đơn đã ẩn và thao tác đánh giá/hủy. */
+function renderOrders(account, moduleView) {
+  // THÔNG BÁO ĐƠN HÀNG: lịch sử trống, xác nhận hủy, nhãn trạng thái và nội dung thao tác đánh giá được tạo tại đây.
+  moduleView.replaceChildren();
+  const allOrders = storedArray(
+    CUSTOMER_ORDERS_KEY,
+    "Saved demo orders",
+  ).filter((order) => order.customerPhone === account.phone);
+
+  if (visibleOrders.length === 0) {
+    const empty = makeElement("div", "empty-state");
+    empty.append(
+      makeElement("h2", "", "Bạn chưa có đơn hàng"),
+      makeElement(
+        "p",
+        "",
+        "Đơn hàng sau khi đặt sẽ xuất hiện tại đây để bạn theo dõi.",
+      ),
+      Object.assign(
+        makeElement("a", "button button-primary", "Chọn sản phẩm"),
+        { href: "pages/customer/customer-products.html" },
+      ),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
     moduleView.append(empty);
     return;
   }
 
+<<<<<<< HEAD
   // Status Filter Tabs
+=======
+  // Các tab lọc trạng thái.
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   let currentFilter = "all";
   const tabsContainer = makeElement("div", "orders-filter-tabs");
   const tabDefs = [
     { id: "all", label: `Tất cả (${allOrders.length})` },
+<<<<<<< HEAD
     { id: "pending", label: `Chờ xác nhận (${allOrders.filter((o) => o.status === "Chờ xác nhận").length})` },
     { id: "shipping", label: `Đang xử lý / Giao (${allOrders.filter((o) => ["Đã xác nhận", "Đang xử lý", "Đang giao"].includes(o.status)).length})` },
     { id: "completed", label: `Hoàn thành (${allOrders.filter((o) => ["Hoàn thành", "Đã giao"].includes(o.status)).length})` },
     { id: "canceled", label: `Đã hủy (${allOrders.filter((o) => o.status === "Đã hủy").length})` }
+=======
+    {
+      id: "pending",
+      label: `Chờ xác nhận (${allOrders.filter((o) => o.status === "Chờ xác nhận").length})`,
+    },
+    {
+      id: "shipping",
+      label: `Đang xử lý / Giao (${allOrders.filter((o) => ["Đã xác nhận", "Đang xử lý", "Đang giao"].includes(o.status)).length})`,
+    },
+    {
+      id: "completed",
+      label: `Hoàn thành (${allOrders.filter((o) => ["Hoàn thành", "Đã giao"].includes(o.status)).length})`,
+    },
+    {
+      id: "canceled",
+      label: `Đã hủy (${allOrders.filter((o) => o.status === "Đã hủy").length})`,
+    },
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   ];
 
   const orderListContainer = makeElement("div", "orders-list");
 
   function drawOrders() {
     orderListContainer.replaceChildren();
+<<<<<<< HEAD
     const filteredOrders = allOrders.filter((order) => {
       if (currentFilter === "all") return true;
       if (currentFilter === "pending") return order.status === "Chờ xác nhận";
       if (currentFilter === "shipping") return ["Đã xác nhận", "Đang xử lý", "Đang giao"].includes(order.status);
       if (currentFilter === "completed") return ["Hoàn thành", "Đã giao"].includes(order.status);
+=======
+    const filteredOrders = visibleOrders.filter((order) => {
+      if (currentFilter === "all") return true;
+      if (currentFilter === "pending") return order.status === "Chờ xác nhận";
+      if (currentFilter === "shipping")
+        return ["Đã xác nhận", "Đang xử lý", "Đang giao"].includes(
+          order.status,
+        );
+      if (currentFilter === "completed")
+        return ["Hoàn thành", "Đã giao"].includes(order.status);
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       if (currentFilter === "canceled") return order.status === "Đã hủy";
       return true;
     });
 
     if (filteredOrders.length === 0) {
+<<<<<<< HEAD
       orderListContainer.append(makeElement("p", "empty-state", "Không có đơn hàng nào trong mục này."));
+=======
+      orderListContainer.append(
+        makeElement("p", "empty-state", "Không có đơn hàng nào trong mục này."),
+      );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       return;
     }
 
     filteredOrders.forEach((order) => {
       const card = makeElement("article", "order-card");
       const isPickup = order.fulfillment === "pickup";
+<<<<<<< HEAD
       const displayedStatus = isPickup && order.status === "Đang giao"
         ? "Đang chuẩn bị"
         : isPickup && ["Hoàn thành", "Đã giao"].includes(order.status)
@@ -1840,12 +4169,35 @@ function renderOrders(account, moduleView) {
       else if (order.status === "Đang giao") statusClass = "order-status--shipping";
       else if (["Hoàn thành", "Đã giao"].includes(order.status)) statusClass = "order-status--completed";
       else if (order.status === "Đang hủy" || order.status === "Đã hủy") statusClass = "order-status--canceled";
+=======
+      const displayedStatus =
+        isPickup && order.status === "Đang giao"
+          ? "Đang chuẩn bị"
+          : isPickup && ["Hoàn thành", "Đã giao"].includes(order.status)
+            ? "Đã nhận tại cửa hàng"
+            : order.status;
+
+      // Class của huy hiệu trạng thái.
+      let statusClass = "order-status--pending";
+      if (["Đã xác nhận", "Đang xử lý"].includes(order.status))
+        statusClass = "order-status--confirmed";
+      else if (order.status === "Đang giao")
+        statusClass = "order-status--shipping";
+      else if (["Hoàn thành", "Đã giao"].includes(order.status))
+        statusClass = "order-status--completed";
+      else if (order.status === "Đang hủy" || order.status === "Đã hủy")
+        statusClass = "order-status--canceled";
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 
       const heading = makeElement("header", "order-card-heading");
       const titleGroup = makeElement("div", "order-card-title-group");
       titleGroup.append(
         makeElement("h2", "", `Đơn hàng #${order.id}`),
+<<<<<<< HEAD
         makeElement("span", `order-status ${statusClass}`, displayedStatus)
+=======
+        makeElement("span", `order-status ${statusClass}`, displayedStatus),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       );
       heading.append(titleGroup);
       if (["Hoàn thành", "Đã giao", "Đã hủy"].includes(order.status)) {
@@ -1853,21 +4205,52 @@ function renderOrders(account, moduleView) {
         deleteBtn.type = "button";
         deleteBtn.setAttribute("aria-label", `Xóa đơn hàng #${order.id}`);
         deleteBtn.title = "Xóa đơn hàng";
+<<<<<<< HEAD
         deleteBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6m4-6v6M5 7l1 14h12l1-14M9 7V4h6v3"/></svg>';
         deleteBtn.addEventListener("click", () => {
           if (!window.confirm(`Bạn có chắc muốn xóa đơn hàng #${order.id} khỏi lịch sử?`)) return;
           const remainingOrders = storedArray(CUSTOMER_ORDERS_KEY, "Saved demo orders")
             .filter((savedOrder) => savedOrder.id !== order.id);
           localStorage.setItem(CUSTOMER_ORDERS_KEY, JSON.stringify(remainingOrders));
+=======
+        deleteBtn.innerHTML =
+          '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6m4-6v6M5 7l1 14h12l1-14M9 7V4h6v3"/></svg>';
+        deleteBtn.addEventListener("click", () => {
+          if (
+            !window.confirm(
+              `Bạn có chắc muốn xóa đơn hàng #${order.id} khỏi lịch sử?`,
+            )
+          )
+            return;
+          const remainingOrders = storedArray(
+            CUSTOMER_ORDERS_KEY,
+            "Saved demo orders",
+          ).filter((savedOrder) => savedOrder.id !== order.id);
+          localStorage.setItem(
+            CUSTOMER_ORDERS_KEY,
+            JSON.stringify(remainingOrders),
+          );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
           renderOrders(account, moduleView);
         });
         heading.append(deleteBtn);
       }
 
+<<<<<<< HEAD
       // Meta row
       const meta = makeElement("div", "order-card-meta");
       meta.append(
         makeElement("span", "", `Ngày đặt: ${new Date(order.createdAt).toLocaleString("vi-VN")}`)
+=======
+      // Dòng thông tin phụ.
+      const meta = makeElement("div", "order-card-meta");
+      meta.append(
+        makeElement(
+          "span",
+          "",
+          `Ngày đặt: ${new Date(order.createdAt).toLocaleString("vi-VN")}`,
+        ),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       );
 
       card.append(heading, meta);
@@ -1875,26 +4258,74 @@ function renderOrders(account, moduleView) {
       if (order.status !== "Đã hủy") {
         const timeline = makeElement("div", "order-timeline");
         const steps = [
+<<<<<<< HEAD
           { label: "Đặt hàng", done: true, active: order.status === "Chờ xác nhận" },
           { label: "Chờ xác nhận đơn", done: ["Đã xác nhận", "Đang xử lý", "Đang giao", "Hoàn thành", "Đã giao"].includes(order.status), active: ["Chờ xác nhận", "Đã xác nhận", "Đang xử lý"].includes(order.status) },
           { label: isPickup ? "Đang chuẩn bị" : "Đang giao", done: ["Hoàn thành", "Đã giao"].includes(order.status), active: order.status === "Đang giao" },
           { label: isPickup ? "Đã nhận tại cửa hàng" : "Giao thành công", done: ["Hoàn thành", "Đã giao"].includes(order.status), active: ["Hoàn thành", "Đã giao"].includes(order.status) }
+=======
+          {
+            label: "Đặt hàng",
+            done: true,
+            active: order.status === "Chờ xác nhận",
+          },
+          {
+            label: "Chờ xác nhận đơn",
+            done: [
+              "Đã xác nhận",
+              "Đang xử lý",
+              "Đang giao",
+              "Hoàn thành",
+              "Đã giao",
+            ].includes(order.status),
+            active: ["Chờ xác nhận", "Đã xác nhận", "Đang xử lý"].includes(
+              order.status,
+            ),
+          },
+          {
+            label: isPickup ? "Đang chuẩn bị" : "Đang giao",
+            done: ["Hoàn thành", "Đã giao"].includes(order.status),
+            active: order.status === "Đang giao",
+          },
+          {
+            label: isPickup ? "Đã nhận tại cửa hàng" : "Giao thành công",
+            done: ["Hoàn thành", "Đã giao"].includes(order.status),
+            active: ["Hoàn thành", "Đã giao"].includes(order.status),
+          },
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         ];
         steps.forEach((st, idx) => {
           const nextStep = steps[idx + 1];
           const hasProgress = nextStep && (nextStep.done || nextStep.active);
+<<<<<<< HEAD
           const stepEl = makeElement("div", `timeline-step${st.done ? " is-done" : ""}${st.active ? " is-active" : ""}${hasProgress ? " has-progress" : ""}`);
           stepEl.append(makeElement("div", "timeline-dot", String(idx + 1)), makeElement("span", "timeline-label", st.label));
+=======
+          const stepEl = makeElement(
+            "div",
+            `timeline-step${st.done ? " is-done" : ""}${st.active ? " is-active" : ""}${hasProgress ? " has-progress" : ""}`,
+          );
+          stepEl.append(
+            makeElement("div", "timeline-dot", String(idx + 1)),
+            makeElement("span", "timeline-label", st.label),
+          );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
           timeline.append(stepEl);
         });
         card.append(timeline);
       } else if (order.status === "Đã hủy") {
         const cancelBox = makeElement("div", "order-cancel-notice");
+<<<<<<< HEAD
         cancelBox.style.cssText = "padding:10px 14px; background:#ffebee; border-left:4px solid #d32f2f; border-radius:4px; font-size:.88rem; color:#b71c1c; margin:4px 0 10px;";
+=======
+        cancelBox.style.cssText =
+          "padding:10px 14px; background:#ffebee; border-left:4px solid #d32f2f; border-radius:4px; font-size:.88rem; color:#b71c1c; margin:4px 0 10px;";
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         cancelBox.textContent = `Đơn hàng đã được hủy${order.cancelReason ? `. Lý do: ${order.cancelReason}` : ""}${order.canceledAt ? ` (Lúc: ${new Date(order.canceledAt).toLocaleTimeString("vi-VN")} ${new Date(order.canceledAt).toLocaleDateString("vi-VN")})` : ""}`;
         card.append(cancelBox);
       }
 
+<<<<<<< HEAD
       // Address & delivery note
       if (order.fulfillment === "delivery" && order.address) {
         card.append(makeElement("p", "", `Địa chỉ giao: ${order.address}${order.deliveryTime ? ` (${order.deliveryTime})` : ""}`));
@@ -1914,6 +4345,53 @@ function renderOrders(account, moduleView) {
       card.append(makeElement("strong", "order-total", `Tổng thanh toán: ${currency.format(order.total)}`));
 
       // Actions row (1-click buttons)
+=======
+      // Địa chỉ và ghi chú giao hàng.
+      if (order.fulfillment === "delivery" && order.address) {
+        card.append(
+          makeElement(
+            "p",
+            "",
+            `Địa chỉ giao: ${order.address}${order.deliveryTime ? ` (${order.deliveryTime})` : ""}`,
+          ),
+        );
+      } else if (order.deliveryTime) {
+        card.append(
+          makeElement("p", "", `Khung giờ nhận: ${order.deliveryTime}`),
+        );
+      }
+
+      // Chi tiết các sản phẩm.
+      order.items.forEach((item) => {
+        card.append(
+          makeElement(
+            "p",
+            "order-item",
+            `${item.name} × ${item.quantity} ${item.unit} · ${currency.format(item.price * item.quantity)}`,
+          ),
+        );
+      });
+
+      if (order.shippingFee) {
+        card.append(
+          makeElement(
+            "p",
+            "order-item",
+            `Phí giao hàng: ${currency.format(order.shippingFee)}`,
+          ),
+        );
+      }
+
+      card.append(
+        makeElement(
+          "strong",
+          "order-total",
+          `Tổng thanh toán: ${currency.format(order.total)}`,
+        ),
+      );
+
+      // Dòng thao tác với các nút bấm nhanh.
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       const actionsRow = makeElement("div", "order-card-actions");
 
       if (isOrderCompleted(order)) {
@@ -1921,15 +4399,29 @@ function renderOrders(account, moduleView) {
         const reviewButton = makeElement(
           "a",
           `button ${hasReview ? "button-outline" : "button-primary"} order-review-button`,
+<<<<<<< HEAD
           hasReview ? "Sửa đánh giá" : "Đánh giá"
+=======
+          hasReview ? "Sửa đánh giá" : "Đánh giá",
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         );
         reviewButton.href = `pages/customer/customer-reviews.html?orderId=${encodeURIComponent(order.id)}`;
         actionsRow.append(reviewButton);
       }
 
+<<<<<<< HEAD
       // 1-Click Cancel button with Modal
       if (order.status === "Chờ xác nhận") {
         const cancelBtn = makeElement("button", "button button-outline-danger", "Hủy đơn hàng");
+=======
+      // Nút hủy bằng một lần bấm và hộp thoại xác nhận.
+      if (order.status === "Chờ xác nhận") {
+        const cancelBtn = makeElement(
+          "button",
+          "button button-outline-danger",
+          "Hủy đơn hàng",
+        );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
         cancelBtn.type = "button";
         cancelBtn.addEventListener("click", () => {
           openCancelModal(order);
@@ -1942,7 +4434,11 @@ function renderOrders(account, moduleView) {
     });
   }
 
+<<<<<<< HEAD
   // Cancel Modal Logic
+=======
+  // Logic của hộp thoại hủy đơn.
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   function openCancelModal(order) {
     const backdrop = makeElement("div", "modal-backdrop");
     const modal = makeElement("div", "modal-content");
@@ -1965,6 +4461,7 @@ function renderOrders(account, moduleView) {
     backdrop.append(modal);
     document.body.append(backdrop);
 
+<<<<<<< HEAD
     modal.querySelector("#modal-cancel-close").addEventListener("click", () => backdrop.remove());
     backdrop.addEventListener("click", (e) => {
       if (e.target === backdrop) backdrop.remove();
@@ -1993,6 +4490,49 @@ function renderOrders(account, moduleView) {
     tabBtn.addEventListener("click", () => {
       currentFilter = tab.id;
       tabsContainer.querySelectorAll(".orders-tab").forEach((btn) => btn.classList.toggle("is-active", btn === tabBtn));
+=======
+    modal
+      .querySelector("#modal-cancel-close")
+      .addEventListener("click", () => backdrop.remove());
+    backdrop.addEventListener("click", (e) => {
+      if (e.target === backdrop) backdrop.remove();
+    });
+    modal
+      .querySelector("#modal-cancel-confirm")
+      .addEventListener("click", () => {
+        const reason = modal.querySelector("#cancel-reason-select").value;
+        order.status = "Đã hủy";
+        order.cancelReason = reason;
+        order.canceledAt = new Date().toISOString();
+        const allUpdated = storedArray(
+          CUSTOMER_ORDERS_KEY,
+          "Saved demo orders",
+        );
+        const targetOrder = allUpdated.find((o) => o.id === order.id);
+        if (targetOrder) {
+          targetOrder.status = "Đã hủy";
+          targetOrder.cancelReason = reason;
+          targetOrder.canceledAt = order.canceledAt;
+          localStorage.setItem(CUSTOMER_ORDERS_KEY, JSON.stringify(allUpdated));
+        }
+        backdrop.remove();
+        renderOrders(account, moduleView);
+      });
+  }
+
+  tabDefs.forEach((tab) => {
+    const tabBtn = makeElement(
+      "button",
+      `orders-tab${tab.id === currentFilter ? " is-active" : ""}`,
+      tab.label,
+    );
+    tabBtn.type = "button";
+    tabBtn.addEventListener("click", () => {
+      currentFilter = tab.id;
+      tabsContainer
+        .querySelectorAll(".orders-tab")
+        .forEach((btn) => btn.classList.toggle("is-active", btn === tabBtn));
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       drawOrders();
     });
     tabsContainer.append(tabBtn);
@@ -2002,34 +4542,81 @@ function renderOrders(account, moduleView) {
   drawOrders();
 }
 
+<<<<<<< HEAD
 function renderReviews(account, moduleView) {
   moduleView.replaceChildren();
   const orderId = new URLSearchParams(location.search).get("orderId");
   const order = storedArray(CUSTOMER_ORDERS_KEY, "Saved demo orders")
     .find((item) => item.id === orderId && item.customerPhone === account.phone && isOrderCompleted(item));
+=======
+
+/** Hiển thị form đánh giá đơn hàng, số sao, nội dung và ảnh tải lên. */
+function renderReviews(account, moduleView) {
+  // THÔNG BÁO ĐÁNH GIÁ: nội dung kiểm tra số sao, nội dung viết và ảnh được tạo tại renderer form này.
+  moduleView.replaceChildren();
+  const orderId = new URLSearchParams(location.search).get("orderId");
+  const order = storedArray(CUSTOMER_ORDERS_KEY, "Saved demo orders").find(
+    (item) =>
+      item.id === orderId &&
+      item.customerPhone === account.phone &&
+      isOrderCompleted(item),
+  );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   if (!order) {
     const empty = makeElement("div", "empty-state");
     empty.append(
       makeElement("h2", "", "Không tìm thấy đơn hàng"),
       makeElement("p", "", "Chỉ đánh giá được đơn đã giao thành công."),
+<<<<<<< HEAD
       Object.assign(makeElement("a", "button button-primary", "Xem đơn hàng"), { href: "pages/customer/customer-orders.html" })
+=======
+      Object.assign(makeElement("a", "button button-primary", "Xem đơn hàng"), {
+        href: "pages/customer/customer-orders.html",
+      }),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
     moduleView.append(empty);
     return;
   }
 
   const existing = getOrderReviews(account.phone, order.id);
+<<<<<<< HEAD
   const existingByProduct = new Map(existing.map((review) => [review.productId, review]));
   let selectedImages = [...(existing.find((review) => Array.isArray(review.images))?.images || [])];
   const form = document.createElement("form");
   form.id = "review-form";
   form.append(makeElement("h2", "review-form-title", existing.length ? `Sửa đánh giá · Đơn #${order.id}` : `Đánh giá đơn #${order.id}`));
+=======
+  const existingByProduct = new Map(
+    existing.map((review) => [review.productId, review]),
+  );
+  let selectedImages = [
+    ...(existing.find((review) => Array.isArray(review.images))?.images || []),
+  ];
+  const form = document.createElement("form");
+  form.id = "review-form";
+  form.append(
+    makeElement(
+      "h2",
+      "review-form-title",
+      existing.length
+        ? `Sửa đánh giá · Đơn #${order.id}`
+        : `Đánh giá đơn #${order.id}`,
+    ),
+    makeElement(
+      "p",
+      "section-hint",
+      `Chọn sao và viết nhận xét. Cần gửi kèm ít nhất ${REVIEW_MIN_IMAGES} ảnh.`,
+    ),
+  );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const productList = makeElement("div", "review-product-list");
   (order.items || []).forEach((item) => {
     const saved = existingByProduct.get(item.id);
     const card = makeElement("article", "review-product-card");
     card.dataset.productId = item.id;
     card.dataset.productName = item.name;
+<<<<<<< HEAD
     const flower = flowers.find((product) => product.id === item.id);
     const identity = makeElement("div", "review-product-identity");
     const thumbnail = makeElement("div", `review-product-thumb flower-art flower-art--${flower?.style || "rose"}`, flower?.symbol || "✿");
@@ -2045,6 +4632,13 @@ function renderReviews(account, moduleView) {
       identity,
       makeElement("label", "", "Đánh giá sản phẩm"),
       createStarPicker(`rating-${item.id}`, saved?.rating || 0)
+=======
+    card.append(
+      makeElement("h3", "", item.name),
+      makeElement("p", "review-order-meta", `${item.quantity} ${item.unit}`),
+      makeElement("label", "", "Chọn sao"),
+      createStarPicker(`rating-${item.id}`, saved?.rating || 0),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
     const contentLabel = makeElement("label", "", "Nội dung đánh giá");
     const textarea = document.createElement("textarea");
@@ -2059,6 +4653,7 @@ function renderReviews(account, moduleView) {
   form.append(productList);
 
   const imageSection = makeElement("div", "review-images-section");
+<<<<<<< HEAD
   imageSection.append(makeElement("h3", "", `Thêm ít nhất ${REVIEW_MIN_IMAGES} hình ảnh/video về sản phẩm`));
   const fileInput = document.createElement("input");
   fileInput.type = "file";
@@ -2070,11 +4665,27 @@ function renderReviews(account, moduleView) {
   const uploadFrame = makeElement("div", "review-upload-frame");
   const uploadButton = makeElement("label", "review-upload-button", "Choose Files");
   uploadButton.htmlFor = fileInput.id;
+=======
+  imageSection.append(
+    makeElement("h3", "", "Hình ảnh đánh giá"),
+    makeElement(
+      "p",
+      "section-hint",
+      `Tải lên ít nhất ${REVIEW_MIN_IMAGES} ảnh.`,
+    ),
+  );
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = "image/*";
+  fileInput.multiple = true;
+  fileInput.id = "review-images";
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const preview = makeElement("div", "review-image-preview");
   const renderPreview = () => {
     preview.replaceChildren();
     selectedImages.forEach((src, index) => {
       const thumb = makeElement("div", "review-image-thumb");
+<<<<<<< HEAD
       if (src.startsWith("data:video/")) {
         const video = document.createElement("video");
         video.src = src;
@@ -2109,6 +4720,41 @@ function renderReviews(account, moduleView) {
     Object.assign(makeElement("button", "button button-primary", existing.length ? "Lưu chỉnh sửa" : "Gửi đánh giá"), { type: "submit" })
   );
   form.append(actions);
+=======
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = `Ảnh đánh giá ${index + 1}`;
+      thumb.append(image);
+      preview.append(thumb);
+    });
+    if (!selectedImages.length)
+      preview.append(makeElement("p", "review-order-meta", "Chưa có ảnh nào."));
+  };
+  renderPreview();
+  imageSection.append(fileInput, preview);
+  form.append(imageSection);
+
+  const message = makeElement("p", "contact-status");
+  message.id = "review-message";
+  message.setAttribute("role", "status");
+  message.hidden = true;
+  const actions = makeElement("div", "review-form-actions");
+  actions.append(
+    Object.assign(
+      makeElement("a", "button button-outline", "Quay lại đơn hàng"),
+      { href: "pages/customer/customer-orders.html" },
+    ),
+    Object.assign(
+      makeElement(
+        "button",
+        "button button-primary",
+        existing.length ? "Lưu chỉnh sửa" : "Gửi đánh giá",
+      ),
+      { type: "submit" },
+    ),
+  );
+  form.append(message, actions);
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 
   fileInput.addEventListener("change", async () => {
     try {
@@ -2125,11 +4771,18 @@ function renderReviews(account, moduleView) {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     message.hidden = true;
+<<<<<<< HEAD
     const entries = [...productList.querySelectorAll(".review-product-card")].map((card) => {
+=======
+    const entries = [
+      ...productList.querySelectorAll(".review-product-card"),
+    ].map((card) => {
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       const productId = card.dataset.productId;
       return {
         productId,
         productName: card.dataset.productName,
+<<<<<<< HEAD
         rating: Number(card.querySelector(`input[name="rating-${productId}"]`)?.value || 0),
         content: String(card.querySelector(`textarea[name="content-${productId}"]`)?.value || "").trim()
       };
@@ -2137,10 +4790,38 @@ function renderReviews(account, moduleView) {
     const ratedEntries = entries.filter((entry) => entry.rating >= 1);
     if (!ratedEntries.length) {
       message.textContent = "Bạn chưa chọn số sao kìa! Cho shop xin đánh giá nhé!";
+=======
+        rating: Number(
+          card.querySelector(`input[name="rating-${productId}"]`)?.value || 0,
+        ),
+        content: String(
+          card.querySelector(`textarea[name="content-${productId}"]`)?.value ||
+            "",
+        ).trim(),
+      };
+    });
+    const filled = entries.filter(
+      (entry) => entry.rating >= 1 && entry.content,
+    );
+    const partial = entries.some(
+      (entry) =>
+        (entry.rating && !entry.content) || (!entry.rating && entry.content),
+    );
+    if (partial || !filled.length) {
+      message.textContent = partial
+        ? "Mỗi sản phẩm được đánh giá cần có đủ số sao và nội dung."
+        : "Hãy đánh giá ít nhất một sản phẩm trước khi gửi.";
+      message.hidden = false;
+      return;
+    }
+    if (selectedImages.length < REVIEW_MIN_IMAGES) {
+      message.textContent = `Vui lòng tải lên ít nhất ${REVIEW_MIN_IMAGES} hình ảnh.`;
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       message.hidden = false;
       return;
     }
     const now = new Date().toISOString();
+<<<<<<< HEAD
     const reviews = storedArray(CUSTOMER_REVIEWS_KEY, "Saved demo reviews")
       .filter((review) => !(review.customerPhone === account.phone && review.orderId === order.id));
     ratedEntries.forEach((entry) => reviews.unshift({
@@ -2157,10 +4838,44 @@ function renderReviews(account, moduleView) {
     }));
     localStorage.setItem(CUSTOMER_REVIEWS_KEY, JSON.stringify(reviews));
     location.assign(`pages/customer/customer-orders.html?reviewed=${encodeURIComponent(order.id)}`);
+=======
+    const reviews = storedArray(
+      CUSTOMER_REVIEWS_KEY,
+      "Saved demo reviews",
+    ).filter(
+      (review) =>
+        !(
+          review.customerPhone === account.phone && review.orderId === order.id
+        ),
+    );
+    filled.forEach((entry) =>
+      reviews.unshift({
+        orderId: order.id,
+        productId: entry.productId,
+        productName: entry.productName,
+        customerPhone: account.phone,
+        customerName: account.name || "Khách hàng",
+        rating: entry.rating,
+        content: entry.content,
+        images: selectedImages,
+        createdAt: existing[0]?.createdAt || now,
+        updatedAt: now,
+      }),
+    );
+    localStorage.setItem(CUSTOMER_REVIEWS_KEY, JSON.stringify(reviews));
+    location.assign(
+      `pages/customer/customer-orders.html?reviewed=${encodeURIComponent(order.id)}`,
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   });
   moduleView.append(form);
 }
 
+<<<<<<< HEAD
+=======
+
+/** Hiển thị module placeholder cho phần khung chức năng theo vai trò. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function renderModule(moduleView, feature) {
   moduleView.replaceChildren();
   const description = document.createElement("p");
@@ -2178,7 +4893,12 @@ function renderModule(moduleView, feature) {
     const label = document.createElement("h4");
     label.textContent = task;
     const placeholder = document.createElement("p");
+<<<<<<< HEAD
     placeholder.textContent = "Giao diện minh họa cho chức năng này đang được kết nối trong demo.";
+=======
+    placeholder.textContent =
+      "Giao diện minh họa cho chức năng này đang được kết nối trong demo.";
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     item.append(number, label, placeholder);
     taskList.append(item);
   });
@@ -2186,6 +4906,11 @@ function renderModule(moduleView, feature) {
   moduleView.append(description, taskList);
 }
 
+<<<<<<< HEAD
+=======
+
+/** Hiển thị thông tin dashboard và lối tắt chức năng theo vai trò. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function renderRoleDashboard(account) {
   const role = roles[account.role];
   if (!role || account.role === "customer") {
@@ -2199,16 +4924,48 @@ function renderRoleDashboard(account) {
 
   const profile = document.querySelector("#dashboard-profile");
   profile.replaceChildren();
+<<<<<<< HEAD
   profile.append(makeElement("h2", "", account.role === "owner" ? "Thông tin chủ cửa hàng" : "Thông tin nhân viên"));
   const fields = account.role === "owner"
     ? [["Họ tên", account.name], ["Chức vụ", role.label], ["Số điện thoại", account.phone], ["Địa chỉ", account.address]]
     : [["Họ tên", account.name], ["Mã NV", account.employeeId], ["Giới tính", account.gender], ["Chức vụ", account.position || role.label], ["Số điện thoại", account.phone], ["Địa chỉ", account.address]];
+=======
+  profile.append(
+    makeElement(
+      "h2",
+      "",
+      account.role === "owner"
+        ? "Thông tin chủ cửa hàng"
+        : "Thông tin nhân viên",
+    ),
+  );
+  const fields =
+    account.role === "owner"
+      ? [
+          ["Họ tên", account.name],
+          ["Chức vụ", role.label],
+          ["Số điện thoại", account.phone],
+          ["Địa chỉ", account.address],
+        ]
+      : [
+          ["Họ tên", account.name],
+          ["Mã NV", account.employeeId],
+          ["Giới tính", account.gender],
+          ["Chức vụ", account.position || role.label],
+          ["Số điện thoại", account.phone],
+          ["Địa chỉ", account.address],
+        ];
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   const details = document.createElement("dl");
   details.className = "dashboard-profile-details";
   fields.forEach(([label, value]) => {
     details.append(
       makeElement("dt", "", label),
+<<<<<<< HEAD
       makeElement("dd", "", value || "Chưa cập nhật")
+=======
+      makeElement("dd", "", value || "Chưa cập nhật"),
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     );
   });
   profile.append(details);
@@ -2234,23 +4991,51 @@ function renderRoleDashboard(account) {
     "stock-loss": "−",
     "stock-report": "▦",
     "stock-in-report": "▤",
+<<<<<<< HEAD
     "loss-report": "!"
+=======
+    "loss-report": "!",
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   };
   role.features.forEach((feature, index) => {
     const link = document.createElement("a");
     link.className = "dashboard-action-card";
     link.href = feature.file;
+<<<<<<< HEAD
     const icon = makeElement("span", "dashboard-action-icon", featureIcons[feature.id] || String(index + 1).padStart(2, "0"));
     icon.setAttribute("aria-hidden", "true");
     link.append(icon, makeElement("span", "dashboard-action-title", feature.title));
+=======
+    const icon = makeElement(
+      "span",
+      "dashboard-action-icon",
+      featureIcons[feature.id] || String(index + 1).padStart(2, "0"),
+    );
+    icon.setAttribute("aria-hidden", "true");
+    link.append(
+      icon,
+      makeElement("span", "dashboard-action-title", feature.title),
+    );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     actions.append(link);
   });
 }
 
+<<<<<<< HEAD
 function renderWorkspace(roleKey, featureId) {
   const role = roles[roleKey];
   const feature = role?.features.find((item) => item.id === featureId);
   const account = accounts.find((item) => item.phone === sessionStorage.getItem(SESSION_KEY));
+=======
+
+/** Điều phối renderer phù hợp cho trang chức năng theo vai trò. */
+function renderWorkspace(roleKey, featureId) {
+  const role = roles[roleKey];
+  const feature = role?.features.find((item) => item.id === featureId);
+  const account = accounts.find(
+    (item) => item.phone === sessionStorage.getItem(SESSION_KEY),
+  );
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
   if (!role || !feature || account?.role !== roleKey) {
     location.replace(new URL("index.html", document.baseURI));
     return;
@@ -2276,6 +5061,11 @@ function renderWorkspace(roleKey, featureId) {
   }
 }
 
+<<<<<<< HEAD
+=======
+
+/** Thêm nút quay lại và nút lên đầu trang dùng chung. */
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
 function initializeBackButton() {
   const main = document.querySelector("main");
   if (!main || main.querySelector(".page-back-button")) return;
@@ -2284,6 +5074,7 @@ function initializeBackButton() {
   button.type = "button";
   button.setAttribute("aria-label", "Quay lại");
   button.title = "Quay lại";
+<<<<<<< HEAD
   button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m7 7-7-7 7-7"/></svg>';
   const updateBackButtonPosition = () => {
     const nav = document.querySelector(".main-nav");
@@ -2296,6 +5087,31 @@ function initializeBackButton() {
   button.addEventListener("click", () => {
     const referrer = document.referrer ? new URL(document.referrer) : null;
     if (referrer?.origin === location.origin && referrer.href !== location.href) {
+=======
+  button.innerHTML =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m7 7-7-7 7-7"/></svg>';
+  const updateBackButtonPosition = () => {
+    const nav = document.querySelector(".main-nav");
+    const navBottom = nav ? Math.max(0, nav.getBoundingClientRect().bottom) : 0;
+    document.documentElement.style.setProperty(
+      "--main-nav-bottom",
+      `${navBottom}px`,
+    );
+  };
+  updateBackButtonPosition();
+  window.addEventListener("scroll", updateBackButtonPosition, {
+    passive: true,
+  });
+  window.addEventListener("resize", updateBackButtonPosition, {
+    passive: true,
+  });
+  button.addEventListener("click", () => {
+    const referrer = document.referrer ? new URL(document.referrer) : null;
+    if (
+      referrer?.origin === location.origin &&
+      referrer.href !== location.href
+    ) {
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
       history.back();
       return;
     }
@@ -2305,7 +5121,14 @@ function initializeBackButton() {
     const currentPath = location.pathname.toLocaleLowerCase();
     let fallback = "index.html";
     if (account) {
+<<<<<<< HEAD
       fallback = account.role === "customer" ? "pages/customer/customer-products.html" : "pages/dashboard.html";
+=======
+      fallback =
+        account.role === "customer"
+          ? "pages/customer/customer-products.html"
+          : "pages/dashboard.html";
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
     } else if (currentPath.endsWith("/index.html")) {
       fallback = "home.html";
     }
@@ -2320,6 +5143,7 @@ function initializeBackButton() {
   topButton.setAttribute("aria-label", "Lên đầu trang");
   topButton.title = "Lên đầu trang";
   topButton.hidden = window.scrollY < 240;
+<<<<<<< HEAD
   topButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>';
   topButton.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
   window.addEventListener("scroll", () => {
@@ -2374,3 +5198,81 @@ loadAccounts().then(() => {
 }).catch((error) => {
   showPageError(error);
 });
+=======
+  topButton.innerHTML =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>';
+  topButton.addEventListener("click", () =>
+    window.scrollTo({ top: 0, behavior: "smooth" }),
+  );
+  window.addEventListener(
+    "scroll",
+    () => {
+      topButton.hidden = window.scrollY < 240;
+    },
+    { passive: true },
+  );
+  document.body.append(topButton);
+}
+
+loadAccounts()
+  .then(() => {
+    seedDemoCustomerOrders();
+    initializeNavigation();
+    initializeBackButton();
+    const page = document.body.dataset.page;
+    if (page === "login") {
+      initializeLogin();
+    } else if (page === "register") {
+      initializeRegistration();
+    } else if (page === "profile") {
+      initializeProfile();
+    } else if (page === "dashboard") {
+      const account = accounts.find(
+        (item) => item.phone === sessionStorage.getItem(SESSION_KEY),
+      );
+      if (!account || account.role === "customer") {
+        location.replace(new URL("index.html", document.baseURI));
+        return;
+      }
+      renderRoleDashboard(account);
+    } else if (page === "products") {
+      return loadFlowers().then(() => {
+        const account = accounts.find(
+          (item) => item.phone === sessionStorage.getItem(SESSION_KEY),
+        );
+        renderFlowerProducts(account);
+      });
+    } else if (page === "product-detail") {
+      return loadFlowers().then(() => {
+        const account = accounts.find(
+          (item) => item.phone === sessionStorage.getItem(SESSION_KEY),
+        );
+        renderProductDetail(account);
+      });
+    } else if (page === "checkout") {
+      const account = accounts.find(
+        (item) => item.phone === sessionStorage.getItem(SESSION_KEY),
+      );
+      if (account?.role !== "customer") {
+        location.replace(new URL("index.html", document.baseURI));
+        return;
+      }
+      return loadFlowers().then(() =>
+        renderCheckout(account, document.querySelector("#checkout-view")),
+      );
+    } else if (page === "workspace") {
+      const roleKey = document.body.dataset.role;
+      const featureId = document.body.dataset.feature;
+      if (
+        roleKey === "customer" &&
+        ["cart", "reviews", "orders"].includes(featureId)
+      ) {
+        return loadFlowers().then(() => renderWorkspace(roleKey, featureId));
+      }
+      renderWorkspace(roleKey, featureId);
+    }
+  })
+  .catch((error) => {
+    showPageError(error);
+  });
+>>>>>>> ef9aa423c9fdf67e4d8f9358d43c7f96e4904f73
