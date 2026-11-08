@@ -1,6 +1,7 @@
 ﻿<!doctype html>
 <html lang="vi">
 <!-- Giải thích cấu trúc trang: Trang đăng nhập và khôi phục mật khẩu OTP của demo. -->
+
 <head>
   <!-- Phần head khai báo ngôn ngữ, viewport responsive, đường dẫn tài nguyên và script dùng chung. -->
   <meta charset="utf-8">
@@ -10,72 +11,97 @@
   <title>Đăng nhập | Hoa Xinh</title>
   <!-- Nạp stylesheet dùng chung và logic demo chạy sau khi HTML được tải. -->
   <link rel="stylesheet" href="css/styles.css">
-  <script src="js/app.js" defer></script></head>
+  <link rel="stylesheet" href="css/login.css">
+  <script src="js/app.js" defer></script>
+</head>
+
 <body data-page="login">
   <!-- data-page/data-role/data-feature là metadata để app.js xác định renderer và quyền truy cập của trang. -->
   <div class="page-shell">
     <a class="skip-link" href="#account">Bỏ qua điều hướng</a>
     <!-- Header tĩnh của màn hình đăng nhập; các trang sau sẽ dựng nav bằng JavaScript. -->
-        <!-- Header dùng chung gồm banner thương hiệu; nav có thể tĩnh hoặc được app.js dựng động. -->
-<header class="site-header">
+    <!-- Header dùng chung gồm banner thương hiệu; nav có thể tĩnh hoặc được app.js dựng động. -->
+    <header class="site-header">
       <div class="identity-banner">
         <a class="brand-lockup" href="home.html" aria-label="Hoa Xinh - Trang chủ">
-          <img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png" alt="Hoa Xinh - Trao hoa, gửi yêu thương">
+          <img class="brand-reference-image" src="assets/images/header-web-ban-hoa.png"
+            alt="Hoa Xinh - Trao hoa, gửi yêu thương">
         </a>
       </div>
       <nav class="main-nav" aria-label="Điều hướng chính">
         <div class="nav-inner">
           <a class="nav-link" href="home.html">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8v10h-6v-7H9v7H3z"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m3 11 9-8 9 8v10h-6v-7H9v7H3z" />
+            </svg>
             <span>Trang chủ</span>
           </a>
           <a class="nav-link" href="pages/customer/customer-products.html">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c1.7 0 2.4 2.2 2.1 4.5 1.7-1.6 3.8-2.5 5-1.3s.3 3.3-1.3 5C20.1 9.9 22.3 10.6 22.3 12s-2.2 2.1-4.5 1.8c1.6 1.7 2.5 3.8 1.3 5s-3.3.3-5-1.3C14.4 19.8 13.7 22 12 22s-2.4-2.2-2.1-4.5c-1.7 1.6-3.8 2.5-5 1.3s-.3-3.3 1.3-5C3.9 14.1 1.7 13.4 1.7 12s2.2-2.1 4.5-1.8c-1.6-1.7-2.5-3.8-1.3-5s3.3-.3 5 1.3C9.6 4.2 10.3 2 12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2c1.7 0 2.4 2.2 2.1 4.5 1.7-1.6 3.8-2.5 5-1.3s.3 3.3-1.3 5C20.1 9.9 22.3 10.6 22.3 12s-2.2 2.1-4.5 1.8c1.6 1.7 2.5 3.8 1.3 5s-3.3.3-5-1.3C14.4 19.8 13.7 22 12 22s-2.4-2.2-2.1-4.5c-1.7 1.6-3.8 2.5-5 1.3s-.3-3.3 1.3-5C3.9 14.1 1.7 13.4 1.7 12s2.2-2.1 4.5-1.8c-1.6-1.7-2.5-3.8-1.3-5s3.3-.3 5 1.3C9.6 4.2 10.3 2 12 2Z" />
+            </svg>
             <span>Sản phẩm</span>
           </a>
           <a class="nav-link" href="pages/customer/customer-contact.html">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.2 11 11 0 0 0 3.5.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1A11 11 0 0 0 9 7.5a1 1 0 0 1-.2 1z"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.2 11 11 0 0 0 3.5.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1A11 11 0 0 0 9 7.5a1 1 0 0 1-.2 1z" />
+            </svg>
             <span>Liên hệ</span>
           </a>
           <a class="nav-link" href="#workspace">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm9 10a9 9 0 0 0-18 0z"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm9 10a9 9 0 0 0-18 0z" />
+            </svg>
             <span>Tài khoản</span>
           </a>
-          <a class="nav-link nav-icon" href="pages/customer/customer-products.html" aria-label="Tìm kiếm" title="Tìm kiếm">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.2 16.2 5 5"/></svg>
+          <a class="nav-link nav-icon" href="pages/customer/customer-products.html" aria-label="Tìm kiếm"
+            title="Tìm kiếm">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10.8" cy="10.8" r="7.3" />
+              <path d="m16.2 16.2 5 5" />
+            </svg>
           </a>
           <a class="nav-link nav-icon" href="pages/customer/customer-cart.html" aria-label="Giỏ hàng" title="Giỏ hàng">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 8h14l1 13H4L5 8Z" />
+              <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+            </svg>
           </a>
         </div>
       </nav>
     </header>
 
     <!-- Khu vực đăng nhập chính và luồng khôi phục mật khẩu bằng OTP demo. -->
-        <!-- Vùng nội dung chính của trang: HTML tạo khung, còn dữ liệu và thao tác thường do app.js bổ sung. -->
-<main id="home" class="main-content">
+    <!-- Vùng nội dung chính của trang: HTML tạo khung, còn dữ liệu và thao tác thường do app.js bổ sung. -->
+    <main id="home" class="main-content">
       <section class="welcome-copy" aria-labelledby="welcome-heading">
         <h1 id="welcome-heading">Đăng nhập tài khoản</h1>
       </section>
 
       <section id="account" class="login-layout" aria-label="Đăng nhập demo">
         <div class="login-card">
-          <form id="login-form">
+          <form id="login-form" novalidate>
             <label for="phone">Số điện thoại</label>
             <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="username"
               placeholder="Nhập số điện thoại" required>
+            <p id="phone-error" class="field-message" role="alert" hidden></p>
 
             <label for="password">Mật khẩu</label>
             <div class="password-field">
               <input id="password" name="password" type="password" autocomplete="current-password"
                 placeholder="Nhập mật khẩu" required>
-              <button id="toggle-password" class="password-toggle" type="button" aria-label="Hiện mật khẩu" aria-pressed="false">
+              <button id="toggle-password" class="password-toggle" type="button" aria-label="Hiện mật khẩu"
+                aria-pressed="false">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/>
-                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
+                  <circle cx="12" cy="12" r="3" />
+                  <path class="eye-slash" d="m4 4 16 16" />
                 </svg>
               </button>
             </div>
+            <p id="password-error" class="field-message" role="alert" hidden></p>
 
             <div class="login-options">
               <label class="remember-option" for="remember-phone">
@@ -86,43 +112,76 @@
             </div>
             <p id="login-help" class="login-help" role="status" hidden></p>
             <p id="login-error" class="form-message" role="alert" hidden></p>
-            <button id="login-button" class="button button-primary login-button" type="submit" disabled>ĐĂNG NHẬP</button>
+            <button id="login-button" class="button button-primary login-button" type="submit" disabled>ĐĂNG
+              NHẬP</button>
           </form>
-          <form id="forgot-password-form" class="forgot-password-form" hidden>
+          <form id="forgot-password-form" class="forgot-password-form" novalidate hidden>
             <h2>Khôi phục mật khẩu</h2>
             <label for="forgot-phone">Số điện thoại</label>
-            <input id="forgot-phone" name="phone" type="tel" inputmode="tel" autocomplete="username" required>
+            <input id="forgot-phone" name="phone" type="tel" inputmode="tel" autocomplete="username"
+              placeholder="Nhập số điện thoại" required>
+            <p id="forgot-phone-error" class="field-message" role="alert" hidden></p>
             <button id="forgot-send-otp" class="button button-secondary" type="button">Gửi mã OTP</button>
             <div id="forgot-otp-fields" hidden>
               <label for="forgot-otp">Mã OTP</label>
-              <input id="forgot-otp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required>
-              <label for="forgot-new-password">Mật khẩu mới</label>
-              <div class="password-field">
-                <input id="forgot-new-password" name="newPassword" type="password" autocomplete="new-password" required disabled>
-                <button class="password-toggle" type="button" data-password-toggle="forgot-new-password" aria-label="Hiện mật khẩu" aria-pressed="false"></button>
+              <input id="forgot-otp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code"
+                placeholder="Nhập mã OTP" maxlength="6" required>
+              <p id="forgot-otp-error" class="field-message" role="alert" hidden></p>
+              <p id="forgot-otp-countdown" class="otp-countdown" role="status" hidden></p>
+              <button id="forgot-verify-otp" class="button button-secondary" type="button">Xác nhận OTP</button>
+              <div id="forgot-new-password-fields" hidden>
+                <label for="forgot-new-password">Mật khẩu mới</label>
+                <div class="password-field">
+                  <input id="forgot-new-password" name="newPassword" type="password" autocomplete="new-password"
+                    placeholder="Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ cái và chữ số" required disabled>
+                  <button class="password-toggle" type="button" data-password-toggle="forgot-new-password"
+                    aria-label="Hiện mật khẩu" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
+                      <circle cx="12" cy="12" r="3" />
+                      <path class="eye-slash" d="m4 4 16 16" />
+                    </svg>
+                  </button>
+                </div>
+                <p id="forgot-new-password-error" class="field-message" role="alert" hidden></p>
+                <label for="forgot-confirm-password">Nhập lại mật khẩu mới</label>
+                <div class="password-field">
+                  <input id="forgot-confirm-password" name="confirmPassword" type="password" autocomplete="new-password"
+                    placeholder="Nhập lại mật khẩu mới" required disabled>
+                  <button class="password-toggle" type="button" data-password-toggle="forgot-confirm-password"
+                    aria-label="Hiện mật khẩu" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
+                      <circle cx="12" cy="12" r="3" />
+                      <path class="eye-slash" d="m4 4 16 16" />
+                    </svg>
+                  </button>
+                </div>
+                <p id="forgot-confirm-password-error" class="field-message" role="alert" hidden></p>
+                <button class="button button-primary" type="submit">Cập nhật mật khẩu</button>
               </div>
-              <label for="forgot-confirm-password">Xác nhận mật khẩu mới</label>
-              <div class="password-field">
-                <input id="forgot-confirm-password" name="confirmPassword" type="password" autocomplete="new-password" required disabled>
-                <button class="password-toggle" type="button" data-password-toggle="forgot-confirm-password" aria-label="Hiện mật khẩu" aria-pressed="false"></button>
-              </div>
-              <button class="button button-primary" type="submit">Cập nhật mật khẩu</button>
             </div>
             <p id="forgot-password-message" class="login-help" role="status" hidden></p>
             <div class="forgot-password-actions">
-              <button id="forgot-password-cancel" class="button button-secondary" type="button">Quay lại đăng nhập</button>
+              <button id="forgot-register-link" class="button button-secondary" type="button" hidden>Đăng ký tài
+                khoản</button>
+              <button id="forgot-password-cancel" class="text-action text-action--emphasis" type="button">Quay lại đăng
+                nhập</button>
             </div>
           </form>
-          <p id="signup-prompt" class="signup-prompt">Bạn chưa có tài khoản. <button id="register-link" class="text-action text-action--emphasis" type="button">Đăng ký ngay</button></p>
+          <p id="signup-prompt" class="signup-prompt">Bạn chưa có tài khoản. <button id="register-link"
+              class="text-action text-action--emphasis" type="button">Đăng ký ngay</button></p>
         </div>
       </section>
     </main>
 
     <!-- Footer nhận diện thương hiệu và thông tin liên hệ của cửa hàng. -->
     <footer id="contact" class="site-footer">
-      <div class="footer-inner"><img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png" alt="Thông tin giới thiệu và liên hệ cửa hàng Hoa Xinh"></div>
+      <div class="footer-inner"><img class="footer-reference-image" src="assets/images/footer-web-ban-hoa.png"
+          alt="Thông tin giới thiệu và liên hệ cửa hàng Hoa Xinh"></div>
       <div class="footer-bottom">© 2026 Hoa Xinh · Demo giao diện cửa hàng hoa</div>
     </footer>
   </div>
 </body>
+
 </html>

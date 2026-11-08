@@ -5,6 +5,7 @@ const SESSION_KEY = "hoaxinh-demo-phone";
 const REMEMBERED_PHONE_KEY = "hoaxinh-demo-remembered-phone";
 const REGISTERED_CUSTOMERS_KEY = "hoaxinh-demo-customers";
 const ACCOUNT_OVERRIDES_KEY = "hoaxinh-demo-account-overrides";
+const PASSWORD_OVERRIDES_KEY = "hoaxinh-demo-password-overrides";
 const CUSTOMER_ADDRESSES_KEY_PREFIX = "hoaxinh-demo-addresses:";
 const CUSTOMER_ORDERS_KEY = "hoaxinh-demo-orders";
 const CUSTOMER_REVIEWS_KEY = "hoaxinh-demo-reviews";
@@ -581,6 +582,11 @@ async function loadFlowers() {
   return flowers;
 }
 
+function accountPassword(account) {
+  const overrides = JSON.parse(localStorage.getItem(PASSWORD_OVERRIDES_KEY) || "{}");
+  return overrides[account.accountId] || DEMO_PASSWORD;
+}
+
 function initializeLogin() {
   const phoneInput = document.querySelector("#phone");
   const passwordInput = document.querySelector("#password");
@@ -589,6 +595,8 @@ function initializeLogin() {
   const loginButton = document.querySelector("#login-button");
   const errorMessage = document.querySelector("#login-error");
   const helpMessage = document.querySelector("#login-help");
+  const phoneError = document.querySelector("#phone-error");
+  const passwordError = document.querySelector("#password-error");
   const rememberedPhone = localStorage.getItem(REMEMBERED_PHONE_KEY);
 
   if (rememberedPhone && accounts.some((account) => account.phone === rememberedPhone)) {
@@ -600,9 +608,26 @@ function initializeLogin() {
   loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const phone = phoneInput.value.replace(/[\s()-]/g, "");
+    phoneError.hidden = true;
+    passwordError.hidden = true;
+    errorMessage.hidden = true;
+    if (!phone) {
+      phoneError.textContent = "Vui lòng nhập số điện thoại.";
+      phoneError.hidden = false;
+    }
+    if (!passwordInput.value) {
+      passwordError.textContent = "Vui lòng nhập mật khẩu.";
+      passwordError.hidden = false;
+    }
+    if (!phone || !passwordInput.value) return;
+    if (!/^0\d{9}$/.test(phone)) {
+      phoneError.textContent = "Số điện thoại không hợp lệ.";
+      phoneError.hidden = false;
+      return;
+    }
     const account = accounts.find((entry) => entry.phone === phone);
 
-    if (!account || passwordInput.value !== DEMO_PASSWORD) {
+    if (!account || passwordInput.value !== accountPassword(account)) {
       errorMessage.textContent = "Số điện thoại hoặc mật khẩu chưa đúng. Vui lòng thử lại.";
       errorMessage.hidden = false;
       return;
@@ -624,11 +649,234 @@ function initializeLogin() {
     passwordInput.type = showingPassword ? "text" : "password";
     button.setAttribute("aria-label", showingPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu");
     button.setAttribute("aria-pressed", String(showingPassword));
+    button.classList.toggle("is-visible", showingPassword);
   });
 
+  document.querySelectorAll("[data-password-toggle]").forEach((button) => {
+    const targetInput = document.querySelector(`#${button.dataset.passwordToggle}`);
+    button.addEventListener("click", () => {
+      const showingPassword = targetInput.type === "password";
+      targetInput.type = showingPassword ? "text" : "password";
+      button.setAttribute("aria-label", showingPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu");
+      button.setAttribute("aria-pressed", String(showingPassword));
+      button.classList.toggle("is-visible", showingPassword);
+    });
+  });
+
+  const forgotForm = document.querySelector("#forgot-password-form");
+  const forgotPhoneInput = document.querySelector("#forgot-phone");
+  const forgotOtpFields = document.querySelector("#forgot-otp-fields");
+  const forgotOtpInput = document.querySelector("#forgot-otp");
+  const forgotPhoneError = document.querySelector("#forgot-phone-error");
+  const forgotOtpError = document.querySelector("#forgot-otp-error");
+  const forgotOtpCountdown = document.querySelector("#forgot-otp-countdown");
+  const forgotNewPasswordFields = document.querySelector("#forgot-new-password-fields");
+  const forgotNewPassword = document.querySelector("#forgot-new-password");
+  const forgotConfirmPassword = document.querySelector("#forgot-confirm-password");
+  const forgotNewPasswordError = document.querySelector("#forgot-new-password-error");
+  const forgotConfirmPasswordError = document.querySelector("#forgot-confirm-password-error");
+  const forgotMessage = document.querySelector("#forgot-password-message");
+  const forgotRegisterLink = document.querySelector("#forgot-register-link");
+  let resetAccount = null;
+  let resetOtp = null;
+  let resetOtpExpiresAt = null;
+  let otpExpiryTimer = null;
+  let otpCountdownTimer = null;
+  let otpVerified = false;
+
+  const stopOtpCountdown = () => {
+    clearInterval(otpCountdownTimer);
+    otpCountdownTimer = null;
+    forgotOtpCountdown.hidden = true;
+  };
+
+  const startOtpCountdown = () => {
+    clearInterval(otpCountdownTimer);
+    const updateCountdown = () => {
+      const secondsLeft = Math.max(0, Math.ceil((resetOtpExpiresAt - Date.now()) / 1000));
+      forgotOtpCountdown.textContent = `Mã OTP còn hiệu lực trong ${secondsLeft}s.`;
+      forgotOtpCountdown.hidden = false;
+      if (secondsLeft === 0) {
+        clearInterval(otpCountdownTimer);
+        otpCountdownTimer = null;
+      }
+    };
+    updateCountdown();
+    otpCountdownTimer = setInterval(updateCountdown, 1000);
+  };
+
   document.querySelector("#forgot-password").addEventListener("click", () => {
-    helpMessage.textContent = "Chức năng khôi phục mật khẩu chưa có trong bản demo. Mật khẩu dùng thử là hoaxinh123.";
+    loginForm.hidden = true;
+    forgotForm.hidden = false;
+    document.querySelector("#signup-prompt").hidden = true;
+    helpMessage.hidden = true;
+    forgotPhoneError.hidden = true;
+    forgotOtpError.hidden = true;
+    forgotNewPasswordError.hidden = true;
+    forgotConfirmPasswordError.hidden = true;
+    forgotRegisterLink.hidden = true;
+    forgotPhoneInput.focus();
+  });
+
+  const sendOtp = () => {
+    const phone = forgotPhoneInput.value.replace(/[\s()-]/g, "");
+    clearTimeout(otpExpiryTimer);
+    otpExpiryTimer = null;
+    stopOtpCountdown();
+    forgotPhoneError.hidden = true;
+    forgotOtpError.hidden = true;
+    forgotNewPasswordError.hidden = true;
+    forgotConfirmPasswordError.hidden = true;
+    forgotMessage.hidden = true;
+    forgotRegisterLink.hidden = true;
+    if (!phone) {
+      forgotPhoneError.textContent = "Vui lòng nhập số điện thoại.";
+      forgotPhoneError.hidden = false;
+      return;
+    }
+    if (!/^0\d{9}$/.test(phone)) {
+      forgotPhoneError.textContent = "Số điện thoại không hợp lệ.";
+      forgotPhoneError.hidden = false;
+      return;
+    }
+    resetAccount = accounts.find((account) => account.phone === phone);
+    if (!resetAccount) {
+      resetOtp = null;
+      resetOtpExpiresAt = null;
+      otpVerified = false;
+      forgotOtpFields.hidden = true;
+      forgotNewPasswordFields.hidden = true;
+      forgotNewPassword.disabled = true;
+      forgotConfirmPassword.disabled = true;
+      forgotMessage.textContent = "Số điện thoại này chưa được đăng ký tài khoản.";
+      forgotMessage.hidden = false;
+      forgotRegisterLink.hidden = false;
+      return;
+    }
+    resetOtp = String(Math.floor(100000 + Math.random() * 900000));
+    resetOtpExpiresAt = Date.now() + 30000;
+    otpExpiryTimer = setTimeout(() => {
+      if (!otpVerified && Date.now() >= resetOtpExpiresAt) {
+        forgotMessage.textContent = "Mã OTP đã hết hạn. Vui lòng gửi lại mã.";
+        forgotMessage.hidden = false;
+      }
+    }, 30000);
+    otpVerified = false;
+    startOtpCountdown();
+    forgotOtpInput.value = "";
+    forgotOtpFields.hidden = false;
+    forgotNewPasswordFields.hidden = true;
+    forgotNewPassword.disabled = true;
+    forgotConfirmPassword.disabled = true;
+    forgotMessage.textContent = `Mã OTP demo của bạn là ${resetOtp}.`;
+    forgotMessage.hidden = false;
+    forgotOtpInput.focus();
+  };
+
+  document.querySelector("#forgot-send-otp").addEventListener("click", sendOtp);
+  document.querySelector("#forgot-verify-otp").addEventListener("click", () => {
+    forgotOtpError.hidden = true;
+    forgotMessage.hidden = true;
+    if (!forgotOtpInput.value.trim()) {
+      forgotOtpError.textContent = "Vui lòng nhập mã OTP.";
+      forgotOtpError.hidden = false;
+      return;
+    }
+    if (!resetOtpExpiresAt || Date.now() > resetOtpExpiresAt) {
+      forgotOtpError.textContent = "Mã OTP đã hết hạn. Vui lòng gửi lại mã.";
+      forgotOtpError.hidden = false;
+      return;
+    }
+    if (forgotOtpInput.value.trim() !== resetOtp) {
+      forgotOtpError.textContent = "Mã OTP không chính xác. Vui lòng thử lại.";
+      forgotOtpError.hidden = false;
+      return;
+    }
+    otpVerified = true;
+    stopOtpCountdown();
+    forgotNewPasswordFields.hidden = false;
+    forgotNewPassword.disabled = false;
+    forgotConfirmPassword.disabled = false;
+    forgotNewPassword.focus();
+  });
+
+  forgotForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!otpVerified || !resetAccount) return;
+    forgotNewPasswordError.hidden = true;
+    forgotConfirmPasswordError.hidden = true;
+    forgotMessage.hidden = true;
+    if (!forgotNewPassword.value) {
+      forgotNewPasswordError.textContent = "Vui lòng nhập mật khẩu mới.";
+      forgotNewPasswordError.hidden = false;
+      return;
+    }
+    if (forgotNewPassword.value.length < 8 || !/[A-Za-z]/.test(forgotNewPassword.value) || !/\d/.test(forgotNewPassword.value)) {
+      forgotNewPasswordError.textContent = "Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ cái và chữ số.";
+      forgotNewPasswordError.hidden = false;
+      return;
+    }
+    if (!forgotConfirmPassword.value) {
+      forgotConfirmPasswordError.textContent = "Vui lòng nhập lại mật khẩu.";
+      forgotConfirmPasswordError.hidden = false;
+      return;
+    }
+    if (forgotNewPassword.value !== forgotConfirmPassword.value) {
+      forgotConfirmPasswordError.textContent = "Mật khẩu xác nhận không khớp.";
+      forgotConfirmPasswordError.hidden = false;
+      return;
+    }
+    const overrides = JSON.parse(localStorage.getItem(PASSWORD_OVERRIDES_KEY) || "{}");
+    overrides[resetAccount.accountId] = forgotNewPassword.value;
+    localStorage.setItem(PASSWORD_OVERRIDES_KEY, JSON.stringify(overrides));
+    forgotForm.hidden = true;
+    loginForm.hidden = false;
+    document.querySelector("#signup-prompt").hidden = false;
+    helpMessage.textContent = "Đổi mật khẩu thành công.";
     helpMessage.hidden = false;
+    forgotForm.reset();
+    forgotOtpFields.hidden = true;
+    forgotNewPasswordFields.hidden = true;
+    forgotNewPassword.disabled = true;
+    forgotConfirmPassword.disabled = true;
+    forgotPhoneError.hidden = true;
+    forgotOtpError.hidden = true;
+    forgotNewPasswordError.hidden = true;
+    forgotConfirmPasswordError.hidden = true;
+    resetAccount = null;
+    resetOtp = null;
+    resetOtpExpiresAt = null;
+    clearTimeout(otpExpiryTimer);
+    otpExpiryTimer = null;
+    stopOtpCountdown();
+    otpVerified = false;
+  });
+
+  document.querySelector("#forgot-password-cancel").addEventListener("click", () => {
+    forgotForm.hidden = true;
+    loginForm.hidden = false;
+    document.querySelector("#signup-prompt").hidden = false;
+    forgotMessage.hidden = true;
+    forgotForm.reset();
+    forgotOtpFields.hidden = true;
+    forgotNewPasswordFields.hidden = true;
+    forgotNewPassword.disabled = true;
+    forgotConfirmPassword.disabled = true;
+    forgotPhoneError.hidden = true;
+    forgotOtpError.hidden = true;
+    forgotNewPasswordError.hidden = true;
+    forgotConfirmPasswordError.hidden = true;
+    forgotRegisterLink.hidden = true;
+    resetAccount = null;
+    resetOtp = null;
+    resetOtpExpiresAt = null;
+    clearTimeout(otpExpiryTimer);
+    otpExpiryTimer = null;
+    stopOtpCountdown();
+    otpVerified = false;
+  });
+  forgotRegisterLink.addEventListener("click", () => {
+    location.assign(new URL("pages/customer/customer-register.html", document.baseURI));
   });
   document.querySelector("#register-link").addEventListener("click", () => {
     location.assign(new URL("pages/customer/customer-register.html", document.baseURI));
@@ -636,18 +884,61 @@ function initializeLogin() {
 }
 
 function initializeRegistration() {
+  document.querySelectorAll("[data-password-toggle]").forEach((button) => {
+    const targetInput = document.querySelector(`#${button.dataset.passwordToggle}`);
+    button.addEventListener("click", () => {
+      const showingPassword = targetInput.type === "password";
+      targetInput.type = showingPassword ? "text" : "password";
+      button.setAttribute("aria-label", showingPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu");
+      button.setAttribute("aria-pressed", String(showingPassword));
+      button.classList.toggle("is-visible", showingPassword);
+    });
+  });
+
   document.querySelector("#registration-form").addEventListener("submit", (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const name = String(formData.get("name")).trim();
     const phone = String(formData.get("phone")).replace(/[\s()-]/g, "");
+    const password = String(formData.get("password"));
+    const confirmPassword = String(formData.get("confirmPassword"));
     const message = document.querySelector("#registration-message");
+    const nameError = document.querySelector("#register-name-error");
+    const phoneError = document.querySelector("#register-phone-error");
+    const passwordError = document.querySelector("#register-password-error");
+    const confirmPasswordError = document.querySelector("#register-confirm-password-error");
 
-    if (name.length < 2 || !/^\d{10,11}$/.test(phone)) {
-      message.textContent = "Vui lòng nhập họ tên và số điện thoại hợp lệ.";
-      message.hidden = false;
-      return;
+    nameError.hidden = true;
+    phoneError.hidden = true;
+    passwordError.hidden = true;
+    confirmPasswordError.hidden = true;
+    message.hidden = true;
+    if (name.length < 2) {
+      nameError.textContent = "Vui lòng nhập họ tên.";
+      nameError.hidden = false;
     }
+    if (!phone) {
+      phoneError.textContent = "Vui lòng nhập số điện thoại.";
+      phoneError.hidden = false;
+    } else if (!/^0\d{9}$/.test(phone)) {
+      phoneError.textContent = "Số điện thoại không hợp lệ.";
+      phoneError.hidden = false;
+    }
+    if (!password) {
+      passwordError.textContent = "Vui lòng nhập mật khẩu mới.";
+      passwordError.hidden = false;
+    } else if (password.length < 8 || !/[A-Za-z]/.test(password) || !/\d/.test(password)) {
+      passwordError.textContent = "Mật khẩu phải có ít nhất 8 ký tự, bao gồm cả chữ cái và chữ số.";
+      passwordError.hidden = false;
+    }
+    if (!confirmPassword) {
+      confirmPasswordError.textContent = "Vui lòng nhập lại mật khẩu.";
+      confirmPasswordError.hidden = false;
+    } else if (password !== confirmPassword) {
+      confirmPasswordError.textContent = "Mật khẩu xác nhận không khớp.";
+      confirmPasswordError.hidden = false;
+    }
+    if (name.length < 2 || !/^0\d{9}$/.test(phone) || password.length < 8 || !/[A-Za-z]/.test(password) || !/\d/.test(password) || password !== confirmPassword) return;
     if (accounts.some((account) => account.phone === phone)) {
       message.textContent = "Số điện thoại này đã được đăng ký.";
       message.hidden = false;
@@ -658,6 +949,9 @@ function initializeRegistration() {
     const registered = storedArray(REGISTERED_CUSTOMERS_KEY, "Saved demo customer accounts");
     registered.push(customer);
     localStorage.setItem(REGISTERED_CUSTOMERS_KEY, JSON.stringify(registered));
+    const overrides = JSON.parse(localStorage.getItem(PASSWORD_OVERRIDES_KEY) || "{}");
+    overrides[customer.accountId] = password;
+    localStorage.setItem(PASSWORD_OVERRIDES_KEY, JSON.stringify(overrides));
     sessionStorage.setItem(SESSION_KEY, phone);
     location.assign(new URL("home.html", document.baseURI));
   });

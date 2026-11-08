@@ -1,0 +1,91 @@
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+    display: none;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+#login-form>input,
+.password-field>input {
+    margin-bottom: 10px;
+}
+
+#forgot-password-form input::placeholder {
+    color: #746b6d;
+    font-size: .98rem;
+    font-style: italic;
+}
+
+#login-form .password-toggle {
+    top: calc(50% - 7px);
+}
+
+#forgot-new-password-fields .password-toggle {
+    top: calc(50% - 4px);
+}
+
+.password-toggle .eye-slash {
+    display: block;
+}
+
+.password-toggle.is-visible .eye-slash {
+    display: none;
+}
+
+#forgot-send-otp,
+#forgot-verify-otp,
+#forgot-new-password-fields>.button-primary {
+    width: min(100%, 220px);
+    justify-self: center;
+}
+
+.field-message {
+    margin: 0;
+    color: #9c2f46;
+    font-size: .87rem;
+}
+
+#login-form .field-message {
+    margin: 0 0 10px;
+}
+
+.otp-countdown {
+    margin: 0;
+    color: var(--muted);
+    font-size: .87rem;
+    text-align: center;
+}
+
+.forgot-password-form>#forgot-otp-fields,
+#forgot-new-password-fields {
+    display: grid;
+    gap: 10px;
+}
+
+#forgot-register-link {
+    margin-right: auto;
+}
+
+#registration-form .password-field {
+    margin: 0 0 13px;
+}
+
+#registration-form .password-field>input {
+    margin: 0;
+}
+
+#registration-form input::placeholder {
+    color: #746b6d;
+    font-size: .98rem;
+    font-style: italic;
+}
+
+#registration-form .field-message {
+    margin: -3px 0 10px;
+}
+
+.registration-back {
+    margin: 12px 0 0;
+    text-align: right;
+}
