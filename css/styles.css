@@ -30,6 +30,13 @@ body {
 }
 
 button, input, select { font: inherit; }
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none;
+  visibility: hidden;
+  pointer-events: none;
+}
 h1, h2, h3, h4, p { color: #7b1111; font-family: "Muli", "Segoe UI", Arial, sans-serif; }
 a { color: inherit; }
 [hidden] { display: none !important; }
@@ -461,7 +468,7 @@ a { color: inherit; }
 #login-form > input, .password-field > input {
   width: 100%;
   min-height: 48px;
-  margin: 0 0 14px;
+  margin: 0 0 10px;
   padding: 10px 12px;
   border: 2px solid #d393a3;
   border-radius: 9px;
@@ -470,6 +477,7 @@ a { color: inherit; }
   font-size: .98rem;
 }
 #login-form input::placeholder { color: #746b6d; font-style: italic; }
+#forgot-password-form input::placeholder { color: #746b6d; font-size: .98rem; font-style: italic; }
 .password-field { position: relative; }
 .password-field > input { width: 100%; padding-right: 3rem; }
 .password-toggle {
@@ -488,9 +496,13 @@ a { color: inherit; }
   cursor: pointer;
   transform: translateY(-50%);
 }
+#login-form .password-toggle { top: calc(50% - 7px); }
+#forgot-new-password-fields .password-toggle { top: calc(50% - 4px); }
 .password-toggle:hover { background: var(--rose-100); }
 .password-toggle[hidden] { display: none; }
 .password-toggle svg { width: 1.35rem; fill: none; stroke: currentColor; stroke-width: 1.7; }
+.password-toggle .eye-slash { display: block; }
+.password-toggle.is-visible .eye-slash { display: none; }
 .login-options { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin: 1px 0 14px; }
 .remember-option { display: inline-flex; align-items: center; gap: .55rem; cursor: pointer; }
 .remember-option input { width: 1.15rem; height: 1.15rem; margin: 0; accent-color: var(--rose-800); }
@@ -535,9 +547,14 @@ a { color: inherit; }
   margin-top: 2px;
   font-size: 1.05rem;
 }
+#forgot-send-otp { width: min(100%, 220px); justify-self: center; }
+#forgot-verify-otp, #forgot-new-password-fields > .button-primary { width: min(100%, 220px); justify-self: center; }
 .login-button:disabled { cursor: wait; opacity: .7; }
 .form-message { margin: 0 0 12px; color: #9c2f46; font-size: .87rem; }
+.field-message { margin: 0; color: #9c2f46; font-size: .87rem; }
+#login-form .field-message { margin: 0 0 10px; }
 .login-help { margin: 0 0 .75rem; color: var(--muted); font-size: .82rem; }
+.otp-countdown { margin: 0; color: var(--muted); font-size: .87rem; text-align: center; }
 .forgot-password-form { display: grid; gap: 10px; }
 .forgot-password-form h2 { margin: 0 0 4px; color: var(--rose-950); font-size: 1.15rem; }
 .forgot-password-form input, #password-form input {
@@ -555,7 +572,9 @@ a { color: inherit; }
   outline: none;
   box-shadow: 0 0 0 3px #f7cfd8;
 }
+.forgot-password-form > #forgot-otp-fields, #forgot-new-password-fields { display: grid; gap: 10px; }
 .forgot-password-form .password-field, #password-form .password-field { width: 100%; }
+#forgot-register-link { margin-right: auto; }
 .forgot-password-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 4px; }
 .signup-prompt { margin: 15px 0 0; color: var(--ink); font-size: .9rem; text-align: center; }
 
@@ -626,7 +645,11 @@ a { color: inherit; }
   border: 2px solid #d393a3;
   border-radius: 9px;
 }
-.registration-back { display: block; margin: 12px auto 0; color: var(--rose-950); }
+#registration-form .password-field { margin: 0 0 13px; }
+#registration-form .password-field > input { margin: 0; }
+#registration-form input::placeholder { color: #746b6d; font-size: .98rem; font-style: italic; }
+#registration-form .field-message { margin: -3px 0 10px; }
+.registration-back { display: block; margin: 12px 0 0; color: var(--rose-950); text-align: right; }
 .registration-note { margin: 10px 0 0; color: var(--muted); font-size: .76rem; line-height: 1.45; text-align: center; }
 .dashboard-disclaimer { margin: 17px 0 0; color: var(--muted); font-size: .8rem; }
 .contact-page { width: min(100% - 36px, 900px); }
